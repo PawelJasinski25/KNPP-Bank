@@ -1,0 +1,20 @@
+/* tu trafia css wspolny dla danych obiektow, np. jak ma byc klasa "sekcja" i ona wszedzie ma wygladac tak samo, to tu wrzucamy */
+
+body {
+    font-family: Arial, sans-serif;
+    /*background-color: #212529;*/
+}
+
+/*::-webkit-scrollbar-thumb {*/
+/*    background: forestgreen;*/
+/*}*/
+
+#navigation {
+    position: fixed;
+    height: 100%;
+    width: 280px;
+}
+
+#content {
+    margin-left: 280px;
+}
