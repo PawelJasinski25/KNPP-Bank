@@ -1,0 +1,107 @@
+/* Tu trafia css wspólny dla danych obiektów, np. jak ma być klasa "sekcja" i ona wszędzie ma wyglądać tak samo, to tu wrzucamy */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif !important;
+    /* background-color: #212529; */
+}
+
+/* ::-webkit-scrollbar-thumb {
+    background: forestgreen;
+} */
+
+#curtain {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+}
+
+.nav-active-color {
+    background-color: #0058db !important;
+}
+
+.nav li a {
+    margin-bottom: 10px;
+    border: 1px solid grey;
+}
+
+#navigation {
+    position: fixed;
+    height: 100%;
+    width: 280px;
+    z-index: 100;
+}
+
+#navigation i {
+    margin-right: 5px;
+}
+
+#username {
+    font-size: 1.5em;
+}
+
+#close-navigation-button {
+    font-size: 3em;
+    position: absolute;
+    right: 25px;
+    display: none;
+}
+
+#settings-button, #logout-button {
+    font-size: 1.25em;
+}
+
+#page-header {
+    margin-left: 280px;
+    padding: 30px 45px;
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#open-navigation-button {
+    font-size: 2em;
+    cursor: pointer;
+    display: none;
+}
+
+#page-header h1 {
+    font-size: 2em;
+    text-wrap: nowrap;
+}
+
+#page-header img {
+    height: 100px;
+}
+
+main {
+    margin-left: 280px;
+    padding: 30px 45px;
+}
+
+#page-footer {
+    color: white;
+    background-color: #27314c;
+    padding: 15px;
+    margin-left: 280px;
+    text-align: center;
+}
+
+.blue-button {
+    color: white;
+    background-color: #0061a1;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 1.33em;
+}
+
+.blue-button:hover {
+    background-color: #0087eb;
+}

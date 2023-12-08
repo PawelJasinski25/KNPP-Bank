@@ -1,0 +1,147 @@
+#main-content {
+    display: flex;
+}
+
+#left-column {
+    flex: 0.6;
+    padding: 0 15px;
+}
+
+#right-column {
+    flex: 0.4;
+    padding: 0 15px;
+}
+
+.homepage-section {
+    background-color: white;
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+}
+
+.homepage-section-header {
+    font-size: 1.75em;
+}
+
+.tile {
+    background-color: white;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 1.33em;
+}
+
+.tile-first-row {
+    font-weight: bold;
+}
+
+.tile-second-row {
+    font-size: smaller;
+}
+
+.tile-third-row {
+    text-align: right;
+}
+
+#statistics .homepage-section-header {
+    display: inline-block;
+}
+
+#account-state {
+    margin-bottom: 30px;
+}
+
+#time-period-select {
+    float: right;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#radio-buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#radio-buttons label {
+    margin-left: 20px;
+}
+
+#statistics img {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#transaction-list {
+    margin-bottom: 20px;
+}
+
+#button-container {
+    text-align: right;
+}
+
+@media screen and (min-width: 851px) and (max-width: 1100px) {
+    #main-content {
+        flex-direction: column;
+    }
+
+    #left-column, #right-column {
+        flex: 1;
+    }
+
+    .homehomepage-section {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    #account-state, #statistics {
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #curtain.display {
+        display: block;
+    }
+
+    #navigation {
+        display: none !important;
+    }
+
+    #navigation.show {
+        display: flex !important;
+    }
+
+    #close-navigation-button {
+        display: inline;
+    }
+
+    #open-navigation-button {
+        display: block;
+    }
+
+    #page-header, main, #page-footer {
+        margin-left: 0
+    }
+
+    #main-content {
+        flex-direction: column;
+    }
+
+    #left-column, #right-column {
+        flex: 1;
+    }
+
+    .homehomepage-section {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    #account-state, #statistics {
+        margin-bottom: 30px;
+    }
+
+    #page-header, main, #page-footer {
+        margin-left: 0
+    }
+}
