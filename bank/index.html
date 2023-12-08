@@ -100,12 +100,14 @@
                 </div>
             </div>
             <div id="statistics" class="homepage-section">
-                <div class="homepage-section-header">Statystyki</div>
-                <select id="time-period-select" name="time-period" onchange="updateDiagram()">
-                    <option value="week">Poprzedni tydzień</option>
-                    <option value="month">Poprzedni miesiąc</option>
-                    <option value="year">Poprzedni rok</option>
-                </select>
+                <div>
+                    <div class="homepage-section-header">Statystyki</div>
+                    <select id="time-period-select" name="time-period" onchange="updateDiagram()">
+                        <option value="week">Poprzedni tydzień</option>
+                        <option value="month">Poprzedni miesiąc</option>
+                        <option value="year">Poprzedni rok</option>
+                    </select>
+                </div>
                 <div id="radio-buttons">
                     <label for="expenses">Wydatki</label>
                     <input type="radio" id="expenses" name="diagram-type" value="expenses" checked onchange="updateDiagram()">

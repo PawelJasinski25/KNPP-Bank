@@ -4,7 +4,14 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
     font-family: 'Roboto', sans-serif !important;
     /* background-color: #212529; */
 }
@@ -81,6 +88,7 @@ body {
 }
 
 main {
+    flex: 1;
     margin-left: 280px;
     padding: 30px 45px;
 }
@@ -104,4 +112,14 @@ main {
 
 .blue-button:hover {
     background-color: #0087eb;
+}
+
+@media screen and (max-width: 575px) {
+    #page-header {
+        flex-direction: column;
+    }
+
+    #page-header, main {
+        padding: 15px 22.5px;
+    }
 }

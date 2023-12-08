@@ -5,11 +5,15 @@
 #left-column {
     flex: 0.6;
     padding: 0 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 #right-column {
     flex: 0.4;
     padding: 0 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .homepage-section {
@@ -28,8 +32,11 @@
     border: 2px solid #dddddd;
     border-radius: 5px;
     padding: 20px;
-    margin-top: 20px;
     font-size: 1.33em;
+}
+
+#account-state .tile {
+    margin-top: 20px;
 }
 
 .tile-first-row {
@@ -52,28 +59,45 @@
     margin-bottom: 30px;
 }
 
+#statistics {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 #time-period-select {
     float: right;
     padding: 5px;
     border-radius: 5px;
+    font-size: 1.1em;
 }
 
 #radio-buttons {
     text-align: center;
-    margin-top: 20px;
 }
 
 #radio-buttons label {
     margin-left: 20px;
+    font-size: 1.33em;
 }
 
 #statistics img {
     width: 100%;
-    margin-top: 20px;
+}
+
+#transactions {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #transaction-list {
-    margin-bottom: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 #button-container {
@@ -96,6 +120,14 @@
 
     #account-state, #statistics {
         margin-bottom: 30px;
+    }
+
+    .tile {
+        margin-top: 20px;
+    }
+
+    #transaction-list {
+        margin-bottom: 20px;
     }
 }
 
@@ -143,5 +175,13 @@
 
     #page-header, main, #page-footer {
         margin-left: 0
+    }
+
+    #transaction-list {
+        margin-bottom: 20px;
+    }
+
+    .tile {
+        margin-top: 20px;
     }
 }
