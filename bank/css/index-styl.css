@@ -69,6 +69,11 @@
     font-size: 1.1em;
 }
 
+.diagram-type-label-container {
+    display: inline;
+    text-wrap: nowrap;
+}
+
 #radio-buttons {
     text-align: center;
 }
@@ -124,5 +129,37 @@
 
     #transaction-list {
         margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .homepage-section {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #left-column, #right-column {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #time-period-select {
+        float: none;
+        margin-top: 20px;
+    }
+
+    #statistics-first-row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .homepage-section {
+        padding: 12.5px;
+    }
+
+    body {
+        font-size: smaller !important;
     }
 }

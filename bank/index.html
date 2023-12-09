@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div id="statistics" class="homepage-section">
-                <div>
+                <div id="statistics-first-row">
                     <div class="homepage-section-header">Statystyki</div>
                     <select id="time-period-select" name="time-period" onchange="updateDiagram()">
                         <option value="week">Poprzedni tydzień</option>
@@ -115,10 +115,14 @@
                     </select>
                 </div>
                 <div id="radio-buttons">
-                    <label for="expenses">Wydatki</label>
-                    <input type="radio" id="expenses" name="diagram-type" value="expenses" checked onchange="updateDiagram()">
-                    <label for="revenues">Przychody</label>
-                    <input type="radio" id="revenues" name="diagram-type" value="revenues" onchange="updateDiagram()">
+                    <div class="diagram-type-label-container">
+                        <label for="expenses">Wydatki</label>
+                        <input type="radio" id="expenses" name="diagram-type" value="expenses" checked onchange="updateDiagram()">
+                    </div>
+                    <div class="diagram-type-label-container">
+                        <label for="revenues">Przychody</label>
+                        <input type="radio" id="revenues" name="diagram-type" value="revenues" onchange="updateDiagram()">
+                    </div>
                 </div>
                 <img id="expenses-week" src="./obrazki/wydatki-tydzien.png" alt="wydatki-tydzien">
                 <img id="expenses-month" src="./obrazki/wydatki-miesiac.png" alt="wydatki-miesiac">
