@@ -184,21 +184,25 @@
         }
     </script>
     <script>
+        let nazwa = "expenses-week";
         function updateDiagram() {
             const timePeriod = document.getElementById("time-period-select").value;
             const diagramType = document.querySelector('input[name="diagram-type"]:checked').value;
     
-            document.getElementById("expenses-week").style.display = "none";
+            document.getElementById(nazwa).style.display = "none";
+            nazwa = `${diagramType}-${timePeriod}`;
+    
+            document.getElementById(nazwa).style.display = "block";
+        }
+    
+        window.onload = (() => {
+            document.getElementById("expenses-week").style.display = "block";
             document.getElementById("expenses-month").style.display = "none";
             document.getElementById("expenses-year").style.display = "none";
             document.getElementById("revenues-week").style.display = "none";
             document.getElementById("revenues-month").style.display = "none";
             document.getElementById("revenues-year").style.display = "none";
-    
-            document.getElementById(`${diagramType}-${timePeriod}`).style.display = "block";
-        }
-    
-        window.onload = updateDiagram;
+        });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
