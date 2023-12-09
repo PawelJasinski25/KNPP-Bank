@@ -46,6 +46,12 @@
                 </a>
             </li>
             <li>
+                <a id="transactions-button" href="#" class="nav-link link-dark" onclick="changeActive('transactions-button')">
+                    <i class="fas fa-history"></i>
+                    Transakcje
+                </a>
+            </li>
+            <li>
                 <a id="bank-transfers-button" href="#" class="nav-link link-dark" onclick="changeActive('bank-transfers-button')">
                     <i class="fas fa-exchange-alt"></i>
                     Przelewy
@@ -89,7 +95,7 @@
     </header>
 
     <!-- Główna zawartość strony -->
-    <main id="main-content">
+    <main>
         <div id="left-column">
             <div id="account-state" class="homepage-section">
                 <div class="homepage-section-header">Stan konta</div>
@@ -158,27 +164,20 @@
     <script>
         let active = "home-button";
     
-        function changeActive(active_page) {
-            // nav-active-color definiuje inny niebieski kolor dla aktywnego przycisku, tutaj go usuwamy...
-            document.getElementById(active).classList.remove('nav-active-color');
-            
+        function changeActive(active_page) {            
             document.getElementById(active).classList.remove('active');
             document.getElementById(active).classList.add('link-dark');
             document.getElementById(active).removeAttribute('aria-current');
 
-            // ...a tutaj go dodajemy
             if (active_page !== 'settings-button' && active_page !== 'logout-button') {
-                document.getElementById(active_page).classList.add('nav-active-color');
+                document.getElementById(active_page).classList.add('active');
             }
 
-            document.getElementById(active_page).classList.add('active');
             document.getElementById(active_page).classList.remove('link-dark');
             document.getElementById(active_page).ariaCurrent = 'page';
     
             active = active_page;
         }
-    
-        changeActive(active);
     </script>
     <script>
         function updateDiagram() {

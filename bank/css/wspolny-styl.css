@@ -1,9 +1,5 @@
 /* Tu trafia css wspólny dla danych obiektów, np. jak ma być klasa "sekcja" i ona wszędzie ma wyglądać tak samo, to tu wrzucamy */
 
-* {
-    box-sizing: border-box;
-}
-
 html {
     height: 100%;
 }
@@ -28,7 +24,7 @@ body {
     position: fixed;
 }
 
-.nav-active-color {
+.active {
     background-color: #0058db !important;
 }
 
@@ -91,6 +87,7 @@ main {
     flex: 1;
     margin-left: 280px;
     padding: 30px 45px;
+    display: flex;
 }
 
 #page-footer {
@@ -106,8 +103,8 @@ main {
     background-color: #0061a1;
     border: none;
     border-radius: 5px;
-    padding: 8px 16px;
-    font-size: 1.33em;
+    padding: 10px 20px;
+    font-size: 1.5em;
 }
 
 .blue-button:hover {
@@ -121,5 +118,35 @@ main {
 
     #page-header, main {
         padding: 15px 22.5px;
+    }
+
+    #open-navigation-button {
+        align-self: flex-start;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #curtain.display {
+        display: block;
+    }
+
+    #navigation {
+        display: none !important;
+    }
+
+    #navigation.show {
+        display: flex !important;
+    }
+
+    #close-navigation-button {
+        display: inline;
+    }
+
+    #open-navigation-button {
+        display: block;
+    }
+
+    #page-header, main, #page-footer {
+        margin-left: 0
     }
 }
