@@ -43,10 +43,6 @@
 }
 
 
-.date-input-container {
-    text-align: center;
-}
-
 .date-input {
     background-color: white;
     border: 2px solid #dddddd;
@@ -56,6 +52,26 @@
     margin-bottom: 20px;
     width:50%;
     text-align: center;
+    position: relative;
+}
+
+
+.date-input input[type="date"] {
+    width: 100%;
+    height: 100%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
 }
 
 #button-container {
