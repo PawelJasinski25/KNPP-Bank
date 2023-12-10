@@ -1,0 +1,132 @@
+#content {
+    flex: 1;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+.homepage-section {
+    background-color: white;
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+}
+
+.homepage-section-header {
+    font-size: 1.75em;
+    margin-bottom: 20px;
+}
+
+#choosen-ticket {
+    margin-bottom: 30px;
+    width:50%;
+    margin-right: auto;
+}
+
+.choosen-ticket-name {
+    background-color: white;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1.33em;
+}
+
+#ticket-information {
+    margin-bottom: 30px;
+}
+
+
+.ticket-information-header {
+    font-size: 1.0em;
+    margin-bottom: 10px;
+}
+
+.ticket-information-element {
+    background-color: white;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1.33em;
+    margin-bottom: 20px;
+    width:50%;
+    text-align: center;
+}
+
+.ticket-information-element.special-background {
+    background-color: #eff7ff;
+}
+
+
+.date-input-container {
+    text-align: center;
+}
+
+.date-input {
+    background-color: white;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1.33em;
+    margin-bottom: 20px;
+    width:50%;
+    text-align: center;
+}
+
+#button-container {
+    text-align: right;
+}
+#button-container button {
+    margin-right: 20px;
+    width:22%;
+}
+
+@media screen and (max-width: 1100px) {
+    main {
+        flex-direction: column;
+    }
+
+    #content {
+        flex: 1;
+    }
+
+    #button-container button {
+        width:auto;
+    }
+}
+
+
+@media screen and (max-width: 580px) {
+    .homepage-section {
+        padding: 12.5px;
+    }
+
+    .date-input {
+        width: 100%;
+    }
+
+    .ticket-information-element {
+        width: 100%;
+    }
+
+
+    #button-container button {
+        margin-right: 0px;
+        width:auto;
+        margin-bottom:5px;
+    }
+    body {
+        font-size: smaller !important;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+    #choosen-ticket {
+        width:100%;
+        }
+}
+
+
+
+
+
+

@@ -1,0 +1,131 @@
+#content {
+    flex: 1;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.homepage-section {
+    background-color: white;
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+}
+
+
+.left-column {
+    flex: 0.6;
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-left-column-element {
+    text-align: left;
+}
+
+
+.right-column {
+    flex: 0.4;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.first-row {
+    text-align: right;
+    margin-bottom:10px;
+
+}
+
+.second-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.second-row-element{
+    margin-left: 40px;
+    text-decoration: underline;
+
+}
+
+.second-row-element:hover{
+    cursor: pointer;
+
+}
+
+.ticket-information-element {
+    display: flex;
+    background-color: #eff7ff;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1.33em;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+
+#ticket-information {
+    margin-bottom: 30px;
+}
+
+
+@media screen and (max-width: 1100px) {
+    main {
+        flex-direction: column;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+
+    .homepage-section {
+        padding: 12.5px;
+    }
+
+
+    .homepage-section {
+        font-size: 1.0em;
+    }
+
+    .ticket-information-element {
+        display: block;
+    }
+
+    .left-column, .right-column {
+        width: 100%;
+        display: initial;
+        text-align: center;
+        justify-content: initial;
+        flex-direction: initial;
+    }
+
+    .first-row {
+        text-align: left;
+        display: block;
+        justify-content: initial;
+        margin-bottom:30px;
+    }
+
+    .second-row {
+        justify-content: initial;
+    }
+
+    .second-row-element {
+        margin-left: initial;
+        margin-right: 30px;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    body{
+        font-size: smaller !important;
+    }
+}
+
+@media screen and (max-width: 302px) {
+    body{
+        font-size: x-small !important;
+    }
+}
