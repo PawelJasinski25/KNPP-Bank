@@ -47,15 +47,12 @@
     }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 680px) {
 
     body {
         font-size: smaller !important;
     }
 
-    /*#content{*/
-    /*    font-size: x-small !important;*/
-    /*}*/
 }
 
 
