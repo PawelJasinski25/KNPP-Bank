@@ -41,7 +41,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li>
-            <a id="home-button" href="../../index.html#" class="nav-link active" aria-current="page" onclick="changeActive('home-button')">
+            <a id="home-button" href="../../index.html#" class="nav-link link-dark" aria-current="page" onclick="changeActive('home-button')">
                 <i class="fas fa-home"></i>
                 Strona główna
             </a>
@@ -71,7 +71,7 @@
             </a>
         </li>
         <li>
-            <a id="tickets-button" href="#" class="nav-link link-dark" onclick="changeActive('tickets-button')">
+            <a id="tickets-button" href="bilety.html" class="nav-link active" onclick="changeActive('tickets-button')">
                 <i class="fas fa-ticket-alt"></i>
                 Bilety
             </a>
@@ -119,7 +119,7 @@
             <div class="tile">74,50 zł</div>
         </div>
         <div id="button-container">
-            <button id="return-button" class="blue-button" type="button">Powrót</button>
+            <button id="return-button" class="blue-button" type="button" onclick="window.location.href='oferta-biletow.html'">Powrót</button>
             <button id="confirm-button" class="blue-button" type="button" onclick="window.location.href='bilet-potwierdzenie.html'">Potwierdź</button>
         </div>
     </div>
@@ -133,7 +133,7 @@
 
 <!-- JavaScript -->
 <script>
-    let active = "home-button";
+    let active = "tickets-button";
 
     function changeActive(active_page) {
         document.getElementById(active).classList.remove('active');
