@@ -139,6 +139,10 @@
 }
 
 @media screen and (max-width: 450px) {
+    #page-header img {
+        height: 60px;
+    }
+
     #left-column, #right-column {
         padding-left: 0;
         padding-right: 0;
