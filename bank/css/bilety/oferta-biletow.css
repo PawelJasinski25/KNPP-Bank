@@ -1,0 +1,127 @@
+#main-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+    width: 25vw;
+}
+
+#category-text {
+    font-size: 25px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#category-row {
+    display: flex;
+}
+
+.category-button {
+    background-color: #0061a1;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid #dddddd;
+    margin: 10px 20px 10px 20px;
+    width: 150px;
+    height: 40px;
+}
+
+.category-button:hover {
+    background-color: #0087eb;
+    color: white;
+    font-weight: bold;
+    transition: 0.5s ease;
+}
+
+.choice {
+    display: none;
+}
+
+.active-choice {
+    display: block;
+}
+
+.ticket-list {
+    flex: 1;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+}
+
+.ticket-wrapper {
+    text-align: center;
+    margin: 10px auto;
+}
+
+.ticket {
+    display: block;
+    background-color: white;
+    border: 2px solid #dddddd;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+    border-radius: 5px;
+    width: 18vw;
+    height: 100px;
+    margin: 10px 15px 10px 15px;
+}
+
+.ticket-text {
+    font-size: 15px;
+}
+
+.ticket:hover {
+    background-color: #707070;
+    font-weight: bold;
+    transition: 0.5s ease;
+}
+
+@media screen and (max-width: 850px) {
+    .ticket {
+        width: 20vw;
+        height: 10vw;
+    }
+
+    .ticket-text {
+        font-size: 2vw;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    #category-text {
+        font-size: 5.5vw;
+    }
+
+    .category-button {
+        font-size: 3vw;
+    }
+
+    .ticket {
+        width: 35vw;
+        height: 20vw;
+    }
+
+    .ticket-text {
+        font-size: 3vw;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .category-button {
+        font-size: 3.5vw;
+        margin: 10px 10px 10px 10px;
+    }
+
+    .ticket {
+        width: 50vw;
+        height: 25vw;
+    }
+
+    .ticket-text {
+        font-size: 4vw;
+    }
+}
