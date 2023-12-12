@@ -19,10 +19,10 @@
 }
 
 .ticket-box:hover {
-    background-color: #417090;
+    background-color: #447ac2;
     color: white;
     font-weight: bold;
-    transition: 0.5s ease;
+    transition: 0.75s ease;
 }
 
 @media screen and (max-width: 850px) {
