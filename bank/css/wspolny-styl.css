@@ -24,6 +24,35 @@ body {
     position: fixed;
 }
 
+
+.curtain, .curtain-text {
+    display: none;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.curtain {
+    filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.curtain-text {
+    color: #fc0303;
+    font-size: 3em;
+    z-index: 1000;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.card-information-element div:has(> .curtain[style="display:flex"]) {
+    filter: blur(6px);
+}
+
 .active {
     background-color: #0058db !important;
 }

@@ -7,11 +7,11 @@
     <title>KNPP Bank</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./obrazki/bank-favicon.png">
+    <link rel="icon" type="image/png" href="../../obrazki/bank-favicon.png">
 
     <!-- Własne css -->
-    <link href="css/wspolny-styl.css" type="text/css" rel="stylesheet">
-    <link href="css/index-styl.css" type="text/css" rel="stylesheet">
+    <link href="../../css/wspolny-styl.css" type="text/css" rel="stylesheet">
+    <link href="../../css/karty/karty.css" type="text/css" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -40,7 +40,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a id="home-button" href="#" class="nav-link active" aria-current="page" onclick="changeActive('home-button')">
+                <a id="home-button" href="../../index.html" class="nav-link link-dark" aria-current="page" onclick="changeActive('home-button')">
                     <i class="fas fa-home"></i>
                     Strona główna
                 </a>
@@ -64,7 +64,7 @@
                 </a>
             </li>
             <li>
-                <a id="cards-button" href="html-podstrony/karty/karty.html" class="nav-link link-dark" onclick="changeActive('cards-button')">
+                <a id="cards-button" href="#" class="nav-link active" onclick="changeActive('cards-button')">
                     <i class="fas fa-credit-card"></i>
                     Karty
                 </a>
@@ -90,72 +90,78 @@
     <!-- Nagłówek strony -->
     <header id="page-header">
         <div id="open-navigation-button">&#9776;</div>
-        <h1>Strona główna</h1>
-        <img src="./obrazki/bank-logo.png" alt="logo">
+        <h1>Karty</h1>
+        <img src="../../obrazki/bank-logo.png" alt="logo">
     </header>
 
     <!-- Główna zawartość strony -->
     <main>
-        <div id="left-column">
-            <div id="account-state" class="homepage-section">
-                <div class="homepage-section-header">Stan konta</div>
-                <div class="tile">
-                    <div class="tile-first-row">Konto dla młodych</div>
-                    <div class="tile-second-row">12 (...) 3456</div>
-                    <div class="tile-third-row">425,34 zł</div>
-                </div>
-            </div>
-            <div id="statistics" class="homepage-section">
-                <div id="statistics-first-row">
-                    <div class="homepage-section-header">Statystyki</div>
-                    <select id="time-period-select" name="time-period" onchange="updateDiagram()">
-                        <option value="week">Poprzedni tydzień</option>
-                        <option value="month">Poprzedni miesiąc</option>
-                        <option value="year">Poprzedni rok</option>
-                    </select>
-                </div>
-                <div id="radio-buttons">
-                    <div class="diagram-type-label-container">
-                        <label for="expenses">Wydatki</label>
-                        <input type="radio" id="expenses" name="diagram-type" value="expenses" checked onchange="updateDiagram()">
+        <div id="content">
+            <section id="card-information" class="page-section">
+                <h4 id="section-name" class="mb-3">Twoje karty</h4>
+                <div id="card-1" class="card-information-element">
+                    <div class="curtain-text" style="display: flex;">
+                        <div>Zastrzeżona</div>
                     </div>
-                    <div class="diagram-type-label-container">
-                        <label for="revenues">Przychody</label>
-                        <input type="radio" id="revenues" name="diagram-type" value="revenues" onchange="updateDiagram()">
+                    <div class="p-3">
+                        <div class="curtain" style="display:flex"></div>
+                        <div class="left-column me-2">
+                            <img src="../../obrazki/card.png" alt="karta" style="width: 250px; height: auto">
+                        </div>
+                        <div class="right-column">
+                            <div>Numer karty: 1212 4324 2343 3473</div>
+                            <div class="card-information-second-row">
+                                <span class="mb-2">Ważność: 11/24</span>
+                                <div>
+                                    <!--TODO szczegoly-->
+                                    <a href="#">Szczegóły</a>
+                                    <button class="btn btn-danger" onclick="location.href='zastrzez-karte.html'">Zastrzeż kartę</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <img id="expenses-week" src="./obrazki/wydatki-tydzien.png" alt="wydatki-tydzien">
-                <img id="expenses-month" src="./obrazki/wydatki-miesiac.png" alt="wydatki-miesiac">
-                <img id="expenses-year" src="./obrazki/wydatki-rok.png" alt="wydatki-rok">
-                <img id="revenues-week" src="./obrazki/przychody-tydzien.png" alt="przychody-tydzien">
-                <img id="revenues-month" src="./obrazki/przychody-miesiac.png" alt="przychody-miesiac">
-                <img id="revenues-year" src="./obrazki/przychody-rok.png" alt="przychody-rok">
-            </div>
-        </div>
-        <div id="right-column">
-            <div id="transactions" class="homepage-section">
-                <div class="homepage-section-header">Transakcje</div>
-                <div id="transaction-list">
-                    <div class="tile">
-                        <div class="tile-first-row">Kebab</div>
-                        <div class="tile-second-row">08.12.2023</div>
-                        <div class="tile-third-row">25 zł</div>
-                    </div>
-                    <div class="tile">
-                        <div class="tile-first-row">Mandat</div>
-                        <div class="tile-second-row">06.12.2023</div>
-                        <div class="tile-third-row">150 zł</div>
-                    </div>
-                    <div class="tile">
-                        <div class="tile-first-row">Kebab</div>
-                        <div class="tile-second-row">01.12.2023</div>
-                        <div class="tile-third-row">25 zł</div>
+                <div id="card-2" class="card-information-element">
+                    <div class="curtain-text">Zastrzeżona</div>
+                    <div class="p-3">
+                        <div class="curtain"></div>
+                        <div class="left-column me-2">
+                            <img src="../../obrazki/card.png" alt="karta" style="width: 250px; height: auto">
+                        </div>
+                        <div class="right-column">
+                            <div class="media-text">Numer karty: 4322 6467 3456 5657</div>
+                            <div class="card-information-second-row">
+                                <span class="mb-2">Ważność: 05/25</span>
+                                <div>
+                                    <!--TODO szczegoly-->
+                                    <a href="#">Szczegóły</a>
+                                    <button class="btn btn-danger" onclick="location.href='zastrzez-karte.html'">Zastrzeż kartę</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div id="button-container">
-                    <button id="more-transactions-button" class="blue-button" type="button">Więcej</button>
+                <div id="card-3" class="card-information-element">
+                    <div class="curtain-text">Zastrzeżona</div>
+                    <div class="p-3">
+                        <div class="curtain"></div>
+                        <div class="left-column me-2">
+                            <img src="../../obrazki/card.png" alt="karta" style="width: 250px; height: auto">
+                        </div>
+                        <div class="right-column">
+                            <div>Numer karty: 1275 3333 7846 8955</div>
+                            <div class="card-information-second-row">
+                                <span class="mb-2">Ważność: 02/27</span>
+                                <div>
+                                    <!--TODO szczegoly-->
+                                    <a href="#">Szczegóły</a>
+                                    <button class="btn btn-danger" onclick="location.href='zastrzez-karte.html'">Zastrzeż kartę</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 
@@ -166,8 +172,8 @@
 
     <!-- JavaScript -->
     <script>
-        let active = "home-button";
-    
+        let active = "cards-button";
+
         function changeActive(active_page) {
             document.getElementById(active).classList.remove('active');
             document.getElementById(active).classList.add('link-dark');
@@ -179,7 +185,7 @@
 
             document.getElementById(active_page).classList.remove('link-dark');
             document.getElementById(active_page).ariaCurrent = 'page';
-    
+
             active = active_page;
         }
 
@@ -198,27 +204,6 @@
                 curtain.classList.toggle('display');
                 navigation.classList.toggle('show');
             });
-        });
-    </script>
-    <script>
-        let nazwa = "expenses-week";
-        function updateDiagram() {
-            const timePeriod = document.getElementById("time-period-select").value;
-            const diagramType = document.querySelector('input[name="diagram-type"]:checked').value;
-    
-            document.getElementById(nazwa).style.display = "none";
-            nazwa = `${diagramType}-${timePeriod}`;
-    
-            document.getElementById(nazwa).style.display = "block";
-        }
-    
-        window.onload = (() => {
-            document.getElementById("expenses-week").style.display = "block";
-            document.getElementById("expenses-month").style.display = "none";
-            document.getElementById("expenses-year").style.display = "none";
-            document.getElementById("revenues-week").style.display = "none";
-            document.getElementById("revenues-month").style.display = "none";
-            document.getElementById("revenues-year").style.display = "none";
         });
     </script>
 </body>
