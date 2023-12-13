@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Własne js -->
-    <script src="../../js/local_storage_api.js"></script>
+    <script src="../../js/bank-storage.js"></script>
 </head>
 <body>
 
@@ -73,7 +73,7 @@
                 </a>
             </li>
             <li>
-                <a id="tickets-button" href="#" class="nav-link link-dark" onclick="changeActive('tickets-button')">
+                <a id="tickets-button" href="../bilety/bilety.html" class="nav-link link-dark" onclick="changeActive('tickets-button')">
                     <i class="fas fa-ticket-alt"></i>
                     Bilety
                 </a>
@@ -133,8 +133,8 @@
                 </div>
             </div>
             <div id="buttons-container">
-                <a href="./przelewy.html" id="go-back-button" class="blue-button">Wróć</a>
-                <a href="./przelew-wykonany.html" id="confirm-button" class="blue-button">Zatwierdź</a>
+                <a href="przelewy.html" id="go-back-button" class="blue-button">Wróć</a>
+                <a href="przelew-wykonany.html" id="confirm-button" class="blue-button">Zatwierdź</a>
             </div>
         </div>
     </main>
@@ -190,7 +190,7 @@
             const dateDiv = document.getElementById('date');
             const amountDiv = document.getElementById('amount');
 
-            const pendingBankTransfer = JSON.parse(localStorage.getItem(PENDING_BANK_TRANSFER));
+            const pendingBankTransfer = BankStorage.getPendingBankTransfer();
 
             fromAccountDiv.innerHTML = pendingBankTransfer.fromAccount;
             fromNumberDiv.innerHTML = pendingBankTransfer.fromNumber;
@@ -202,18 +202,22 @@
         });
 
         document.getElementById('confirm-button').addEventListener('click', () => {
-            const pendingBankTransfer = JSON.parse(localStorage.getItem(PENDING_BANK_TRANSFER));
-            const transactions = JSON.parse(localStorage.getItem(TRANSACTIONS));
+            const pendingBankTransfer = BankStorage.getPendingBankTransfer();
+            const transactions = BankStorage.getTransactions();
 
             transactions.push(pendingBankTransfer);
 
-            localStorage.setItem(TRANSACTIONS, JSON.stringify(transactions));
-            localStorage.removeItem(PENDING_BANK_TRANSFER);
+            BankStorage.setTransactions(transactions);
+            BankStorage.removePendingBankTransfer();
         });
 
-        document.getElementById('bank-transfers-button').addEventListener('click', removePendingBankTransfer);
+        document.getElementById('bank-transfers-button').addEventListener('click', () => {
+            BankStorage.removePendingBankTransfer();
+        });
 
-        document.getElementById('logout-button').addEventListener('click', clearLocalStorage);
+        document.getElementById('logout-button').addEventListener('click', () => {
+            BankStorage.clear();
+        });
     </script>
 </body>
 </html>

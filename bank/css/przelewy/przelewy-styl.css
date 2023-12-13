@@ -84,7 +84,7 @@ input:focus {
 
 .wrong-input:focus {
     border-color: #bf0000;
-    background-color: #ffb0b0;
+    background-color: #ffcccc;
 }
 
 option {
@@ -124,6 +124,48 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: auto;
 }
 
+.pop-up {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 110;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.pop-up-content {
+    background-color: white;
+    width: 80%;
+    max-width: 700px;
+    height: 40%;
+    min-height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.close-pop-up {
+    cursor: pointer;
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+#pop-up-text {
+    width: 90%;
+    font-size: 2.5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 @media screen and (max-width: 1050px) {
     #account-state {
         width: 100%;
@@ -154,5 +196,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     #account-state, #form-container, form {
         padding: 15px;
+    }
+
+    .close-pop-up {
+        top: 0;
+        right: 20px;
+    }
+}
+
+@media screen and (max-width: 310px) {
+    #pop-up-text {
+        font-size: 2em;
     }
 }

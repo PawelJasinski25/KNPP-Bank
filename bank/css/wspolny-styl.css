@@ -49,6 +49,7 @@ body {
 }
 
 #close-navigation-button {
+    cursor: pointer;
     font-size: 3em;
     position: absolute;
     right: 25px;

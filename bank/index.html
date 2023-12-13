@@ -7,7 +7,7 @@
     <title>KNPP Bank</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="./obrazki/bank-favicon.png">
+    <link rel="icon" type="image/png" href="obrazki/bank-favicon.png">
 
     <!-- Własne css -->
     <link href="css/wspolny-styl.css" type="text/css" rel="stylesheet">
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Własne js -->
-    <script src="./js/local_storage_api.js"></script>
+    <script src="js/bank-storage.js"></script>
 </head>
 <body>
 
@@ -43,7 +43,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a id="home-button" href="./index.html" class="nav-link active" aria-current="page" onclick="changeActive('home-button')">
+                <a id="home-button" href="index.html" class="nav-link active" aria-current="page" onclick="changeActive('home-button')">
                     <i class="fas fa-home"></i>
                     Strona główna
                 </a>
@@ -55,7 +55,7 @@
                 </a>
             </li>
             <li>
-                <a id="bank-transfers-button" href="./html-podstrony/przelewy/przelewy.html" class="nav-link link-dark" onclick="changeActive('bank-transfers-button')">
+                <a id="bank-transfers-button" href="html-podstrony/przelewy/przelewy.html" class="nav-link link-dark" onclick="changeActive('bank-transfers-button')">
                     <i class="fas fa-exchange-alt"></i>
                     Przelewy
                 </a>
@@ -73,7 +73,7 @@
                 </a>
             </li>
             <li>
-                <a id="tickets-button" href="#" class="nav-link link-dark" onclick="changeActive('tickets-button')">
+                <a id="tickets-button" href="html-podstrony/bilety/bilety.html" class="nav-link link-dark" onclick="changeActive('tickets-button')">
                     <i class="fas fa-ticket-alt"></i>
                     Bilety
                 </a>
@@ -84,7 +84,7 @@
             Ustawienia
         </a>
         <hr>
-        <a id="logout-button" href="./index.html" class="nav-link link-dark" onclick="changeActive('logout-button')">
+        <a id="logout-button" href="index.html" class="nav-link link-dark" onclick="changeActive('logout-button')">
             <i class="fas fa-sign-out-alt"></i>
             Wyloguj
         </a>
@@ -94,7 +94,7 @@
     <header id="page-header">
         <div id="open-navigation-button">&#9776;</div>
         <h1>Strona główna</h1>
-        <a href="./index.html"><img src="./obrazki/bank-logo.png" alt="logo"></a>
+        <a href="index.html"><img src="obrazki/bank-logo.png" alt="logo"></a>
     </header>
 
     <!-- Główna zawartość strony -->
@@ -127,12 +127,12 @@
                         <input type="radio" id="revenues" name="diagram-type" value="revenues" onchange="updateDiagram()">
                     </div>
                 </div>
-                <img id="expenses-week" src="./obrazki/wydatki-tydzien.png" alt="wydatki-tydzien">
-                <img id="expenses-month" src="./obrazki/wydatki-miesiac.png" alt="wydatki-miesiac">
-                <img id="expenses-year" src="./obrazki/wydatki-rok.png" alt="wydatki-rok">
-                <img id="revenues-week" src="./obrazki/przychody-tydzien.png" alt="przychody-tydzien">
-                <img id="revenues-month" src="./obrazki/przychody-miesiac.png" alt="przychody-miesiac">
-                <img id="revenues-year" src="./obrazki/przychody-rok.png" alt="przychody-rok">
+                <img id="expenses-week" src="obrazki/wydatki-tydzien.png" alt="wydatki-tydzien">
+                <img id="expenses-month" src="obrazki/wydatki-miesiac.png" alt="wydatki-miesiac">
+                <img id="expenses-year" src="obrazki/wydatki-rok.png" alt="wydatki-rok">
+                <img id="revenues-week" src="obrazki/przychody-tydzien.png" alt="przychody-tydzien">
+                <img id="revenues-month" src="obrazki/przychody-miesiac.png" alt="przychody-miesiac">
+                <img id="revenues-year" src="obrazki/przychody-rok.png" alt="przychody-rok">
             </div>
         </div>
         <div id="right-column">
@@ -227,10 +227,10 @@
     </script>
     <script>
         function fillMissingContent() {
-            const accountName = localStorage.getItem(ACCOUNT_NAME);
-            const accountNumber = localStorage.getItem(ACCOUNT_NUMBER);
-            const availableFunds = localStorage.getItem(AVAILABLE_FUNDS);
-            const transactions = JSON.parse(localStorage.getItem(TRANSACTIONS));
+            const accountName = BankStorage.getAccountName();
+            const accountNumber = BankStorage.getAccountNumber();
+            const availableFunds = BankStorage.getAvailableFunds();
+            const transactions = BankStorage.getTransactions();
             const lastThree = transactions.slice(-3).reverse();
 
             const accountNameDiv = document.getElementById('account-name');
@@ -257,18 +257,22 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            let accountName = localStorage.getItem(ACCOUNT_NAME);
+            let accountName = BankStorage.getAccountName();
 
             if (accountName === null) {
-                initializeLocalStorage();
+                BankStorage.initialize();
             }
 
             fillMissingContent();
         });
 
-        document.getElementById('bank-transfers-button').addEventListener('click', removePendingBankTransfer);
+        document.getElementById('bank-transfers-button').addEventListener('click', () => {
+            BankStorage.removePendingBankTransfer();
+        });
 
-        document.getElementById('logout-button').addEventListener('click', clearLocalStorage);
+        document.getElementById('logout-button').addEventListener('click', () => {
+            BankStorage.clear();
+        });
     </script>
 </body>
 </html>
