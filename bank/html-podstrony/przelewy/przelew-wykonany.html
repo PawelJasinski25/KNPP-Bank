@@ -149,9 +149,13 @@
             });
         });
 
-        document.getElementById('bank-transfers-button').addEventListener('click', removePendingBankTransfer);
+        document.getElementById('bank-transfers-button').addEventListener('click', () => {
+            BankStorage.removePendingBankTransfer();
+        });
 
-        document.getElementById('logout-button').addEventListener('click', clearLocalStorage);
+        document.getElementById('logout-button').addEventListener('click', () => {
+            BankStorage.clear();
+        });
     </script>
 </body>
 </html>
