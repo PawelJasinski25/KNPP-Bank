@@ -1,0 +1,55 @@
+.sections {
+    display: flex;
+    justify-content: center;
+    flex: 0.5;
+    width: 20vw;
+}
+
+.ticket-box {
+    font-size: 3.5vw;
+    text-align: center;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+    border: none;
+    width: 25vw;
+    height: 25vw;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.ticket-box:hover {
+    background-color: #447ac2;
+    color: white;
+    font-weight: bold;
+    transition: 0.75s ease;
+}
+
+@media screen and (max-width: 850px) {
+    .sections {
+        flex:1;
+    }
+    .ticket-box {
+        font-size: 4.75vw;
+        inline-size: min-content;
+        width: 37vw;
+        height: 34vw;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    main {
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    .ticket-box {
+        font-size: 6vw;
+        width: 50vw;
+        height: 34vw;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+}
+

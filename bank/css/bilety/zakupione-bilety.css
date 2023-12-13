@@ -1,0 +1,176 @@
+.left-column {
+    flex: 0.6;
+    display: flex;
+    flex-direction: column;
+}
+
+.ticket-left-column-element {
+    text-align: left;
+}
+
+
+.right-column {
+    flex: 0.4;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.first-row {
+    text-align: right;
+    margin-bottom:10px;
+
+}
+
+.second-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.second-row-element{
+    margin-left: 40px;
+    text-decoration: underline;
+
+}
+
+.second-row-element:hover{
+    cursor: pointer;
+
+}
+
+.ticket-information-element {
+    display: flex;
+    background-color: #eff7ff;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1.33em;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+
+#ticket-information {
+    margin-bottom: 30px;
+}
+.ticket-placeholder{
+    min-height:73.84px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    padding-left: 400px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
+.modal-content {
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50% !important;
+    display: block!important;
+}
+
+.modal-header{
+    display:block !important;
+    border: none !important;
+}
+
+.close {
+    color: #71a6db;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1100px) {
+    main {
+        flex-direction: column;
+    }
+
+}
+@media screen and (max-width: 850px) {
+    .modal{
+        padding-left: 0;
+    }
+
+}
+
+@media screen and (max-width: 575px) {
+    .modal {
+        padding-top: 170px;
+
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+
+
+    .homepage-section {
+        padding: 12.5px;
+        font-size: 1.0em;
+    }
+
+    .ticket-information-element {
+        display: block;
+    }
+
+    .left-column, .right-column {
+        width: 100%;
+        display: initial;
+        text-align: center;
+        justify-content: initial;
+        flex-direction: initial;
+    }
+
+    .first-row {
+        text-align: left;
+        display: block;
+        justify-content: initial;
+        margin-bottom:30px;
+    }
+
+    .second-row {
+        justify-content: initial;
+    }
+
+    .second-row-element {
+        margin-left: initial;
+        margin-right: 30px;
+        display: block;
+    }
+    .modal{
+        padding-top:245px;
+    }
+
+}
+
+@media screen and (max-width: 380px) {
+    body{
+        font-size: smaller !important;
+    }
+}
+
+@media screen and (max-width: 302px) {
+    body{
+        font-size: x-small !important;
+    }
+}
