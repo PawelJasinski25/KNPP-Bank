@@ -198,7 +198,7 @@
             toNumberDiv.innerHTML = pendingBankTransfer.toNumber;
             titleDiv.innerHTML = pendingBankTransfer.title;
             dateDiv.innerHTML = pendingBankTransfer.date;
-            amountDiv.innerHTML = pendingBankTransfer.amount;
+            amountDiv.innerHTML = formatMoney(pendingBankTransfer.amount);
         });
 
         document.getElementById('confirm-button').addEventListener('click', () => {
@@ -206,8 +206,10 @@
             const transactions = BankStorage.getTransactions();
 
             transactions.push(pendingBankTransfer);
-
             BankStorage.setTransactions(transactions);
+
+            BankStorage.setAvailableFunds(BankStorage.getAvailableFunds() - pendingBankTransfer.amount);
+
             BankStorage.removePendingBankTransfer();
         });
 
