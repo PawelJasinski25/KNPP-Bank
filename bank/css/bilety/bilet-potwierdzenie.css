@@ -1,0 +1,60 @@
+#ticket-confirmation {
+    margin-bottom: 30px;
+}
+
+.ticket-confirmation-element {
+    padding: 20px;
+    font-size: 1.33em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.ticket-confirmation-header {
+    font-size: 1.75em;
+    margin-bottom: 50px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.print-ticket{
+    font-size: 1.33em;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 70px;
+
+}
+.print-ticket a {
+    color:#0061a1;
+}
+
+
+#button-container {
+    text-align: center;
+}
+#button-container button {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 1100px) {
+    main {
+        flex-direction: column;
+    }
+
+    #content {
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 680px) {
+
+    body {
+        font-size: smaller !important;
+    }
+
+}
+
+
+
+
