@@ -18,7 +18,9 @@ main {
 
 #buttons-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    padding: 0 15px;
+    font-size: 1.1em;
 }
 
 #all-transfer-data {
@@ -85,5 +87,10 @@ main {
     #main-tile {
         padding: 10px;
         font-size: smaller;
+    }
+
+    #buttons-container {
+        padding: 0;
+        font-size: 1em;
     }
 }
