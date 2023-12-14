@@ -358,6 +358,12 @@
         }
 
         document.getElementById('form-button').addEventListener('click', (event) => {
+            const activeElement = document.activeElement;
+
+            if (activeElement) {
+                activeElement.blur();
+            }
+
             validateBeneficiary();
             validateToNumber();
             validateTitle();
