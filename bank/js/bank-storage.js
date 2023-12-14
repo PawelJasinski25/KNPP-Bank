@@ -176,31 +176,54 @@ class BankStorage {
         localStorage.removeItem(PENDING_BANK_TRANSFER);
     }
 
-    // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione
+    // Funkcja pomocnicza do sprawdzania czy pole "kwota przelewu" w formularzu jest poprawnie wypełnione
     static handleMoneyInput(moneyInput) {
-        // pierwsza linijka usuwa białe znaki i zamienia przecinki na kropki
+        // pierwsza linijka usuwa białe znaki
+        let withoutWhiteSpaces = moneyInput.replace(/\s/g, '');
+
         // zamieniamy przecinki na kropki, ponieważ zakładamy, że 
         // użytkownik może wpisać liczby typu float i z kropką i z przecinkiem, ale 
         // żeby JavaScript poprawnie porównała liczby typu float, musimy mieć kropkę
-        moneyInput = moneyInput.replace(/\s/g, '').replace(/,/g, '.');
+        let formattedMoneyInput = withoutWhiteSpaces.replace(/,/g, '.');
 
-        let msg = undefined
+        // zmienne, które zwróci funkcja
+        // na razie mają przypisane wartości domyślne
+        let msg = undefined;
+        let finalInputFieldValue = moneyInput;
+        let finalBankStorageValue = undefined
     
-        if (isNaN(moneyInput) || moneyInput === '') {
+        if (isNaN(formattedMoneyInput) || formattedMoneyInput === '') {
             msg = NAN;
         }
-        else if (parseFloat(moneyInput) > parseFloat(this.getAvailableFunds())) {
+        else if (parseFloat(formattedMoneyInput) > parseFloat(this.getAvailableFunds())) {
             msg = TOO_MUCH;
         }
         else {
-            if (moneyInput.includes('.')) {
-                moneyInput = parseFloat(moneyInput).toFixed(2);
+            // jak jesteśmy w bloku else, to wiemy, że mamy liczbę
+
+            // jeżeli mamy liczbę rzeczywistą, 
+            // to pozwalamy na co najwyżej dwie cyfry po przecinku
+            if (formattedMoneyInput.includes('.')) {
+                formattedMoneyInput = parseFloat(formattedMoneyInput).toFixed(2);
+            }
+
+            // zamieniliśmy wcześniej przecinki na kropki, 
+            // więc jeżeli w oryginale był przecinek, to go teraz przywracamy
+            if (withoutWhiteSpaces.includes(',')) {
+                formattedMoneyInput = formattedMoneyInput.replace(/\./g, ",");
             }
     
             msg = OK;
         }
+
+        finalInputFieldValue = formattedMoneyInput;
+        finalBankStorageValue = finalInputFieldValue;
+
+        if (finalBankStorageValue.includes(',')) {
+            finalBankStorageValue = finalBankStorageValue.replace(/,/g, '.');
+        }
     
-        return {'msg': msg, 'value': moneyInput};
+        return {'msg': msg, 'finalInputFieldValue': finalInputFieldValue, 'finalBankStorageValue': finalBankStorageValue};
     }
 }
 
@@ -218,7 +241,7 @@ function replaceDotWithComma(money) {
 }
 
 function formatMoney(money) {
-    return `${replaceDotWithComma(money)} zł`;
+    return `${replaceDotWithComma(parseFloat(money).toFixed(2))} zł`;
 }
 
 function getCurrentDate() {
