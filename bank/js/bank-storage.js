@@ -53,7 +53,7 @@ const TRANSACTIONS = 'transactions';
 const PENDING_BANK_TRANSFER = 'pending-bank-transfer';
 
 // Pomocnicze stałe
-const NAN = 'nan';
+const INCORRECT = 'incorrect';
 const TOO_MUCH = 'too much';
 const OK = 'ok';
 
@@ -193,7 +193,7 @@ class BankStorage {
         let finalBankStorageValue = undefined
     
         if (isNaN(formattedMoneyInput) || formattedMoneyInput === '') {
-            msg = NAN;
+            msg = INCORRECT;
         }
         else if (parseFloat(formattedMoneyInput) > parseFloat(this.getAvailableFunds())) {
             msg = TOO_MUCH;
@@ -212,7 +212,7 @@ class BankStorage {
             if (withoutWhiteSpaces.includes(',')) {
                 formattedMoneyInput = formattedMoneyInput.replace(/\./g, ",");
             }
-    
+
             msg = OK;
         }
 
@@ -221,6 +221,12 @@ class BankStorage {
 
         if (finalBankStorageValue.includes(',')) {
             finalBankStorageValue = finalBankStorageValue.replace(/,/g, '.');
+        }
+
+        if (msg == OK) {
+            if (parseFloat(finalBankStorageValue) <= 0) {
+                msg = INCORRECT;
+            }
         }
     
         return {'msg': msg, 'finalInputFieldValue': finalInputFieldValue, 'finalBankStorageValue': finalBankStorageValue};
