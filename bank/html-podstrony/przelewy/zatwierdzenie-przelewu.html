@@ -105,7 +105,7 @@
                 <div class="data-container">
                     <div class="data-label">Przelew z</div>
                     <div id="from-account" class="data"></div>
-                    <div id="from-number" class="data"></div>
+                    <div id="from-number" class="data acc-num-font-size"></div>
                 </div>
                 <div class="data-container">
                     <div class="data-label">Przelew do (imię i nazwisko)</div>
@@ -187,6 +187,10 @@
             const amountDiv = document.getElementById('amount');
 
             const pendingBankTransfer = BankStorage.getPendingBankTransfer();
+
+            if (removeWhiteSpaces(pendingBankTransfer.toNumber).length === 26) {
+                toNumberDiv.classList.add('acc-num-font-size');
+            }
 
             fromAccountDiv.innerHTML = pendingBankTransfer.fromAccount;
             fromNumberDiv.innerHTML = pendingBankTransfer.fromNumber;

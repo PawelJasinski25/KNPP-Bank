@@ -45,12 +45,15 @@ main {
 }
 
 #from-number {
-    font-size: 1.4em;
     margin-top: 5px;
 }
 
 #go-back-button {
     margin-right: 10px;
+}
+
+.acc-num-font-size {
+    font-size: 1.4em !important;
 }
 
 @media screen and (max-width: 575px) {

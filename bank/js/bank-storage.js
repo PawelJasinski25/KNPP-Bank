@@ -209,8 +209,8 @@ class BankStorage {
         let msg;
         let finalInputFieldValue;
         let finalBankStorageValue;
-    
-        if (isNaN(formatted) || formatted === '') {
+
+        if (!(/^[\s\d]+(?:[.,])?(?:[\s\d]+)?$/.test(formatted)) || formatted === '') {
             msg = INCORRECT;
         }
         else if (parseFloat(formatted) > parseFloat(this.getAvailableFunds())) {

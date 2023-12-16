@@ -204,7 +204,11 @@
         });
     </script>    
     <script>
+        let firstTime;
+
         document.addEventListener('DOMContentLoaded', () => {
+            firstTime = true;
+
             const accountNameDiv = document.getElementById('account-name');
             const accountNumberDiv = document.getElementById('account-number');
             const availableFundsDiv = document.getElementById('available-funds');
@@ -362,11 +366,16 @@
             validateBeneficiary();
         });
 
+        toNumberInputField.addEventListener('blur', () => {
+            firstTime = false;
+        });
         toNumberInputField.addEventListener('change', (event) => {
             validateToNumber(event);
         });
         toNumberInputField.addEventListener('input', (event) => {
-            validateToNumber(event);
+            if (!firstTime) {
+                validateToNumber(event);
+            }
         });
 
         titleInputField.addEventListener('input', () => {
@@ -389,6 +398,10 @@
         }
 
         document.getElementById('form-button').addEventListener('click', (event) => {
+            if (firstTime) {
+                firstTime = false;
+            }
+
             const activeElement = document.activeElement;
 
             if (activeElement) {
@@ -421,9 +434,9 @@
                 const date = document.getElementById('date').value.split('-').reverse().join('.');
 
                 let amount = document.getElementById('amount').value;
-                amount = BankStorage.handleTransactionAmount(amount).finalBankStorageValue;
+                let finalAmount = BankStorage.handleTransactionAmount(amount).finalBankStorageValue;
 
-                pendingBankTransfer = new BankTransfer(fromAccount, fromNumber, beneficiary, toNumber, title, date, String(amount));
+                const pendingBankTransfer = new BankTransfer(fromAccount, fromNumber, beneficiary, toNumber, title, date, String(finalAmount));
                 BankStorage.setPendingBankTransfer(pendingBankTransfer);
             }
             else {
