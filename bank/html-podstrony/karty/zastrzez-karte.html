@@ -97,16 +97,16 @@
     <!-- Główna zawartość strony -->
     <main>
         <div id="content">
-            <section id="card-information" class="page-section border-danger">
-                <h4 id="section-name" class="mb-3"><strong>Uwaga</strong></h4>
+            <section id="card-information" class="page-section border-danger block-card">
+                <h1 id="section-name" class="mb-3 header-text"><strong>Uwaga</strong></h1>
                 <p>Właśnie zamierzasz zastrzec kartę</p>
                 <div id="block-card-information" class="card-information-element flex-column p-3 mb-3">
                     <div class="left-column-block-card">
                         <img src="../../obrazki/card.png" alt="karta" style="width: 250px; height: auto">
                     </div>
-                    <div class="right-column block-card-text px-0 pb-1">
-                            <div class="me-5">Numer karty: 1212 4324 2343 3473</div>
-                            <span>Ważność: 11/24</span>
+                    <div class="right-column px-0 pb-1">
+                            <div>Numer karty: 1212 4324 2343 3473</div>
+                            <div>Ważność: 11/24</div>
                     </div>
                 </div>
                 <p>
@@ -116,8 +116,8 @@
                 <p class="important">Czy na pewno chcesz kontynuować?</p>
                 <div id="button-container">
                     <!--TODO zrobic, aby na zablokowanej karcie byla kurtyna-->
+                    <button id="return-button" class="blue-button" type="button" onclick="window.location.href='karty.html'">Nie</button>
                     <button id="confirm-card-block-button" class="btn btn-danger" type="button" onclick="window.location.href='karta-zastrzezona.html'">Tak, zastrzeż kartę</button>
-                    <button id="return-button" class="blue-button" type="button" onclick="window.location.href='karty.html'">Powrót</button>
                 </div>
             </section>
         </div>

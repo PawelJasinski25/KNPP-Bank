@@ -18,7 +18,7 @@
 }
 
 .right-column {
-    padding: 15px 0 15px 15px;
+    padding: 15px 0 15px 0;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -31,9 +31,12 @@
     align-items: center;
 }
 
-.block-card-text {
-    flex-direction: row !important;
-    flex-wrap: wrap;
+.block-card {
+    text-align: center;
+}
+
+.left-column-block-card {
+    align-items: center;
 }
 
 .card-information-element {
@@ -48,7 +51,7 @@
 
 .card-information-element a, .card-information-element button {
     font-size: 0.85em;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 #card-information, #blocked-card-confirmation {
@@ -63,6 +66,10 @@
     font-size: 1.2em;
 }
 
+.header-text {
+    font-size: 3em;
+}
+
 p.important {
     margin-top: 3em;
     font-size: 1.33em !important;
@@ -70,21 +77,19 @@ p.important {
 }
 
 #button-container {
-    text-align: right;
-}
-
-#button-container button {
-    margin-left: 50px;
-}
-
-#confirm-card-block-button {
-    margin-left: 0 !important;
+    /*text-align: right;*/
+    display: flex;
+    justify-content: space-between;
 }
 
 .btn[id="confirm-card-block-button"] {
     padding: 10px 20px !important;
     font-size: 1.5em !important;
     vertical-align: revert !important;
+}
+
+button.btn-danger {
+    font-size: 1.2em !important;
 }
 
 .confirmation-element {
@@ -95,15 +100,10 @@ p.important {
 }
 
 .confirmation-header {
-    font-size: 1.75em;
+    font-size: 2em;
     text-align: center;
     font-weight: bold;
 }
-
-/*.confirmation-data-width {*/
-/*    margin: auto;*/
-/*    max-width: 70vw;*/
-/*}*/
 
 @media (max-width: 1060px) {
     #block-card-second-row {
@@ -111,7 +111,6 @@ p.important {
         padding: 15px 0 15px 15px;
         width: 100%;
     }
-    /*768*/
 }
 
 @media (max-width: 1040px) {
@@ -119,12 +118,10 @@ p.important {
         flex-direction: column !important;
         margin-right: 0 !important;
         align-items: center;
-        text-align: center;
     }
-    /*768*/
 }
 
-@media (max-width: 938px) {
+@media (max-width: 1004px) {
     .card-information-element, .left-column {
         flex-direction: column;
         align-items: center;
@@ -136,23 +133,15 @@ p.important {
         flex-direction: column !important;
     }
 
+}
+
+@media (max-width: 876px) {
     #button-container button {
         font-size: 1em !important;
     }
-
-    /*main {*/
-    /*    flex-direction: column;*/
-    /*}*/
-
 }
 
-/*@media (max-width: 576px) {*/
-/*    body{*/
-/*        font-size: smaller !important;*/
-/*    }*/
-/*}*/
-
-@media (max-width: 576px) {
+@media (max-width: 575px) {
     .block-card-text, .right-column{
         font-size: smaller !important;
     }
