@@ -94,7 +94,7 @@
     <header id="page-header">
         <div id="open-navigation-button">&#9776;</div>
         <h1>Zatwierdź poprawność danych</h1>
-        <a href="../../index.html"><img src="../../obrazki/bank-logo.png" alt="logo"></a>
+        <img src="../../obrazki/bank-logo.png" alt="logo">
     </header>
 
     <!-- Główna zawartość strony -->
@@ -102,34 +102,30 @@
         <div id="main-tile">
             <div id="main-tile-header">Dane przelewu</div>
             <div id="all-transfer-data">
-                <div class="column">
-                    <div class="data-container">
-                        <div class="data-label">Przelew z</div>
-                        <div id="from-account" class="data"></div>
-                        <div id="from-number" class="data"></div>
-                    </div>
-                    <div class="data-container">
-                        <div class="data-label">Przelew do (imię i nazwisko)</div>
-                        <div id="beneficiary" class="data"></div>
-                    </div>
-                    <div class="data-container">
-                        <div class="data-label">Numer konta lub telefonu</div>
-                        <div id="to-number" class="data"></div>
-                    </div>
+                <div class="data-container">
+                    <div class="data-label">Przelew z</div>
+                    <div id="from-account" class="data"></div>
+                    <div id="from-number" class="data"></div>
                 </div>
-                <div class="column">
-                    <div class="data-container">
-                        <div class="data-label">Tytuł przelewu</div>
-                        <div id="title" class="data"></div>
-                    </div>
-                    <div class="data-container">
-                        <div class="data-label">Data wykonania przelewu</div>
-                        <div id="date" class="data"></div>
-                    </div>
-                    <div class="data-container">
-                        <div class="data-label">Kwota</div>
-                        <div id="amount" class="data"></div>
-                    </div>
+                <div class="data-container">
+                    <div class="data-label">Przelew do (imię i nazwisko)</div>
+                    <div id="beneficiary" class="data"></div>
+                </div>
+                <div class="data-container">
+                    <div class="data-label">Numer konta lub telefonu</div>
+                    <div id="to-number" class="data"></div>
+                </div>
+                <div class="data-container">
+                    <div class="data-label">Tytuł przelewu</div>
+                    <div id="title" class="data"></div>
+                </div>
+                <div class="data-container">
+                    <div class="data-label">Data wykonania przelewu</div>
+                    <div id="date" class="data"></div>
+                </div>
+                <div class="data-container">
+                    <div class="data-label">Kwota</div>
+                    <div id="amount" class="data"></div>
                 </div>
             </div>
             <div id="buttons-container">
@@ -202,14 +198,7 @@
         });
 
         document.getElementById('confirm-button').addEventListener('click', () => {
-            const pendingBankTransfer = BankStorage.getPendingBankTransfer();
-            const transactions = BankStorage.getTransactions();
-
-            transactions.push(pendingBankTransfer);
-            BankStorage.setTransactions(transactions);
-
-            BankStorage.setAvailableFunds(BankStorage.getAvailableFunds() - pendingBankTransfer.amount);
-
+            BankStorage.makeATransaction(BankStorage.getPendingBankTransfer());
             BankStorage.removePendingBankTransfer();
         });
 

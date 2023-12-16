@@ -29,6 +29,7 @@
     border-radius: 5px;
     padding: 20px;
     font-size: 1.33em;
+    overflow-x: auto;
 }
 
 #account-state .tile {

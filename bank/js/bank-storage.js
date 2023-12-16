@@ -78,16 +78,29 @@ class BankTransfer extends Transaction {
 
     // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione
     // Zakładamy, że jest poprawnie wypełnione, gdy zawiera same cyfry (i ewentualnie białe znaki, np. spacje)
-    static isToNumberCorrect(toNumber) {
-        toNumber = toNumber.replace(/\s/g, '');
-        const areThereOnlyDigits = /^\d+$/.test(toNumber);
+    // i gdy jego długość wynosi 9 (numer telefonu) lub 26 (numer konta)
+    static handleToNumber(toNumber) {
+        let msg = INCORRECT;
+        let finalValue = toNumber;
+        
+        const withoutWhiteSpaces = removeWhiteSpaces(toNumber);
+        const areThereOnlyDigits = /^\d+$/.test(withoutWhiteSpaces);
     
         if (areThereOnlyDigits) {
-            return true;
+            const length = withoutWhiteSpaces.length;
+
+            if (length === 9) {
+                msg = OK;
+                finalValue = formatPhoneNumber(toNumber);
+            }
+
+            if (length === 26) {
+                msg = OK;
+                finalValue = longFormatAccNum(toNumber);
+            }
         }
-        else {
-            return false;
-        }
+
+        return {'msg': msg, 'finalValue': finalValue};
     }
 }
 
@@ -106,10 +119,10 @@ class BankStorage {
         // transactionTop jest najnowszą transakcją, więc idzie na koniec tablicy
         const transactions = [transactionBottom, transactionMiddle, transactionTop];
     
-        localStorage.setItem(ACCOUNT_NAME, accountName);
-        localStorage.setItem(ACCOUNT_NUMBER, accountNumber);
-        localStorage.setItem(AVAILABLE_FUNDS, availableFunds);
-        localStorage.setItem(TRANSACTIONS, JSON.stringify(transactions));
+        this.setAccountName(accountName);
+        this.setAccountNumber(accountNumber);
+        this.setAvailableFunds(availableFunds);
+        this.setTransactions(transactions);
     }
 
     static clear() {
@@ -145,7 +158,7 @@ class BankStorage {
     }
 
     static setAvailableFunds(availableFunds) {
-        localStorage.setItem(AVAILABLE_FUNDS, availableFunds);
+        localStorage.setItem(AVAILABLE_FUNDS, parseFloat(availableFunds).toFixed(2));
     }
 
     static removeAvailableFunds() {
@@ -176,57 +189,55 @@ class BankStorage {
         localStorage.removeItem(PENDING_BANK_TRANSFER);
     }
 
-    // Funkcja pomocnicza do sprawdzania czy pole "kwota przelewu" w formularzu jest poprawnie wypełnione
-    static handleMoneyInput(moneyInput) {
-        // pierwsza linijka usuwa białe znaki
-        let withoutWhiteSpaces = moneyInput.replace(/\s/g, '');
+    static makeATransaction(transaction) {
+        const transactions = this.getTransactions();
+        transactions.push(transaction);
+        this.setTransactions(transactions);
+
+        this.setAvailableFunds(parseFloat(this.getAvailableFunds()) - transaction.amount);
+    }
+
+    // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione
+    static handleTransactionAmount(transactionAmount) {
+        let withoutWhiteSpaces = removeWhiteSpaces(transactionAmount);
 
         // zamieniamy przecinki na kropki, ponieważ zakładamy, że 
         // użytkownik może wpisać liczby typu float i z kropką i z przecinkiem, ale 
         // żeby JavaScript poprawnie porównała liczby typu float, musimy mieć kropkę
-        let formattedMoneyInput = withoutWhiteSpaces.replace(/,/g, '.');
+        let formatted = withoutWhiteSpaces.replace(/,/g, '.');
 
-        // zmienne, które zwróci funkcja
-        // na razie mają przypisane wartości domyślne
-        let msg = undefined;
-        let finalInputFieldValue = moneyInput;
-        let finalBankStorageValue = undefined
+        let msg;
+        let finalInputFieldValue;
+        let finalBankStorageValue;
     
-        if (isNaN(formattedMoneyInput) || formattedMoneyInput === '') {
+        if (isNaN(formatted) || formatted === '') {
             msg = INCORRECT;
         }
-        else if (parseFloat(formattedMoneyInput) > parseFloat(this.getAvailableFunds())) {
+        else if (parseFloat(formatted) > parseFloat(this.getAvailableFunds())) {
             msg = TOO_MUCH;
         }
+        else if (parseFloat(formatted) <= 0) {
+            msg = INCORRECT;
+        }
         else {
-            // jak jesteśmy w bloku else, to wiemy, że mamy liczbę
+            // jak jesteśmy tutaj, to wiemy, że mamy poprawną wartość
+            finalBankStorageValue = parseFloat(formatted);
 
             // jeżeli mamy liczbę rzeczywistą, 
             // to pozwalamy na co najwyżej dwie cyfry po przecinku
-            if (formattedMoneyInput.includes('.')) {
-                formattedMoneyInput = parseFloat(formattedMoneyInput).toFixed(2);
+            if (formatted.includes('.')) {
+                finalBankStorageValue = finalBankStorageValue.toFixed(2);
             }
+
+            finalInputFieldValue = finalBankStorageValue;
 
             // zamieniliśmy wcześniej przecinki na kropki, 
             // więc jeżeli w oryginale był przecinek, to go teraz przywracamy
-            if (withoutWhiteSpaces.includes(',')) {
-                formattedMoneyInput = formattedMoneyInput.replace(/\./g, ",");
+            if (transactionAmount.includes(',')) {
+                finalInputFieldValue = finalInputFieldValue.replace(/\./g, ',');
             }
 
             msg = OK;
-        }
-
-        finalInputFieldValue = formattedMoneyInput;
-        finalBankStorageValue = finalInputFieldValue;
-
-        if (finalBankStorageValue.includes(',')) {
-            finalBankStorageValue = finalBankStorageValue.replace(/,/g, '.');
-        }
-
-        if (msg == OK) {
-            if (parseFloat(finalBankStorageValue) <= 0) {
-                msg = INCORRECT;
-            }
         }
     
         return {'msg': msg, 'finalInputFieldValue': finalInputFieldValue, 'finalBankStorageValue': finalBankStorageValue};
@@ -235,25 +246,43 @@ class BankStorage {
 
 // Metody pomocnicze
 
-function formatAccountNumber(accountNumber) {
-    const firstTwoDigits = accountNumber.substring(0, 2);
-    const lastFourDigits = accountNumber.slice(-4);
-
-    return `${firstTwoDigits} (...) ${lastFourDigits}`;
-}
-
-function replaceDotWithComma(money) {
-    return money.replace(/\./g, ',');
-}
-
-function formatMoney(money) {
-    return `${replaceDotWithComma(parseFloat(money).toFixed(2))} zł`;
-}
-
 function getCurrentDate() {
     const now = new Date();
     const year = now.getFullYear();
     const month = (now.getMonth() + 1).toString().padStart(2, '0');
     const day = now.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+
+function removeWhiteSpaces(str) {
+    return str.replace(/\s/g, '');
+}
+
+// funkcje formatujące zakładają, że podany im argument jest poprawny, 
+// i że może zawierać jakieś nadmiarowe spacje, 
+// np. funkcja formatująca numer telefonu zakłada, że argument zawiera
+// 9 cyfr i ewentualnie jakieś nadmiarowe spacje, nic więcej
+
+function shortFormatAccNum(accountNumber) {
+    let withoutWhiteSpaces = removeWhiteSpaces(accountNumber);
+
+    const firstTwoDigits = withoutWhiteSpaces.substring(0, 2);
+    const lastFourDigits = withoutWhiteSpaces.slice(-4);
+
+    return `${firstTwoDigits} (...) ${lastFourDigits}`;
+}
+
+function longFormatAccNum(accountNumber) {
+    let withoutWhiteSpaces = removeWhiteSpaces(accountNumber);
+    return `${withoutWhiteSpaces.slice(0, 2)} ${withoutWhiteSpaces.slice(2).match(/.{1,4}/g).join(' ')}`;
+}
+
+function formatMoney(money) {
+    let withoutWhiteSpaces = removeWhiteSpaces(money);
+    return `${parseFloat(withoutWhiteSpaces).toFixed(2).replace(/\./g, ',')} zł`;
+}
+
+function formatPhoneNumber(phoneNumber) {
+    let withoutWhiteSpaces = removeWhiteSpaces(phoneNumber);
+    return withoutWhiteSpaces.match(/.{1,3}/g).join(' ');
 }

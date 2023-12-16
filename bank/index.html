@@ -94,7 +94,7 @@
     <header id="page-header">
         <div id="open-navigation-button">&#9776;</div>
         <h1>Strona główna</h1>
-        <a href="index.html"><img src="obrazki/bank-logo.png" alt="logo"></a>
+        <img src="obrazki/bank-logo.png" alt="logo">
     </header>
 
     <!-- Główna zawartość strony -->
@@ -240,7 +240,7 @@
             const rowClasses = ['tile-first-row', 'tile-second-row', 'tile-third-row'];
 
             accountNameDiv.innerHTML = accountName;
-            accountNumberDiv.innerHTML = formatAccountNumber(accountNumber);
+            accountNumberDiv.innerHTML = shortFormatAccNum(accountNumber);
             availableFundsDiv.innerHTML = formatMoney(availableFunds);
 
             for (let i = 0; i < 3; i++) {

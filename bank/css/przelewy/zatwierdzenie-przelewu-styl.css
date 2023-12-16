@@ -3,12 +3,13 @@ main {
 }
 
 #main-tile {
-    flex: 0.75;
     box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
     padding: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
+    max-width: 675px;
+    overflow-x: auto;
 }
 
 #main-tile-header {
@@ -19,45 +20,37 @@ main {
 #buttons-container {
     display: flex;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 15px 15px 7px 15px;
     font-size: 1.1em;
 }
 
 #all-transfer-data {
-    text-wrap: nowrap;
-    flex: 0.8;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.column {
-    padding: 0 15px;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    padding: 15px;
+}
+
+.data-container {
+    margin: 20px 0;
 }
 
 .data-label {
-    font-size: 1.5em;
+    font-size: 1.05em;
 }
 
 .data {
-    font-size: 1.1em;
+    font-size: 1.5em;
+}
+
+#from-number {
+    font-size: 1.4em;
+    margin-top: 5px;
 }
 
 #go-back-button {
     margin-right: 10px;
-}
-
-@media screen and (max-width: 1280px) {
-    #all-transfer-data {
-        justify-content: flex-start;
-    }
-
-    .data-container {
-        margin: 20px 0;
-    }
 }
 
 @media screen and (max-width: 575px) {
@@ -70,7 +63,7 @@ main {
     }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 510px) {
     #page-header h1 {
         font-size: 1.75em;
     }
@@ -80,8 +73,8 @@ main {
     }
     
     main {
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     #main-tile {
@@ -90,7 +83,21 @@ main {
     }
 
     #buttons-container {
-        padding: 0;
         font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    #main-tile-header, #all-transfer-data {
+        padding: 10px;
+    }
+
+    #buttons-container {
+        font-size: 0.85em;
+        padding: 5px;
+    }
+
+    .blue-button {
+        padding: 8px 16px;
     }
 }

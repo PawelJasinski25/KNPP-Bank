@@ -124,6 +124,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: auto;
 }
 
+#amount-container {
+    position: relative;
+}
+
+#amount {
+    width: 100%;
+    padding-right: 35px;
+}
+
+#zl {
+    margin: 0;
+    position: absolute;
+    right: 12px;
+    top: 7px;
+}
+
 .pop-up {
     display: none;
     position: fixed;
@@ -180,6 +196,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 }
 
+@media screen and (max-width: 575px) {
+    form {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
 @media screen and (max-width: 375px) {
     main {
         font-size: smaller;
@@ -194,7 +217,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         height: 60px;
     }
 
-    #account-state, #form-container, form {
+    #account-state, #form-container {
         padding: 15px;
     }
 

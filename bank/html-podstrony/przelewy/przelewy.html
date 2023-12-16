@@ -94,7 +94,7 @@
     <header id="page-header">
         <div id="open-navigation-button">&#9776;</div>
         <h1>Przelewy</h1>
-        <a href="../../index.html"><img src="../../obrazki/bank-logo.png" alt="logo"></a>
+        <img src="../../obrazki/bank-logo.png" alt="logo">
     </header>
 
     <!-- Główna zawartość strony -->
@@ -141,7 +141,10 @@
                     </div>
                     <div class="form-field-container">
                         <label for="amount">Kwota</label>
-                        <input type="text" id="amount" name="amount">
+                        <div id="amount-container">
+                            <input type="text" id="amount" name="amount">
+                            <p id="zl">zł</p>
+                        </div>
                         <div id="amount-error-box" class="error-box"></div>
                     </div>
                 </div>
@@ -207,7 +210,7 @@
             const availableFundsDiv = document.getElementById('available-funds');
 
             accountNameDiv.innerHTML = BankStorage.getAccountName();
-            accountNumberDiv.innerHTML = formatAccountNumber(BankStorage.getAccountNumber());
+            accountNumberDiv.innerHTML = shortFormatAccNum(BankStorage.getAccountNumber());
             availableFundsDiv.innerHTML = formatMoney(BankStorage.getAvailableFunds());
 
             const dropDownOption = document.getElementById('drop-down-option');
@@ -220,17 +223,16 @@
                 document.getElementById('to-number').value = pendingBankTransfer.toNumber;
                 document.getElementById('title').value = pendingBankTransfer.title;
                 document.getElementById('date').value = pendingBankTransfer.date.split('.').reverse().join('-');
-                document.getElementById('amount').value = pendingBankTransfer.amount;
+                document.getElementById('amount').value = String(pendingBankTransfer.amount).replace(/\./g, ',');
             }
 
             document.getElementById('date').setAttribute('min', getCurrentDate());
+            document.getElementById('date').value = getCurrentDate();
         });
 
-        const beneficiaryInputField = document.getElementById('beneficiary');
-        const toNumberInputField = document.getElementById('to-number');
-        const titleInputField = document.getElementById('title');
-        const dateInputField = document.getElementById('date');
-        const amountInputField = document.getElementById('amount');
+        const errorMessage1 = 'Nieprawidłowe dane';
+        const errorMessage2 = 'Brak wystarczających środków na koncie';
+        const errorMessage3 = 'Przekroczono limit znaków';
 
         const beneficiaryErrorBox = document.getElementById('beneficiary-error-box');
         const toNumberErrorBox = document.getElementById('to-number-error-box');
@@ -238,34 +240,49 @@
         const dateErrorBox = document.getElementById('date-error-box');
         const amountErrorBox = document.getElementById('amount-error-box');
 
-        const errorMessage1 = 'Nieprawidłowe dane';
-        const errorMessage2 = 'Brak wystarczających środków na koncie';
-
-        beneficiaryErrorBox.innerHTML = errorMessage1;
         toNumberErrorBox.innerHTML = errorMessage1;
-        titleErrorBox.innerHTML = errorMessage1;
         dateErrorBox.innerHTML = errorMessage1;
 
+        const beneficiaryInputField = document.getElementById('beneficiary');
+        const toNumberInputField = document.getElementById('to-number');
+        const titleInputField = document.getElementById('title');
+        const dateInputField = document.getElementById('date');
+        const amountInputField = document.getElementById('amount');
+
         function validateBeneficiary() {
-            beneficiary = beneficiaryInputField.value;
+            let beneficiary = beneficiaryInputField.value;
 
             if (beneficiary !== '') {
-                beneficiaryErrorBox.style.display = 'none';
-                beneficiaryInputField.classList.remove('wrong-input');
+                if (beneficiary.length <= 30) {
+                    beneficiaryErrorBox.style.display = 'none';
+                    beneficiaryInputField.classList.remove('wrong-input');
+                }
+                else {
+                    beneficiaryErrorBox.innerHTML = errorMessage3;
+                    beneficiaryErrorBox.style.display = 'block';
+                    beneficiaryInputField.classList.add('wrong-input');
+                }
             }
             else {
+                beneficiaryErrorBox.innerHTML = errorMessage1;
                 beneficiaryErrorBox.style.display = 'block';
                 beneficiaryInputField.classList.add('wrong-input');
             }
         }
 
-        function validateToNumber() {
-            toNumber = toNumberInputField.value;
-            isCorrect = BankTransfer.isToNumberCorrect(toNumber);
+        function validateToNumber(event) {
+            let toNumber = toNumberInputField.value;
+            let result = BankTransfer.handleToNumber(toNumber);
+            let msg = result.msg;
+            let finalValue = result.finalValue;
 
-            if (isCorrect) {
+            if (msg === OK) {
                 toNumberErrorBox.style.display = 'none';
                 toNumberInputField.classList.remove('wrong-input');
+
+                if (event.type === 'change') {
+                    toNumberInputField.value = finalValue;
+                }
             }
             else {
                 toNumberErrorBox.style.display = 'block';
@@ -274,20 +291,35 @@
         }
 
         function validateTitle() {
-            title = titleInputField.value;
+            let title = titleInputField.value;
 
             if (title !== '') {
-                titleErrorBox.style.display = 'none';
-                titleInputField.classList.remove('wrong-input');
+                if (title.length <= 30) {
+                    titleErrorBox.style.display = 'none';
+                    titleInputField.classList.remove('wrong-input');
+                }
+                else {
+                    titleErrorBox.innerHTML = errorMessage3;
+                    titleErrorBox.style.display = 'block';
+                    titleInputField.classList.add('wrong-input');
+                }
             }
             else {
+                titleErrorBox.innerHTML = errorMessage1;
                 titleErrorBox.style.display = 'block';
                 titleInputField.classList.add('wrong-input');
             }
         }
 
         function validateDate() {
-            if (dateInputField.value === '') {
+            const dateStr = dateInputField.value;
+            const inputDate = new Date(dateStr);
+            const currentDate = new Date();
+
+            inputDate.setHours(0, 0, 0, 0);
+            currentDate.setHours(0, 0, 0, 0);
+
+            if (dateInputField.value === '' || inputDate < currentDate) {
                 dateErrorBox.style.display = 'block';
                 dateInputField.classList.add('wrong-input');
             }
@@ -297,8 +329,8 @@
             }
         }
 
-        function validateAmount() {
-            const result = BankStorage.handleMoneyInput(amountInputField.value);
+        function validateAmount(event) {
+            const result = BankStorage.handleTransactionAmount(amountInputField.value);
             const msg = result.msg;
             const finalInputFieldValue = result.finalInputFieldValue;
 
@@ -318,43 +350,42 @@
 
             if (msg === OK) {
                 amountErrorBox.style.display = 'none';
-                amountInputField.value = finalInputFieldValue;
                 amountInputField.classList.remove('wrong-input');
+
+                if (event.type === 'change') {
+                    amountInputField.value = finalInputFieldValue;
+                }
             }
         }
 
-        beneficiaryInputField.addEventListener('change', () => {
+        beneficiaryInputField.addEventListener('input', () => {
             validateBeneficiary();
         });
 
-        toNumberInputField.addEventListener('change', () => {
-            validateToNumber();
+        toNumberInputField.addEventListener('change', (event) => {
+            validateToNumber(event);
+        });
+        toNumberInputField.addEventListener('input', (event) => {
+            validateToNumber(event);
         });
 
-        titleInputField.addEventListener('change', () => {
+        titleInputField.addEventListener('input', () => {
             validateTitle();
         });
 
-        dateInputField.addEventListener('change', () => {
+        dateInputField.addEventListener('input', () => {
             validateDate();
         });
 
-        amountInputField.addEventListener('change', () => {
-            validateAmount();
+        amountInputField.addEventListener('change', (event) => {
+            validateAmount(event);
+        });
+        amountInputField.addEventListener('input', (event) => {
+            validateAmount(event);
         });
 
-        function isErrorBoxVisible() {
-            const errorBoxes = document.getElementsByClassName('error-box');
-
-            for (let i = 0; i < errorBoxes.length; i++) {
-                const computedStyle = window.getComputedStyle(errorBoxes[i]);
-
-                if (computedStyle.display === 'block') {
-                    return true;
-                }
-            }
-
-            return false;
+        function isErrorBoxVisible(errorBox) {
+            return window.getComputedStyle(errorBox).display === 'block';
         }
 
         document.getElementById('form-button').addEventListener('click', (event) => {
@@ -365,12 +396,21 @@
             }
 
             validateBeneficiary();
-            validateToNumber();
+            validateToNumber(event);
             validateTitle();
             validateDate();
-            validateAmount();
+            validateAmount(event);
 
-            const isWrongInput = isErrorBoxVisible();
+            const errorBoxes = [
+                beneficiaryErrorBox, 
+                toNumberErrorBox, 
+                titleErrorBox, 
+                dateErrorBox, 
+                amountErrorBox
+            ];
+
+            // sprawdzamy czy przynajmniej jeden error box jest widoczny
+            const isWrongInput = errorBoxes.some(isErrorBoxVisible);
 
             if (!isWrongInput) {
                 const fromAccount = BankStorage.getAccountName();
@@ -381,9 +421,9 @@
                 const date = document.getElementById('date').value.split('-').reverse().join('.');
 
                 let amount = document.getElementById('amount').value;
-                amount = BankStorage.handleMoneyInput(amount).finalBankStorageValue;
+                amount = BankStorage.handleTransactionAmount(amount).finalBankStorageValue;
 
-                pendingBankTransfer = new BankTransfer(fromAccount, fromNumber, beneficiary, toNumber, title, date, amount);
+                pendingBankTransfer = new BankTransfer(fromAccount, fromNumber, beneficiary, toNumber, title, date, String(amount));
                 BankStorage.setPendingBankTransfer(pendingBankTransfer);
             }
             else {
