@@ -367,7 +367,9 @@
         });
 
         toNumberInputField.addEventListener('blur', () => {
-            firstTime = false;
+            if (toNumberInputField.value !== '') {
+                firstTime = false;
+            }
         });
         toNumberInputField.addEventListener('change', (event) => {
             validateToNumber(event);

@@ -156,7 +156,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 80%;
     max-width: 700px;
     height: 40%;
-    min-height: 200px;
+    min-height: 225px;
     position: absolute;
     top: 50%;
     left: 50%;

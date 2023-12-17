@@ -210,7 +210,13 @@ class BankStorage {
         let finalInputFieldValue;
         let finalBankStorageValue;
 
-        if (!(/^[\s\d]+(?:[.,])?(?:[\s\d]+)?$/.test(formatted)) || formatted === '') {
+        // sprawdzamy ogólnie czy mamy numer czy nie
+        let isNotNumber = !(/^[\s\d]+(?:[.,])?(?:[\s\d]+)?$/.test(formatted));
+
+        // poprzedni regex nie uwzględnia przypadku liczb typu ,25 albo .25 (czyli 0,25 albo 0.25)
+        let isNotDecimal = !(/^\s*[.,][\s\d]+$/.test(formatted));
+
+        if ((isNotNumber && isNotDecimal) || formatted === '') {
             msg = INCORRECT;
         }
         else if (parseFloat(formatted) > parseFloat(this.getAvailableFunds())) {
