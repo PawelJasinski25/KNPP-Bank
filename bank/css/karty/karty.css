@@ -1,0 +1,195 @@
+#content {
+    flex: 1;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-section {
+    background-color: white;
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+}
+
+.left-column, .left-column-block-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.right-column {
+    padding: 15px 0 15px 0;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-information-second-row, .block-card-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block-card {
+    text-align: center;
+}
+
+.left-column-block-card {
+    align-items: center;
+}
+
+.card-information-element {
+    /*display: flex;*/
+    background-color: #eff7ff;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    font-size: 1.33em;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.card-information-element a, .card-information-element button {
+    font-size: 0.85em;
+    margin-left: 30px;
+}
+
+#card-information {
+    margin-bottom: 30px;
+}
+
+#blocked-card-confirmation {
+    height: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.border-danger {
+    border: red solid 2px;
+}
+
+#card-information p {
+    font-size: 1.2em;
+}
+
+.header-text {
+    font-size: 3em;
+}
+
+p.important {
+    margin-top: 3em;
+    font-size: 1.33em !important;
+    font-weight: bolder;
+}
+
+#button-container {
+    /*text-align: right;*/
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn[id="confirm-card-block-button"] {
+    padding: 10px 20px !important;
+    font-size: 1.5em !important;
+    vertical-align: revert !important;
+}
+
+button.btn-danger {
+    font-size: 1.2em !important;
+}
+
+.confirmation-element {
+    padding: 20px;
+    font-size: 1.33em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.confirmation-header {
+    font-size: 2em;
+    text-align: center;
+    font-weight: bold;
+}
+
+@media (max-width: 1060px) {
+    #block-card-second-row {
+        flex-direction: column !important;
+        padding: 15px 0 15px 15px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1040px) {
+    #block-card-information div, .block-card-text{
+        flex-direction: column !important;
+        margin-right: 0 !important;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1004px) {
+    .card-information-element, .left-column {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .card-information-second-row {
+        display: flex;
+        flex-direction: column !important;
+    }
+
+}
+
+@media (max-width: 876px) {
+    #button-container button {
+        font-size: 1em !important;
+    }
+}
+
+@media (max-width: 575px) {
+    .block-card-text, .right-column{
+        font-size: smaller !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .homepage-section {
+        padding: 12.5px;
+        font-size: 1.0em;
+    }
+
+    .left-column, .right-column {
+        width: 100%;
+        display: initial;
+        text-align: center;
+        justify-content: initial;
+        flex-direction: initial;
+    }
+
+    .first-row {
+        text-align: left;
+        display: block;
+        justify-content: initial;
+        margin-bottom:30px;
+    }
+
+    .card-information-second-row {
+        justify-content: initial;
+    }
+
+    .second-row-element {
+        margin-left: initial;
+        margin-right: 30px;
+        display: block;
+    }
+}
+
+/*@media screen and (max-width: 380px) {*/
+/*    body{*/
+/*        font-size: x-small !important;*/
+/*    }*/
+/*}*/
