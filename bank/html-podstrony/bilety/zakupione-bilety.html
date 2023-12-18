@@ -41,7 +41,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
         <li>
-            <a id="home-button" href="../../index.html#" class="nav-link active" aria-current="page" onclick="changeActive('home-button')">
+            <a id="home-button" href="../../index.html" class="nav-link link-dark" aria-current="page" onclick="changeActive('home-button')">
                 <i class="fas fa-home"></i>
                 Strona główna
             </a>
@@ -53,7 +53,7 @@
             </a>
         </li>
         <li>
-            <a id="bank-transfers-button" href="#" class="nav-link link-dark" onclick="changeActive('bank-transfers-button')">
+            <a id="bank-transfers-button" href="../przelewy/przelewy.html" class="nav-link link-dark" onclick="changeActive('bank-transfers-button')">
                 <i class="fas fa-exchange-alt"></i>
                 Przelewy
             </a>
@@ -65,13 +65,13 @@
             </a>
         </li>
         <li>
-            <a id="cards-button" href="#" class="nav-link link-dark" onclick="changeActive('cards-button')">
+            <a id="cards-button" href="../karty/karty.html" class="nav-link link-dark" onclick="changeActive('cards-button')">
                 <i class="fas fa-credit-card"></i>
                 Karty
             </a>
         </li>
         <li>
-            <a id="tickets-button" href="bilety.html" class="nav-link link-dark" onclick="changeActive('tickets-button')">
+            <a id="tickets-button" href="#" class="nav-link active" onclick="changeActive('tickets-button')">
                 <i class="fas fa-ticket-alt"></i>
                 Bilety
             </a>
@@ -82,7 +82,7 @@
         Ustawienia
     </a>
     <hr>
-    <a id="logout-button" href="#" class="nav-link link-dark" onclick="changeActive('logout-button')">
+    <a id="logout-button" href="../../index.html" class="nav-link link-dark" onclick="changeActive('logout-button')">
         <i class="fas fa-sign-out-alt"></i>
         Wyloguj
     </a>
@@ -163,7 +163,7 @@
 
 <!-- JavaScript -->
 <script>
-    let active = "home-button";
+    let active = "tickets-button";
 
     function changeActive(active_page) {
         document.getElementById(active).classList.remove('active');
@@ -200,9 +200,9 @@
 
 <script>
 
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("details");
-    var span = document.getElementsByClassName("close")[0];
+    let modal = document.getElementById("myModal");
+    let btn = document.getElementById("details");
+    let span = document.getElementsByClassName("close")[0];
 
     btn.onclick = function() {
         modal.style.display = "block";
@@ -213,7 +213,7 @@
     }
 
     window.onclick = function(event) {
-        if (event.target == modal) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
     }
