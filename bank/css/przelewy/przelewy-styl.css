@@ -1,0 +1,234 @@
+main {
+    display: block;
+}
+
+#account-state, #form-container {
+    border-radius: 5px;
+    padding: 25px;
+    box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
+}
+
+#account-state {
+    width: 50%;
+}
+
+#account-state-header {
+    font-size: 1.75em;
+}
+
+#account-state-info {
+    background-color: white;
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 1.33em;
+    margin-top: 20px
+}
+
+#account-name {
+    font-weight: bold;
+}
+
+#account-number {
+    font-size: smaller;
+}
+
+#available-funds {
+    text-align: right;
+}
+
+#form-container {
+    margin-top: 30px;
+}
+
+#form-header {
+    font-size: 1.75em;
+}
+
+form {
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-column {
+    flex: 0.33;
+}
+
+.form-field-container {
+    margin: 25px 0;
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: column;
+}
+
+input, select {
+    padding: 6px 12px;
+    border: 1px solid #cfcfcf;
+    border-radius: 5px;
+}
+
+input:focus, select:focus {
+    outline: none;
+}
+
+input:focus {
+    border-color: #8b8b8b;
+    background-color: #ededed;
+}
+
+.wrong-input {
+    border-color: #ffa5a5;
+    background-color: #ffdede;
+}
+
+.wrong-input:focus {
+    border-color: #bf0000;
+    background-color: #ffcccc;
+}
+
+option {
+    color: black;
+    background-color: white;
+}
+
+#form-button-container {
+    text-align: right;
+}
+
+.responsive-margin-bottom {
+    margin-bottom: 25px;
+}
+
+.error-box {
+    display: none;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: red;
+}
+
+input[type="date"] {
+    position: relative;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+#amount-container {
+    position: relative;
+}
+
+#amount {
+    width: 100%;
+    padding-right: 35px;
+}
+
+#zl {
+    margin: 0;
+    position: absolute;
+    right: 12px;
+    top: 7px;
+}
+
+.pop-up {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 110;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.pop-up-content {
+    background-color: white;
+    width: 80%;
+    max-width: 700px;
+    height: 40%;
+    min-height: 225px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.close-pop-up {
+    cursor: pointer;
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+#pop-up-text {
+    width: 90%;
+    font-size: 2.5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 1050px) {
+    #account-state {
+        width: 100%;
+    }
+
+    form {
+        flex-direction: column;
+    }
+
+    .responsive-margin-bottom {
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    form {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    main {
+        font-size: smaller;
+        padding: 15px;
+    }
+
+    #page-header h1 {
+        font-size: 1.75em;
+    }
+
+    #page-header img {
+        height: 60px;
+    }
+
+    #account-state, #form-container {
+        padding: 15px;
+    }
+
+    .close-pop-up {
+        top: 0;
+        right: 20px;
+    }
+}
+
+@media screen and (max-width: 310px) {
+    #pop-up-text {
+        font-size: 2em;
+    }
+}

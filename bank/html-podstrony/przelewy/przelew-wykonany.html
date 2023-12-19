@@ -11,7 +11,7 @@
 
     <!-- Własne css -->
     <link href="../../css/wspolny-styl.css" type="text/css" rel="stylesheet">
-    <link href="../../css/bilety/oferta-biletow.css" type="text/css" rel="stylesheet">
+    <link href="../../css/przelewy/przelew-wykonany-styl.css" type="text/css" rel="stylesheet">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -24,6 +24,9 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Własne js -->
+    <script src="../../js/bank-storage.js"></script>
 </head>
 <body>
 
@@ -52,7 +55,7 @@
                 </a>
             </li>
             <li>
-                <a id="bank-transfers-button" href="../przelewy/przelewy.html" class="nav-link link-dark" onclick="changeActive('bank-transfers-button')">
+                <a id="bank-transfers-button" href="../przelewy/przelewy.html" class="nav-link active" onclick="changeActive('bank-transfers-button')">
                     <i class="fas fa-exchange-alt"></i>
                     Przelewy
                 </a>
@@ -64,13 +67,13 @@
                 </a>
             </li>
             <li>
-                <a id="cards-button" href="../karty/karty.html" class="nav-link link-dark" onclick="changeActive('cards-button')">
+                <a id="cards-button" href="#" class="nav-link link-dark" onclick="changeActive('cards-button')">
                     <i class="fas fa-credit-card"></i>
                     Karty
                 </a>
             </li>
             <li>
-                <a id="tickets-button" href="#" class="nav-link active" onclick="changeActive('tickets-button')">
+                <a id="tickets-button" href="../bilety/bilety.html" class="nav-link link-dark" onclick="changeActive('tickets-button')">
                     <i class="fas fa-ticket-alt"></i>
                     Bilety
                 </a>
@@ -90,69 +93,17 @@
     <!-- Nagłówek strony -->
     <header id="page-header">
         <div id="open-navigation-button">&#9776;</div>
-        <h1>Oferta biletów</h1>
+        <h1></h1>
         <img src="../../obrazki/bank-logo.png" alt="logo">
     </header>
 
     <!-- Główna zawartość strony -->
     <main>
-        <div id="main-section">
-            <div id="category-text"> Kategorie </div>
-            <div id="category-row">
-                <button class="category-button" onclick="showContent('choice-mpk')">Bilety MPK</button>
-                <button class="category-button" onclick="showContent('choice-pr')">Park & Ride</button>
-                <button class="category-button" onclick="showContent('choice-autostrady')">Autostrady</button>
-            </div>
-            <hr>
-            <div id="choice-mpk" class="choice">
-                <div class="ticket-list">
-                    <div class="ticket-wrapper">
-                        <button class="ticket" onclick="location.href='zakup-biletu.html'"></button>
-                        <span class="ticket-text"> MPK - ulgowy, 1 miesiąc </span>
-                    </div>
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> MPK - ulgowy, 2 miesiące </span>
-                    </div>
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> MPK - ulgowy, 3 miesiące </span>
-                    </div>
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> MPK - normalny, 1 miesiąc </span>
-                    </div>
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> MPK - normalny, 2 miesiące </span>
-                    </div>
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> MPK - normalny, 3 miesiące </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="choice-pr" class="choice">
-                <div class="ticket-list">
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> Park & Ride Kraków </span>
-                    </div>
-                </div>
-            </div>
-
-            <div id="choice-autostrady" class="choice">
-                <div class="ticket-list">
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> Autostrada A4 <br>Kraków Katowice </span>
-                    </div>
-                    <div class="ticket-wrapper">
-                        <button class="ticket"></button>
-                        <span class="ticket-text"> Autostrada A2 <br>Konin Świecko </span>
-                    </div>
-                </div>
+        <div id="main-container">
+            <div id="main-container-header">Przelew został wykonany</div>
+            <div id="green-tick">&#10004;</div>
+            <div id="go-home-button-container">
+                <a href="../../index.html" id="go-home-button" class="blue-button">Powrót do strony głównej</a>
             </div>
         </div>
     </main>
@@ -164,7 +115,7 @@
 
     <!-- JavaScript -->
     <script>
-        let active = "tickets-button";
+        let active = "bank-transfers-button";
 
         function changeActive(active_page) {
             document.getElementById(active).classList.remove('active');
@@ -197,23 +148,14 @@
                 navigation.classList.toggle('show');
             });
         });
-    </script>
-    <script>
-        function showContent(choiceId) {
-            const choiceContents = document.getElementsByClassName('choice');
-            for (let i = 0; i < choiceContents.length; i++) {
-                choiceContents[i].classList.remove('active-choice');
-            }
 
-            const selectedChoiceContent = document.getElementById(choiceId);
-            if (selectedChoiceContent) {
-                selectedChoiceContent.classList.add('active-choice');
-            }
-        }
+        document.getElementById('bank-transfers-button').addEventListener('click', () => {
+            BankStorage.removePendingBankTransfer();
+        });
 
-        window.onload = function() {
-            showContent('choice-mpk');
-        };
+        document.getElementById('logout-button').addEventListener('click', () => {
+            BankStorage.clear();
+        });
     </script>
 </body>
 </html>
