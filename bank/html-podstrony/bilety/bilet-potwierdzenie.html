@@ -159,6 +159,12 @@
             curtain.classList.toggle('display');
             navigation.classList.toggle('show');
         });
+
+        const selectedTicket = localStorage.getItem('selectedTicket');
+        const tileFirstRow = document.querySelector('.ticket-confirmation-element-text');
+        if (tileFirstRow) {
+            tileFirstRow.textContent = selectedTicket;
+        }
     });
 </script>
 

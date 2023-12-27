@@ -6,6 +6,7 @@
 
 .ticket-left-column-element {
     text-align: left;
+    line-height: 1.8;
 }
 
 
@@ -28,7 +29,7 @@
 }
 
 .second-row-element{
-    margin-left: 40px;
+    margin-left: 52px;
     text-decoration: underline;
 
 }
@@ -49,56 +50,77 @@
     text-align: center;
 }
 
-
 #ticket-information {
     margin-bottom: 30px;
+    position: relative;
 }
 .ticket-placeholder{
     min-height:73.84px;
 }
 
-.modal {
+.pop-up {
     display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    padding-left: 400px;
+    position: absolute;
     left: 0;
     top: 0;
+    z-index: 110;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
 }
 
-
-.modal-content {
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50% !important;
-    display: block!important;
+.pop-up-content {
+    background-color: white;
+    width: 80%;
+    padding-top: 35px;
+    max-width: 700px;
+    height: 40%;
+    min-height: 225px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
-.modal-header{
-    display:block !important;
-    border: none !important;
-}
-
-.close {
-    color: #71a6db;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
+.close-pop-up {
     cursor: pointer;
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    font-size: 3em;
+    font-weight: bold;
+    color: #71a6db;
 }
+
+#pop-up-header {
+    font-size: 2.2em;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#pop-up-text {
+    width: 90%;
+    font-size: 1.8em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+
 
 @media screen and (max-width: 1100px) {
     main {
@@ -106,22 +128,8 @@
     }
 
 }
-@media screen and (max-width: 850px) {
-    .modal{
-        padding-left: 0;
-    }
 
-}
-
-@media screen and (max-width: 575px) {
-    .modal {
-        padding-top: 170px;
-
-    }
-}
-
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 613px), (min-width: 851px) and (max-width: 892px){
 
 
     .homepage-section {
@@ -135,17 +143,15 @@
 
     .left-column, .right-column {
         width: 100%;
-        display: initial;
-        text-align: center;
-        justify-content: initial;
-        flex-direction: initial;
+        display: block;
+        padding:0;
     }
 
     .first-row {
         text-align: left;
         display: block;
         justify-content: initial;
-        margin-bottom:30px;
+        /*margin-bottom:30px;*/
     }
 
     .second-row {
@@ -157,8 +163,13 @@
         margin-right: 30px;
         display: block;
     }
-    .modal{
-        padding-top:245px;
+
+    #pop-up-header{
+        font-size: 2.0em;
+        top:17%;
+    }
+    #pop-up-text{
+        font-size: 1.7em;
     }
 
 }
@@ -173,4 +184,6 @@
     body{
         font-size: x-small !important;
     }
+
+
 }

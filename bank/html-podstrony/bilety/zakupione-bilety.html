@@ -98,7 +98,16 @@
 <!-- Główna zawartość strony -->
 <main>
     <div id="content">
+
+        <div class="overlay"></div>
         <div id="ticket-information" class="homepage-section">
+            <div id="pop-up-window" class="pop-up">
+                <div id="pop-up-content-window" class="pop-up-content">
+                    <span id="close-pop-up-button" class="close-pop-up">&times;</span>
+                    <span id="pop-up-header">Szczegóły</span>
+                    <span id="pop-up-text">Lorem Ipsum...</span>
+                </div>
+            </div>
         <div class="ticket-information-element">
             <div class="left-column">
                 <div class="ticket-left-column-element">Park & Ride Kraków</div>
@@ -107,20 +116,12 @@
                 <div class="first-row">Ważny do: 30-06-2024</div>
                 <div class="second-row">
                     <div id="details" class="second-row-element">Szczegóły</div>
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <h4 class="modal-header">Szczegóły</h4>
-                            <p class="modal-paragraph">Lorem Ipsum...</p>
-                        </div>
-                    </div>
                     <div class="second-row-element">Drukuj</div>
                 </div>
             </div>
 
         </div>
 
-
         <div class="ticket-information-element">
             <div class="ticket-placeholder">
                 <div class="left-column">
@@ -151,8 +152,15 @@
             </div>
         </div>
 
+        <div id="button-container">
+            <button id="return-button" class="blue-button" type="button" onclick="window.location.href='bilety.html'">Powrót</button>
+            <button id="buy-button" class="blue-button" type="button" onclick="window.location.href='oferta-biletow.html'">Kup bilet</button>
+        </div>
+
     </div>
     </div>
+
+
 </main>
 
 
@@ -200,24 +208,32 @@
 
 <script>
 
-    let modal = document.getElementById("myModal");
+    let modal = document.getElementById("pop-up-window");
+    let content = document.getElementById("pop-up-content-window");
     let btn = document.getElementById("details");
-    let span = document.getElementsByClassName("close")[0];
+    let span = document.getElementsByClassName("close-pop-up")[0];
+    let overlay = document.getElementsByClassName("overlay")[0];
+    let ctn = document.getElementById('content');
 
     btn.onclick = function() {
         modal.style.display = "block";
+        overlay.style.display = "block";
     }
 
     span.onclick = function() {
         modal.style.display = "none";
+        overlay.style.display = "none";
     }
 
     window.onclick = function(event) {
-        if (event.target === modal) {
+        if (event.target === overlay || event.target === modal) {
             modal.style.display = "none";
+            overlay.style.display = "none";
         }
     }
 </script>
+
+
 
 </body>
 </html>

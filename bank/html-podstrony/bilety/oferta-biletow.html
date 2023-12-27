@@ -196,6 +196,16 @@
                 curtain.classList.toggle('display');
                 navigation.classList.toggle('show');
             });
+
+            const ticketButtons = document.querySelectorAll('.ticket');
+            ticketButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const ticketText = button.nextElementSibling.textContent.trim();
+                    localStorage.setItem('selectedTicket', ticketText);
+                    window.location.href = 'zakup-biletu.html';
+                });
+            });
+
         });
     </script>
     <script>

@@ -74,14 +74,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: auto;
 }
 
-#button-container {
-    text-align: right;
-}
-#button-container button {
-    margin-right: 20px;
-    width:22%;
-}
-
 @media screen and (max-width: 1100px) {
     main {
         flex-direction: column;
