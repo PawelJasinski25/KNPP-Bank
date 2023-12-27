@@ -12,6 +12,10 @@ body {
     /* background-color: #212529; */
 }
 
+a {
+    cursor: pointer;
+}
+
 #curtain {
     display: none;
     width: 100vw;
