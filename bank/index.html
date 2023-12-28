@@ -28,6 +28,11 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js" type="text/javascript"></script>
     <script src="js/bank-storage.js"></script>
     <script src="js/global.js"></script>
+    <script>
+        if (window.location.href.slice(-5) !== "bank/") {
+            document.location.href = "./"
+        }
+    </script>
 </head>
 <body>
     <!-- "Zasłona" przyciemniająca zawartość strony, gdy włączy się nawigację za pomocą przycisku -->
@@ -35,51 +40,51 @@
 
     <!-- Nawigacja -->
     <div id="navigation" class="d-flex flex-column flex-shrink-0 p-3 bg-light">
-        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
             <img src="https://www.w3schools.com/howto/img_avatar.png" alt="avatar" width="40" height="40" class="rounded-circle me-2">
             <span id="username">Jan Młynarz</span>
             <span id="close-navigation-button">&times;</span>
-        </a>
+        </div>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li>
-                <a id="home-button" href="#" class="nav-link active" aria-current="page">
+                <a id="home-button" class="nav-link active" aria-current="page">
                     <i class="fas fa-home"></i>
                     Strona główna
                 </a>
             </li>
             <li>
-                <a id="transactions-button" href="#" class="nav-link link-dark">
+                <a id="transactions-button" class="nav-link link-dark">
                     <i class="fas fa-history"></i>
                     Transakcje
                 </a>
             </li>
             <li>
-                <a id="bank-transfers-button" href="#" class="nav-link link-dark">
+                <a id="bank-transfers-button" class="nav-link link-dark">
                     <i class="fas fa-exchange-alt"></i>
                     Przelewy
                 </a>
             </li>
             <li>
-                <a id="standing-orders-button" href="#" class="nav-link link-dark">
+                <a id="standing-orders-button" class="nav-link link-dark">
                     <i class="fas fa-clock"></i>
                     Zlecenia stałe
                 </a>
             </li>
             <li>
-                <a id="cards-button" href="#" class="nav-link link-dark">
+                <a id="cards-button" class="nav-link link-dark">
                     <i class="fas fa-credit-card"></i>
                     Karty
                 </a>
             </li>
             <li>
-                <a id="tickets-button" href="#" class="nav-link link-dark">
+                <a id="tickets-button" class="nav-link link-dark">
                     <i class="fas fa-ticket-alt"></i>
                     Bilety
                 </a>
             </li>
         </ul>
-        <a id="settings-button" href="#" class="nav-link link-dark">
+        <a id="settings-button" class="nav-link link-dark">
             <i class="fas fa-cogs"></i>
             Ustawienia
         </a>

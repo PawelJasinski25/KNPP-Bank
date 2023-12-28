@@ -19,7 +19,7 @@ function loadPage(headerName, pageURL, func = function (){}) {
         $('#main').load(pageURL, (response, status) => {
             func();
             if (status === "error") {
-                console.error("Wystąpił błąd podczas wczytywania pliku.");
+                console.log("Wystąpił błąd podczas wczytywania pliku.");
                 $('#main').html('<div class="text-center">Nie udało się załadować zawartości.</div>');
             }
         });
