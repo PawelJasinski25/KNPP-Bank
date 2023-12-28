@@ -40,7 +40,7 @@ function loadTransactionPage() {
     changeActive('transactions-button');
 }
 
-function loadTransfersPage() {
+function loadBankTransfersPage() {
     BankStorage.removePendingBankTransfer();
     loadPage('Przelewy', 'html-podstrony/przelewy/przelewy.html', () => {
         initializeForm();
