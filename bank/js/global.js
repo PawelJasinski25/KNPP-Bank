@@ -1,6 +1,8 @@
 // zmienne do przechowywania danych/wartosci domyslnych pomiedzy stronami
 let lastPage = "";
 let active = "home-button";
+let firstTime;
+let diagramName = "expenses-week";
 
 const ERRORMESSAGE1 = 'Nieprawidłowe dane';
 const ERRORMESSAGE2 = 'Brak wystarczających środków na koncie';
