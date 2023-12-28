@@ -120,6 +120,7 @@
         });
 
         $('#bank-transfers-button').click(() => {
+            BankStorage.removePendingBankTransfer();
             loadBankTransfersPage();
         });
 
