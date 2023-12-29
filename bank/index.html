@@ -166,7 +166,33 @@
                 curtain.classList.toggle('display');
                 navigation.classList.toggle('show');
             });
+
+            curtain.addEventListener('click', () => {
+                curtain.classList.toggle('display');
+                navigation.classList.toggle('show');
+            });
         });
+    </script>
+    <script>
+        function positionMain() {
+            const main = document.getElementById("main");
+            let mainWidth = main.offsetWidth;
+            let mainMaxWidth = parseInt(window.getComputedStyle(main).maxWidth);
+
+            if (mainWidth >= mainMaxWidth) {
+                let marginLeft = 280 + (window.innerWidth - mainWidth - 280) / 2;
+                main.style.marginLeft = marginLeft + 'px';
+            }
+            else {
+                main.style.marginLeft = "";
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            positionMain();
+        });
+
+        positionMain();
     </script>
 </body>
 </html>
