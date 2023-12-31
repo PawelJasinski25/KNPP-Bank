@@ -58,7 +58,9 @@ function loadTicketsPage() {
 }
 
 function loadCardsPage() {
-    loadPage('Karty', 'html-podstrony/karty/karty.html');
+    loadPage('Karty', 'html-podstrony/karty/karty.html', () => {
+        initializeCardsPage();
+    });
     changeActive('cards-button');
 }
 

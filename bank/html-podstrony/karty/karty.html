@@ -5,11 +5,11 @@
     <section id="card-information" class="page-section">
         <h2 id="section-name" class="mb-5">Twoje karty</h2>
         <div id="card-1" class="card-information-element">
-            <div class="curtain-text" style="display: flex;">
+            <div class="curtain-text">
                 <div>Zastrzeżona</div>
             </div>
             <div class="p-3">
-                <div class="curtain" style="display:flex"></div>
+                <div class="curtain"></div>
                 <div class="left-column me-2">
                     <img src="obrazki/card.png" alt="karta" style="width: 250px; height: auto">
                 </div>
@@ -20,7 +20,7 @@
                         <div>
                             <!--TODO szczegoly-->
                             <a href="#">Szczegóły</a>
-                            <button id="block-card-button" class="btn btn-danger">Zastrzeż kartę</button>
+                            <button id="card-1-button" class="btn btn-danger">Zastrzeż kartę</button>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <div>
                             <!--TODO szczegoly-->
                             <a href="#">Szczegóły</a>
-                            <button class="btn btn-danger">Zastrzeż kartę</button>
+                            <button id="card-2-button" class="btn btn-danger">Zastrzeż kartę</button>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <div>
                             <!--TODO szczegoly-->
                             <a href="#">Szczegóły</a>
-                            <button class="btn btn-danger">Zastrzeż kartę</button>
+                            <button id="card-3-button" class="btn btn-danger">Zastrzeż kartę</button>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,18 @@
 
 <!-- JavaScript -->
 <script>
-    $('button').click(() => {
-        loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html');
-    });
+    function initializeCardsPage() {
+        $('button').click(function() {
+            localStorage.setItem('pending-block', this.id.slice(0, -7));
+            loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html');
+        });
+
+        let blockedCards = JSON.parse(localStorage.getItem('blocked-cards'));
+        if (blockedCards !== undefined && blockedCards !== null) {
+            for (let card of blockedCards) {
+                let c = document.querySelectorAll("#" + card + " [class^='curtain']");
+                c.forEach((x) => x.style.display = "flex")
+            }
+        }
+    }
 </script>

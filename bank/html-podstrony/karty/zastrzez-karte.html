@@ -20,7 +20,6 @@
         </p>
         <p class="important">Czy na pewno chcesz kontynuować?</p>
         <div id="button-container">
-            <!--TODO zrobic, aby na zablokowanej karcie byla kurtyna-->
             <button id="return-button" class="blue-button" type="button">Nie</button>
             <button id="confirm-card-block-button" class="btn btn-danger" type="button">Tak, zastrzeż kartę</button>
         </div>
@@ -34,6 +33,18 @@
     });
 
     $('#confirm-card-block-button').click(() => {
+        addBlockedCard();
         loadPage('', 'html-podstrony/karty/karta-zastrzezona.html');
     });
+
+    function addBlockedCard() {
+        let blockedCards = JSON.parse(localStorage.getItem('blocked-cards'));
+
+        if (blockedCards === undefined || blockedCards === null) {
+            blockedCards = [localStorage.getItem('pending-block')];
+        }
+        else blockedCards.push(localStorage.getItem('pending-block'));
+
+        localStorage.setItem('blocked-cards', JSON.stringify(blockedCards));
+    }
 </script>

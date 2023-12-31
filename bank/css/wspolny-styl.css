@@ -53,7 +53,7 @@ a {
     text-shadow: 1px 1px #cdcdcd;
 }
 
-.card-information-element div:has(> .curtain[style="display:flex"]) {
+.card-information-element div:has(> .curtain[style="display: flex;"]) {
     filter: blur(6px);
 }
 
