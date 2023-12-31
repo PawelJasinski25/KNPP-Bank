@@ -10,6 +10,11 @@ body {
     flex-direction: column;
     font-family: 'Roboto', sans-serif !important;
     /* background-color: #212529; */
+    justify-content: space-between;
+}
+
+a {
+    cursor: pointer;
 }
 
 #curtain {
@@ -114,10 +119,11 @@ body {
 }
 
 main {
-    flex: 1;
+    /*flex: 1;*/
     margin-left: 280px;
     padding: 30px 45px;
     display: flex;
+    max-width: 1920px;
 }
 
 #page-footer {
@@ -199,5 +205,17 @@ main {
 
     #page-header img {
         height: 75px;
+    }
+}
+
+/*@media (min-width: 1100px) {*/
+/*    main {*/
+/*        max-height: 1080px;*/
+/*    }*/
+/*}*/
+
+@media (max-height: 1080px) {
+    main {
+        flex: 1;
     }
 }
