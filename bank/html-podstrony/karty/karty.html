@@ -77,11 +77,11 @@
 <script>
     function initializeCardsPage() {
         $('button').click(function() {
-            localStorage.setItem('pending-block', this.id.slice(0, -7));
+            BankStorage.setPendingCardBlock(this.id.slice(0, -7));
             loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html');
         });
 
-        let blockedCards = JSON.parse(localStorage.getItem('blocked-cards'));
+        let blockedCards = BankStorage.getBlockedCards();
         if (blockedCards !== undefined && blockedCards !== null) {
             for (let card of blockedCards) {
                 let c = document.querySelectorAll("#" + card + " [class^='curtain']");

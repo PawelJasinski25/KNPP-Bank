@@ -33,18 +33,7 @@
     });
 
     $('#confirm-card-block-button').click(() => {
-        addBlockedCard();
+        BankStorage.addBlockedCard();
         loadPage('', 'html-podstrony/karty/karta-zastrzezona.html');
     });
-
-    function addBlockedCard() {
-        let blockedCards = JSON.parse(localStorage.getItem('blocked-cards'));
-
-        if (blockedCards === undefined || blockedCards === null) {
-            blockedCards = [localStorage.getItem('pending-block')];
-        }
-        else blockedCards.push(localStorage.getItem('pending-block'));
-
-        localStorage.setItem('blocked-cards', JSON.stringify(blockedCards));
-    }
 </script>
