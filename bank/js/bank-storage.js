@@ -51,6 +51,7 @@ const ACCOUNT_NUMBER = 'account number';
 const AVAILABLE_FUNDS = 'available funds';
 const TRANSACTIONS = 'transactions';
 const PENDING_BANK_TRANSFER = 'pending-bank-transfer';
+const TICKET_NAME = 'ticket name';
 
 // Pomocnicze stałe
 const INCORRECT = 'incorrect';
@@ -195,6 +196,14 @@ class BankStorage {
         this.setTransactions(transactions);
 
         this.setAvailableFunds(parseFloat(this.getAvailableFunds()) - transaction.amount);
+    }
+
+    static getTicketName() {
+        return localStorage.getItem(TICKET_NAME);
+    }
+
+    static setTicketName(name) {
+        return localStorage.setItem(TICKET_NAME, name);
     }
 
     // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione

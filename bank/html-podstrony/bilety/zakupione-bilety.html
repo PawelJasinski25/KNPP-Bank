@@ -3,6 +3,13 @@
 
 <!-- Główna zawartość strony -->
 <div id="content">
+    <div id="pop-up-window" class="pop-up">
+        <div id="pop-up-content-window" class="pop-up-content">
+            <span id="close-pop-up-button" class="close-pop-up">&times;</span>
+            <span id="pop-up-header">Szczegóły</span>
+            <span id="pop-up-text">Lorem Ipsum...</span>
+        </div>
+    </div>
     <div id="ticket-information" class="homepage-section">
         <div class="ticket-information-element">
             <div class="left-column">
@@ -12,13 +19,6 @@
                 <div class="first-row">Ważny do: 30-06-2024</div>
                 <div class="second-row">
                     <div id="details" class="second-row-element">Szczegóły</div>
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <h4 class="modal-header">Szczegóły</h4>
-                            <p class="modal-paragraph">Lorem Ipsum...</p>
-                        </div>
-                    </div>
                     <div class="second-row-element">Drukuj</div>
                 </div>
             </div>
@@ -53,26 +53,30 @@
                 </div>
             </div>
         </div>
+        <div id="button-container">
+            <button id="return-button" class="blue-button" type="button">Powrót</button>
+            <button id="buy-button" class="blue-button" type="button">Kup bilet</button>
+        </div>
+
     </div>
 </div>
 
 <!-- JavaScript -->
 <script>
-    let modal = document.getElementById("myModal");
-    let btn = document.getElementById("details");
-    let span = document.getElementsByClassName("close")[0];
-
-    btn.onclick = function() {
-        modal.style.display = "block";
+    function ticketsInformations() {
+        let modal = document.getElementById("pop-up-window");
+        let btn = document.getElementById("details");
+        let close = document.getElementById("close-pop-up-button");
+        setupPopup(modal, btn, close);
     }
 
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
+    $('#return-button').click(() => {
+        loadPage('Bilety', 'html-podstrony/bilety/bilety.html');
+    });
 
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
+    $('#buy-button').click(() => {
+        loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
+            showDefaultTicketOfferContent();
+        });
+    });
 </script>

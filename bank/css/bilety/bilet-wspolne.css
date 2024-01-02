@@ -11,3 +11,14 @@
     padding: 25px;
     box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
 }
+
+#button-container button {
+    min-width:11%;
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    font-size: 1.1em;
+}
