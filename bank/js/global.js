@@ -69,12 +69,6 @@ function loadSelectedTicketName(selector) {
         tileFirstRow.textContent = selectedTicket;
     }
 }
-function ticketsInformations() {
-    let modal = document.getElementById("pop-up-window");
-    let btn = document.getElementById("details");
-    let close = document.getElementById("close-pop-up-button");
-    setupTicketDetailsPopup(modal, btn, close);
-}
 
 function setupTicketDetailsPopup(modal,btn,close) {
 
