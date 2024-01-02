@@ -70,7 +70,7 @@ function loadSelectedTicketName(selector) {
     }
 }
 
-function setupTicketDetailsPopup(modal,btn,close) {
+function setupPopup(modal, btn, close) {
 
     btn.onclick = function() {
         modal.style.display = "block";
