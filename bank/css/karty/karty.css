@@ -70,7 +70,7 @@
     border: red solid 2px;
 }
 
-#card-information p {
+#card-information p, .pop-up-text {
     font-size: 1.2em;
 }
 
@@ -110,6 +110,23 @@ button.btn-danger {
     font-size: 2em;
     text-align: center;
     font-weight: bold;
+}
+
+.pop-up-header {
+    font-size: 2.2em;
+    margin-top: 20px;
+}
+
+.h-unset {
+    height: unset !important;
+}
+
+.pop-up-max-width {
+    max-width: 1000px !important;
+}
+
+#pop-up-content-window {
+    padding: 3rem!important;
 }
 
 @media (max-width: 1060px) {
@@ -155,6 +172,40 @@ button.btn-danger {
 @media (max-width: 876px) {
     #button-container button {
         font-size: 1em !important;
+    }
+}
+
+@media (max-width: 850px) {
+    .pop-up-header {
+        font-size: 1.8em;
+    }
+
+    .pop-up-text {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 640px) {
+    .pop-up-header {
+        font-size: 1.4em;
+    }
+
+    #pop-up-content-window {
+        padding: 0.5rem!important;
+    }
+
+    .pop-up-text > .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pop-up-text > .row div {
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    .pop-up-text > .row .text-end {
+        margin-bottom: 10px;
     }
 }
 

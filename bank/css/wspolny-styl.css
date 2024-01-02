@@ -53,6 +53,49 @@ a {
     text-shadow: 1px 1px #cdcdcd;
 }
 
+.pop-up {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 110;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.pop-up-content {
+    background-color: white;
+    width: 80%;
+    max-width: 700px;
+    height: 40%;
+    min-height: 225px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.h-30-percent {
+    height: 30% !important;
+}
+
+.close-pop-up {
+    cursor: pointer;
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    font-size: 3em;
+    font-weight: bold;
+}
+
+/*jesli zdecydujemy, ze wszystkie close-button maja byc niebieskie*/
+/*to trzeba ten color wrzucic powyzej do .close-pop-up*/
+.light-blue-color {
+    color: #71a6db;
+}
+
 .card-information-element div:has(> .curtain[style="display: flex;"]) {
     filter: blur(6px);
 }
