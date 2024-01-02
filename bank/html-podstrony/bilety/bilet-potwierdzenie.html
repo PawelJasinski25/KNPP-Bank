@@ -25,16 +25,11 @@
 
 <!-- JavaScript -->
 <script>
+
+    loadSelectedTicketName('.ticket-confirmation-element-text');
+
     $('#return-button').click(() => {
         loadHomePage();
     });
-
-    (function loadSelectedTicketName() {
-        const selectedTicket = localStorage.getItem('selectedTicket');
-        const tileFirstRow = document.querySelector('.ticket-confirmation-element-text');
-        if (tileFirstRow) {
-            tileFirstRow.textContent = selectedTicket;
-        }
-    })();
 
 </script>

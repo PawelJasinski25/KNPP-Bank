@@ -64,24 +64,8 @@
 <!-- JavaScript -->
 <script>
 
-    (function setupTicketDetailsPopup() {
-        let modal = document.getElementById("pop-up-window");
-        let btn = document.getElementById("details");
-        let close = document.getElementById("close-pop-up-button");
-
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-        window.onclick = function(event) {
-            if (event.target === modal || event.target === close) {
-                modal.style.display = "none";
-            }
-        }
-    })();
-
     $('#return-button').click(() => {
         loadPage('Bilety', 'html-podstrony/bilety/bilety.html', () => {
-            showDefaultTicketOfferContent();
         });
     });
 

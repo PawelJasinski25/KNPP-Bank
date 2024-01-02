@@ -37,13 +37,7 @@
     document.getElementById('start').min = new Date().toISOString().split('T')[0];
     document.getElementById('start').value = new Date().toISOString().split('T')[0];
 
-    (function loadSelectedTicketName() {
-        const selectedTicket = localStorage.getItem('selectedTicket');
-        const tileFirstRow = document.querySelector('.choosen-ticket-name .tile-first-row');
-        if (tileFirstRow) {
-            tileFirstRow.textContent = selectedTicket;
-        }
-    })();
+    loadSelectedTicketName('.choosen-ticket-name .tile-first-row');
 
     $('#return-button').click(() => {
         loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
