@@ -64,6 +64,26 @@ function loadCardsPage() {
     changeActive('cards-button');
 }
 
+function loadSelectedTicketName(selector) {
+    const selectedTicket = BankStorage.getTicketName();
+    const tileFirstRow = document.querySelector(selector);
+    if (tileFirstRow) {
+        tileFirstRow.textContent = selectedTicket;
+    }
+}
+
+function setupPopup(modal, btn, close) {
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal || event.target === close) {
+            modal.style.display = "none";
+        }
+    }
+}
+
 function changeActive(active_page) {
     document.getElementById(active).classList.remove('active');
     document.getElementById(active).classList.add('link-dark');

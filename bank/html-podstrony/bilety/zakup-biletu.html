@@ -10,31 +10,34 @@
         </div>
     </div>
 
-<div id="ticket-information" class="homepage-section">
-    <div class="homepage-section-header" >Dane</div>
-    <div class="ticket-information-header">Imię i Nazwisko</div>
-    <div class="ticket-information-element special-background">
-        <div class="tile">Jan Młynarz</div>
-    </div>
-    <div class="ticket-information-header">Data rozpoczęcia</div>
-    <label for="start"></label>
-    <input type="date" id="start" name="date-start" class="date-input" min="2023-01-01"/>
+    <div id="ticket-information" class="homepage-section">
+        <div class="homepage-section-header" >Dane</div>
+        <div class="ticket-information-header">Imię i Nazwisko</div>
+        <div class="ticket-information-element special-background">
+            <div class="tile">Jan Młynarz</div>
+        </div>
+        <div class="ticket-information-header">Data rozpoczęcia</div>
+        <label for="start"></label>
+        <input type="date" id="start" name="date-start" class="date-input" min="2023-01-01"/>
 
-    <div class="ticket-information-header">Kwota</div>
-    <div class="ticket-information-element special-background">
-        <div class="tile">74,50 zł</div>
+        <div class="ticket-information-header">Kwota</div>
+        <div class="ticket-information-element special-background">
+            <div class="tile">74,50 zł</div>
+        </div>
+        <div id="button-container">
+            <button id="return-button" class="blue-button" type="button">Powrót</button>
+            <button id="confirm-button" class="blue-button" type="button">Kup</button>
+        </div>
     </div>
-    <div id="button-container">
-        <button id="return-button" class="blue-button" type="button">Powrót</button>
-        <button id="confirm-button" class="blue-button" type="button">Kup</button>
-    </div>
-</div>
 </div>
 
 <!-- JavaScript -->
 <script>
+
     document.getElementById('start').min = new Date().toISOString().split('T')[0];
     document.getElementById('start').value = new Date().toISOString().split('T')[0];
+
+    loadSelectedTicketName('.choosen-ticket-name .tile-first-row');
 
     $('#return-button').click(() => {
         loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
@@ -45,4 +48,5 @@
     $('#confirm-button').click(() => {
         loadPage('Potwierdzenie zakupu', 'html-podstrony/bilety/bilet-potwierdzenie.html');
     });
+
 </script>

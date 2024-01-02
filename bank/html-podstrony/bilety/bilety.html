@@ -15,7 +15,9 @@
 <!-- JavaScript -->
 <script>
     $('#bought-tickets-button').click(() => {
-        loadPage('Zakupione bilety', 'html-podstrony/bilety/zakupione-bilety.html');
+        loadPage('Zakupione bilety', 'html-podstrony/bilety/zakupione-bilety.html', () => {
+            ticketsInformations();
+        });
     });
 
     $('#tickets-offer-button').click(() => {

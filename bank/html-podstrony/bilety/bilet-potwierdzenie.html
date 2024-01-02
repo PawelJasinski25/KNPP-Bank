@@ -1,5 +1,5 @@
- <link href="css/bilety/bilet-wspolne.css" type="text/css" rel="stylesheet">
- <link href="css/bilety/bilet-potwierdzenie.css" type="text/css" rel="stylesheet">
+<link href="css/bilety/bilet-wspolne.css" type="text/css" rel="stylesheet">
+<link href="css/bilety/bilet-potwierdzenie.css" type="text/css" rel="stylesheet">
 
 <!-- Główna zawartość strony -->
 <div id="content">
@@ -25,7 +25,11 @@
 
 <!-- JavaScript -->
 <script>
+
+    loadSelectedTicketName('.ticket-confirmation-element-text');
+
     $('#return-button').click(() => {
         loadHomePage();
     });
+
 </script>

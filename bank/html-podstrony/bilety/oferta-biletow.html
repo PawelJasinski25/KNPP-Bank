@@ -79,7 +79,11 @@
         showContent('choice-mpk');
     }
 
-    $('#MPK-U1').click(() => {
+    $('.ticket').click((event) => {
+        const ticketText = $(event.currentTarget).next().text().trim();
+        BankStorage.setTicketName(ticketText);
         loadPage('Zakup biletu', 'html-podstrony/bilety/zakup-biletu.html');
     });
+
+
 </script>

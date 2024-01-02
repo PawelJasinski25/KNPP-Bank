@@ -53,6 +53,7 @@ const TRANSACTIONS = 'transactions';
 const PENDING_BANK_TRANSFER = 'pending-bank-transfer';
 const PENDING_CARD_BLOCK = 'pending-card-block';
 const BLOCKED_CARDS = 'blocked-cards';
+const TICKET_NAME = 'ticket name';
 
 // Pomocnicze stałe
 const INCORRECT = 'incorrect';
@@ -224,6 +225,14 @@ class BankStorage {
 
     static setBlockedCards(blockedCards) {
         return localStorage.setItem(BLOCKED_CARDS, JSON.stringify(blockedCards));
+    }
+
+    static getTicketName() {
+        return localStorage.getItem(TICKET_NAME);
+    }
+
+    static setTicketName(name) {
+        return localStorage.setItem(TICKET_NAME, name);
     }
 
     // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione
