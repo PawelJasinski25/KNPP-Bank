@@ -88,11 +88,6 @@ a {
     top: 10px;
     font-size: 3em;
     font-weight: bold;
-}
-
-/*jesli zdecydujemy, ze wszystkie close-button maja byc niebieskie*/
-/*to trzeba ten color wrzucic powyzej do .close-pop-up*/
-.light-blue-color {
     color: #71a6db;
 }
 
