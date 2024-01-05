@@ -2,14 +2,50 @@
 
 <!-- Główna zawartość strony -->
 <div id="content">
+    <div id="pop-up-window" class="pop-up">
+        <div id="pop-up-content-window" class="pop-up-content h-unset pop-up-max-width">
+            <span id="close-pop-up-button" class="close-pop-up">&times;</span>
+            <div class="pop-up-header">Szczegóły</div>
+            <hr>
+            <div class="container pop-up-text">
+                <div class="row row-cols-2">
+                    <div class="col text-start">Numer karty:</div>
+                    <div id="card-number-info" class="col text-end"></div>
+
+                    <div class="col text-start">Rachunek powiązany:</div>
+                    <div id="account-name-info" class="col text-end"></div>
+
+                    <div class="col text-start">Posiadacz:</div>
+                    <div class="col text-end">Jan Młynarz</div>
+
+                    <div class="col text-start">Karta ważna od:</div>
+                    <div id="valid-from-info" class="col text-end"></div>
+
+                    <div class="col text-start">Karta ważna do:</div>
+                    <div id="valid-to-info" class="col text-end"></div>
+                </div>
+            </div>
+            <div class="pop-up-header">Limity dzienne</div>
+            <hr>
+            <div class="container pop-up-text">
+                <div class="row row-cols-2">
+                    <div class="col text-start">Płatności:</div>
+                    <div class="col text-end">1 500,00 PLN</div>
+
+                    <div class="col text-start">Wypłaty:</div>
+                    <div class="col text-end">100,00 PLN</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section id="card-information" class="page-section">
         <h2 id="section-name" class="mb-5">Twoje karty</h2>
         <div id="card-1" class="card-information-element">
-            <div class="curtain-text" style="display: flex;">
+            <div class="curtain-text">
                 <div>Zastrzeżona</div>
             </div>
             <div class="p-3">
-                <div class="curtain" style="display:flex"></div>
+                <div class="curtain"></div>
                 <div class="left-column me-2">
                     <img src="obrazki/card.png" alt="karta" style="width: 250px; height: auto">
                 </div>
@@ -18,9 +54,8 @@
                     <div class="card-information-second-row">
                         <span class="mb-2">Ważność: 11/24</span>
                         <div>
-                            <!--TODO szczegoly-->
-                            <a href="#">Szczegóły</a>
-                            <button id="block-card-button" class="btn btn-danger">Zastrzeż kartę</button>
+                            <a id="card-a-1" class="">Szczegóły</a>
+                            <button id="card-1-button" class="btn btn-danger">Zastrzeż kartę</button>
                         </div>
                     </div>
                 </div>
@@ -40,9 +75,8 @@
                     <div class="card-information-second-row">
                         <span class="mb-2">Ważność: 05/25</span>
                         <div>
-                            <!--TODO szczegoly-->
-                            <a href="#">Szczegóły</a>
-                            <button class="btn btn-danger">Zastrzeż kartę</button>
+                            <a id="card-a-2" class="">Szczegóły</a>
+                            <button id="card-2-button" class="btn btn-danger">Zastrzeż kartę</button>
                         </div>
                     </div>
                 </div>
@@ -62,9 +96,8 @@
                     <div class="card-information-second-row">
                         <span class="mb-2">Ważność: 02/27</span>
                         <div>
-                            <!--TODO szczegoly-->
-                            <a href="#">Szczegóły</a>
-                            <button class="btn btn-danger">Zastrzeż kartę</button>
+                            <a id="card-a-3" class="">Szczegóły</a>
+                            <button id="card-3-button" class="btn btn-danger">Zastrzeż kartę</button>
                         </div>
                     </div>
                 </div>
@@ -75,7 +108,45 @@
 
 <!-- JavaScript -->
 <script>
-    $('button').click(() => {
-        loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html');
-    });
+    function initializeCardsPage() {
+        cardDetailsInitialization();
+
+        $('button').click(function() {
+            BankStorage.setPendingCardBlock(this.id.slice(0, -7));
+            loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html');
+        });
+
+        let blockedCards = BankStorage.getBlockedCards();
+        if (blockedCards !== undefined && blockedCards !== null) {
+            for (let card of blockedCards) {
+                let c = document.querySelectorAll("#" + card + " [class^='curtain']");
+                c.forEach((x) => x.style.display = "flex")
+            }
+        }
+    }
+
+    function cardDetailsInitialization() {
+        let modal = document.getElementById("pop-up-window");
+        let buttons = $('[id^="card-a-"]');
+        let close = document.getElementById("close-pop-up-button");
+        document.getElementById("account-name-info").innerHTML = BankStorage.getAccountName();
+
+        for (let button of buttons) {
+            setupPopup(modal, button, close);
+            $(button).click(function() {
+                updateCardDetails(button);
+            });
+        }
+    }
+
+    function updateCardDetails(button) {
+        let container = document.getElementById(button.id).closest("div.right-column");
+        let cardNumber = container.children[0].textContent.slice(13);
+        let validTo = container.children[1].children[0].textContent.slice(9);
+        let validFrom = validTo.slice(0, 3) + (Number(validTo.slice(-2)) - 4) % 100;
+
+        document.getElementById("card-number-info").innerHTML = cardNumber;
+        document.getElementById("valid-from-info").innerHTML = validFrom;
+        document.getElementById("valid-to-info").innerHTML = validTo;
+    }
 </script>

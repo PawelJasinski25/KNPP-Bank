@@ -51,6 +51,8 @@ const ACCOUNT_NUMBER = 'account number';
 const AVAILABLE_FUNDS = 'available funds';
 const TRANSACTIONS = 'transactions';
 const PENDING_BANK_TRANSFER = 'pending-bank-transfer';
+const PENDING_CARD_BLOCK = 'pending-card-block';
+const BLOCKED_CARDS = 'blocked-cards';
 const TICKET_NAME = 'ticket name';
 
 // Pomocnicze stałe
@@ -196,6 +198,33 @@ class BankStorage {
         this.setTransactions(transactions);
 
         this.setAvailableFunds(parseFloat(this.getAvailableFunds()) - transaction.amount);
+    }
+
+    static addBlockedCard() {
+        let blockedCards = this.getBlockedCards();
+
+        if (blockedCards === undefined || blockedCards === null) {
+            blockedCards = [this.getPendingCardBlock()];
+        }
+        else blockedCards.push(this.getPendingCardBlock());
+
+        this.setBlockedCards(blockedCards);
+    }
+
+    static getPendingCardBlock() {
+        return localStorage.getItem(PENDING_CARD_BLOCK);
+    }
+
+    static setPendingCardBlock(card) {
+        return localStorage.setItem(PENDING_CARD_BLOCK, card);
+    }
+
+    static getBlockedCards() {
+        return JSON.parse(localStorage.getItem(BLOCKED_CARDS))
+    }
+
+    static setBlockedCards(blockedCards) {
+        return localStorage.setItem(BLOCKED_CARDS, JSON.stringify(blockedCards));
     }
 
     static getTicketName() {

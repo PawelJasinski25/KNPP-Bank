@@ -17,11 +17,11 @@ function loadPage(headerName, pageURL, func = function (){}) {
     if (lastPage !== pageURL) {
         $('#h1-header').html(headerName);
         $('#main').load(pageURL, (response, status) => {
-            func();
             if (status === "error") {
                 console.log("Wystąpił błąd podczas wczytywania pliku.");
                 $('#main').html('<div class="text-center">Nie udało się załadować zawartości.</div>');
             }
+            else func();
         });
         lastPage = pageURL;
     }
@@ -58,7 +58,9 @@ function loadTicketsPage() {
 }
 
 function loadCardsPage() {
-    loadPage('Karty', 'html-podstrony/karty/karty.html');
+    loadPage('Karty', 'html-podstrony/karty/karty.html', () => {
+        initializeCardsPage();
+    });
     changeActive('cards-button');
 }
 
