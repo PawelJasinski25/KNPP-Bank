@@ -57,7 +57,7 @@
             </div>
         </div>
         <div id="button-container">
-            <a id="more-transactions-button" href="#" class="blue-button" type="button">Więcej</a>
+            <a id="more-transactions-button" class="blue-button" type="button">Więcej</a>
         </div>
     </div>
 </div>
@@ -122,4 +122,8 @@
 
         fillMissingContent();
     }
+
+    $('#more-transactions-button').click(() => {
+        loadTransactionPage();
+    });
 </script>
