@@ -88,10 +88,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 }
 
-
-@media screen and (max-width: 580px) {
-    .homepage-section {
-        padding: 12.5px;
+@media screen and (max-width: 1050px){
+    #choosen-ticket {
+        width:100%;
     }
 
     .date-input {
@@ -102,6 +101,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         width: 100%;
     }
 
+}
+
+@media screen and (max-width: 580px) {
+    .homepage-section {
+        padding: 12.5px;
+    }
 
     #button-container button {
         margin-right: 0;
@@ -111,9 +116,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     body {
         font-size: smaller !important;
     }
-    #choosen-ticket {
-        width:100%;
-    }
+
 }
 
 
