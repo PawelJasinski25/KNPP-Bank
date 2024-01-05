@@ -183,6 +183,10 @@ button.btn-danger {
     .pop-up-text {
         font-size: 1em;
     }
+
+    .close-pop-up {
+        font-size: 2.66em;
+    }
 }
 
 @media (max-width: 640px) {
@@ -192,6 +196,11 @@ button.btn-danger {
 
     #pop-up-content-window {
         padding: 0.5rem!important;
+    }
+
+    .close-pop-up {
+        right: 11px;
+        top: -8px;
     }
 
     .pop-up-text > .row {
