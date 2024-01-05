@@ -121,7 +121,7 @@
             for (let card of blockedCards) {
                 let c = document.querySelectorAll("#" + card + " [class^='curtain']");
                 c.forEach((x) => x.style.display = "flex");
-                document.querySelector("#" + card + " [class^='curtain']").nextElementSibling.style.filter = '6px';
+                document.querySelector("#" + card + " [class^='curtain']").nextElementSibling.style.filter = 'blur(6px)';
             }
         }
     }
