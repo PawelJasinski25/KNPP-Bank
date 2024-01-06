@@ -54,6 +54,8 @@ const PENDING_BANK_TRANSFER = 'pending-bank-transfer';
 const PENDING_CARD_BLOCK = 'pending-card-block';
 const BLOCKED_CARDS = 'blocked-cards';
 const TICKET_NAME = 'ticket name';
+const TICKET_PRICE = 'ticket price'
+const TICKETS = 'tickets'
 
 // Pomocnicze stałe
 const INCORRECT = 'incorrect';
@@ -107,6 +109,18 @@ class BankTransfer extends Transaction {
     }
 }
 
+class Ticket extends Transaction {
+    constructor(title, date, amount, name) {
+        super(title, date, amount);
+
+        const d = new Date(date);
+        this.date = `${('0' + d.getDate()).slice(-2)}.${('0' + (d.getMonth() + 1)).slice(-2)}.${d.getFullYear()}`;
+
+        this.amount = amount.replace(/,/g, '.');
+        this.amount = amount.replace(/[^\d.]/g, '');
+    }
+}
+
 class BankStorage {
     static initialize() {
         const accountName = 'Konto dla młodych';
@@ -121,11 +135,15 @@ class BankStorage {
         // Nowe transakcje będą dodawane na koniec tablicy
         // transactionTop jest najnowszą transakcją, więc idzie na koniec tablicy
         const transactions = [transactionBottom, transactionMiddle, transactionTop];
+
+        const ticketTop = new Ticket('Park & Ride Kraków', '2024-06-29', '10', 'Jan Młynarz')
+        const tickets = [ticketTop]
     
         this.setAccountName(accountName);
         this.setAccountNumber(accountNumber);
         this.setAvailableFunds(availableFunds);
         this.setTransactions(transactions);
+        this.setTickets(tickets)
     }
 
     static clear() {
@@ -176,6 +194,14 @@ class BankStorage {
         localStorage.setItem(TRANSACTIONS, JSON.stringify(transactions));
     }
 
+    static getTickets() {
+        return JSON.parse(localStorage.getItem(TICKETS));
+    }
+
+    static setTickets(tickets) {
+        localStorage.setItem(TICKETS, JSON.stringify(tickets));
+    }
+
     static removeTransactions() {
         localStorage.removeItem(TRANSACTIONS);
     }
@@ -198,6 +224,12 @@ class BankStorage {
         this.setTransactions(transactions);
 
         this.setAvailableFunds(parseFloat(this.getAvailableFunds()) - transaction.amount);
+    }
+
+    static buyATicket(ticket) {
+        const tickets = this.getTickets()
+        tickets.push(ticket);
+        this.setTickets(tickets);
     }
 
     static addBlockedCard() {
@@ -233,6 +265,14 @@ class BankStorage {
 
     static setTicketName(name) {
         return localStorage.setItem(TICKET_NAME, name);
+    }
+
+    static getTicketPrice() {
+        return localStorage.getItem(TICKET_PRICE)
+    }
+
+    static setTicketPrice(price) {
+        return localStorage.setItem(TICKET_PRICE, price.replace(/,/g, '.'));
     }
 
     // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione

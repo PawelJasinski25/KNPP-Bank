@@ -72,6 +72,14 @@ function loadSelectedTicketName(selector) {
     }
 }
 
+function loadSelectedTicketPrice(selector) {
+    const selectedTicketPrice = BankStorage.getTicketPrice();
+    const tileSecondRow = document.querySelector(selector);
+    if (tileSecondRow) {
+        tileSecondRow.textContent = formatMoney(selectedTicketPrice);
+    }
+}
+
 function setupPopup(modal, btn, close) {
 
     btn.onclick = function() {

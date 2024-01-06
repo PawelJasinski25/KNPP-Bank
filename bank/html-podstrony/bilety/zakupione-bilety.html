@@ -10,59 +10,107 @@
             <span id="pop-up-text">Lorem Ipsum...</span>
         </div>
     </div>
+
     <div id="ticket-information" class="homepage-section">
-        <div class="ticket-information-element">
-            <div class="left-column">
-                <div class="ticket-left-column-element">Park & Ride Kraków</div>
-            </div>
-            <div class="right-column">
-                <div class="first-row">Ważny do: 30-06-2024</div>
-                <div class="second-row">
-                    <div id="details" class="second-row-element">Szczegóły</div>
-                    <div class="second-row-element">Drukuj</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="ticket-information-element">
-            <div class="ticket-placeholder">
-                <div class="left-column">
-                    <div class="ticket-left-column-element"></div>
-                </div>
-                <div class="right-column">
-                    <div class="first-row"></div>
-                    <div class="second-row">
-                        <div class="second-row-element"></div>
-                        <div class="second-row-element"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="ticket-information-element">
-            <div class="ticket-placeholder">
-                <div class="left-column">
-                    <div class="ticket-left-column-element"></div>
-                </div>
-                <div class="right-column">
-                    <div class="first-row"></div>
-                    <div class="second-row">
-                        <div class="second-row-element"></div>
-                        <div class="second-row-element"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="button-container">
             <button id="return-button" class="blue-button" type="button">Powrót</button>
             <button id="buy-button" class="blue-button" type="button">Kup bilet</button>
         </div>
-
     </div>
 </div>
 
 <!-- JavaScript -->
 <script>
+    function boughtTicketsInit() {
+        const ticketInformation = document.getElementById('ticket-information');
+        const button = document.getElementById('button-container')
+
+        expMap = new Map(
+            [['MPK - ulgowy, 1 miesiąc', 30],
+                ['MPK - ulgowy, 2 miesiące', 60],
+                ['MPK - ulgowy, 3 miesiące', 90],
+                ['MPK - normalny, 1 miesiąc', 30],
+                ['MPK - normalny, 2 miesiące', 60],
+                ['MPK - normalny, 2 miesiące', 90],
+                ['Park & Ride Kraków', 1],
+                ['Autostrada A4  Kraków Katowice', 2],
+                ['Autostrada A2  Konin Świecko', 2]]
+        );
+
+        let ticketsList = BankStorage.getTickets();
+
+        ticketsList.forEach(ticket => {
+            const ticketElement = document.createElement('div');
+            ticketElement.classList.add('ticket-information-element');
+
+            const leftColumn = document.createElement('div');
+            leftColumn.classList.add('left-column');
+
+            const ticketLeftColumnElement = document.createElement('div');
+            ticketLeftColumnElement.classList.add('ticket-left-column-element');
+            ticketLeftColumnElement.textContent = ticket.title;
+
+            leftColumn.appendChild(ticketLeftColumnElement);
+
+            const rightColumn = document.createElement('div');
+            rightColumn.classList.add('right-column');
+
+            const firstRow = document.createElement('div');
+            firstRow.classList.add('first-row');
+
+            const dateParts = ticket.date.split('.');
+            const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+            const d = new Date(formattedDate);
+            const daysToAdd = expMap.get(ticket.title);
+            d.setDate(d.getDate() + daysToAdd)
+            const str = `${('0' + d.getDate()).slice(-2)}.${('0' + (d.getMonth() + 1)).slice(-2)}.${d.getFullYear()}`;
+
+            firstRow.textContent = `Ważny do: ${str}`;
+
+            const secondRow = document.createElement('div');
+            secondRow.classList.add('second-row');
+
+            const detailsElement = document.createElement('div');
+            detailsElement.classList.add('second-row-element');
+            detailsElement.setAttribute('id', 'details');
+            detailsElement.textContent = 'Szczegóły';
+
+            const printElement = document.createElement('div');
+            printElement.classList.add('second-row-element');
+            printElement.textContent = 'Drukuj';
+
+            secondRow.appendChild(detailsElement);
+            secondRow.appendChild(printElement);
+
+            rightColumn.appendChild(firstRow);
+            rightColumn.appendChild(secondRow);
+
+            ticketElement.appendChild(leftColumn);
+            ticketElement.appendChild(rightColumn);
+
+            ticketInformation.insertBefore(ticketElement, button);
+        });
+
+        $('#return-button').click(() => {
+            loadPage('Bilety', 'html-podstrony/bilety/bilety.html');
+        });
+
+        $('#buy-button').click(() => {
+            loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
+                showDefaultTicketOfferContent();
+            });
+        });
+    }
+
+    if (document.readyState !== 'loading') {
+        boughtTicketsInit();
+    } else {
+        document.addEventListener('DOMContentLoaded', function () {
+            boughtTicketsInit();
+        });
+    }
+
     function ticketsInformations() {
         let modal = document.getElementById("pop-up-window");
         let btn = document.getElementById("details");
@@ -70,13 +118,4 @@
         setupPopup(modal, btn, close);
     }
 
-    $('#return-button').click(() => {
-        loadPage('Bilety', 'html-podstrony/bilety/bilety.html');
-    });
-
-    $('#buy-button').click(() => {
-        loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
-            showDefaultTicketOfferContent();
-        });
-    });
 </script>
