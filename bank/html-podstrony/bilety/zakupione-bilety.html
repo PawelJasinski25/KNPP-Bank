@@ -26,7 +26,7 @@
         const ticketInformation = document.getElementById('ticket-information');
         const button = document.getElementById('button-container')
 
-        expMap = new Map(
+        let expMap = new Map(
             [['MPK - ulgowy, 1 miesiąc', 30],
                 ['MPK - ulgowy, 2 miesiące', 60],
                 ['MPK - ulgowy, 3 miesiące', 90],
@@ -99,14 +99,6 @@
             loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
                 showDefaultTicketOfferContent();
             });
-        });
-    }
-
-    if (document.readyState !== 'loading') {
-        boughtTicketsInit();
-    } else {
-        document.addEventListener('DOMContentLoaded', function () {
-            boughtTicketsInit();
         });
     }
 

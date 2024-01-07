@@ -38,26 +38,26 @@
     document.getElementById('start').value = new Date().toISOString().split('T')[0];
 
     function loadBuyPage() {
-    loadSelectedTicketName('.choosen-ticket-name .tile-first-row');
-    loadSelectedTicketPrice('#amount');
-    const dateDivTran = document.getElementById('start').value;
+        loadSelectedTicketName('.choosen-ticket-name .tile-first-row');
+        loadSelectedTicketPrice('#amount');
+        const dateDivTran = document.getElementById('start').value;
 
-    $('#return-button').click(() => {
-        loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
-            showDefaultTicketOfferContent();
+        $('#return-button').click(() => {
+            loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
+                showDefaultTicketOfferContent();
+            });
         });
-    });
 
-    $('#confirm-button').click(() => {
-        const nameDiv = document.getElementById('name').textContent;
-        const titleDiv = document.getElementById('ticket-name').textContent;
-        const dateDiv = document.getElementById('start').value;
-        const amountDiv = BankStorage.getTicketPrice();
+        $('#confirm-button').click(() => {
+            const nameDiv = document.getElementById('name').textContent;
+            const titleDiv = document.getElementById('ticket-name').textContent;
+            const dateDiv = document.getElementById('start').value;
+            const amountDiv = BankStorage.getTicketPrice();
 
-        BankStorage.makeATransaction(new Ticket(titleDiv, dateDivTran, amountDiv, nameDiv));
-        BankStorage.buyATicket(new Ticket(titleDiv, dateDiv, amountDiv, nameDiv))
-        loadPage('Potwierdzenie zakupu', 'html-podstrony/bilety/bilet-potwierdzenie.html');
-    });
+            BankStorage.makeATransaction(new Ticket(titleDiv, dateDivTran, amountDiv, nameDiv));
+            BankStorage.buyATicket(new Ticket(titleDiv, dateDiv, amountDiv, nameDiv))
+            loadPage('Potwierdzenie zakupu', 'html-podstrony/bilety/bilet-potwierdzenie.html');
+        });
     }
 
     if (document.readyState !== 'loading') {
