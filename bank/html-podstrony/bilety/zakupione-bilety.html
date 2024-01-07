@@ -32,7 +32,7 @@
                 ['MPK - ulgowy, 3 miesiące', 90],
                 ['MPK - normalny, 1 miesiąc', 30],
                 ['MPK - normalny, 2 miesiące', 60],
-                ['MPK - normalny, 2 miesiące', 90],
+                ['MPK - normalny, 3 miesiące', 90],
                 ['Park & Ride Kraków', 1],
                 ['Autostrada A4  Kraków Katowice', 2],
                 ['Autostrada A2  Konin Świecko', 2]]
@@ -72,8 +72,7 @@
             secondRow.classList.add('second-row');
 
             const detailsElement = document.createElement('div');
-            detailsElement.classList.add('second-row-element');
-            detailsElement.setAttribute('id', 'details');
+            detailsElement.classList.add('second-row-element', 'details');
             detailsElement.textContent = 'Szczegóły';
 
             const printElement = document.createElement('div');
@@ -113,9 +112,11 @@
 
     function ticketsInformations() {
         let modal = document.getElementById("pop-up-window");
-        let btn = document.getElementById("details");
         let close = document.getElementById("close-pop-up-button");
-        setupPopup(modal, btn, close);
+        let buttons = document.getElementsByClassName("details");
+        for (let btn of buttons) {
+            setupPopup(modal, btn, close);
+        }
     }
 
 </script>
