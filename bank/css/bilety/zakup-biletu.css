@@ -74,6 +74,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: auto;
 }
 
+.wrong-input {
+    border-color: #ffa5a5;
+    background-color: #ffdede !important;
+    margin-bottom: 0 !important;
+}
+
+.wrong-input:focus {
+    border-color: #bf0000;
+    background-color: #ffcccc ;
+}
+
+.error-box {
+    display: none;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 3% !important;
+}
+
 @media screen and (max-width: 1100px) {
     main {
         flex-direction: column;

@@ -326,6 +326,19 @@ class BankStorage {
     
         return {'msg': msg, 'finalInputFieldValue': finalInputFieldValue, 'finalBankStorageValue': finalBankStorageValue};
     }
+
+    static handleTicketAmount(ticketAmount){
+
+        let msg;
+
+        if (ticketAmount > parseFloat(this.getAvailableFunds())) {
+            msg = TOO_MUCH;
+        }
+        else
+            msg = OK;
+
+        return msg;
+    }
 }
 
 // Metody pomocnicze

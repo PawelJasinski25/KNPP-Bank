@@ -123,7 +123,10 @@
         const ticketPrice = $(event.currentTarget).find('.ticket-text:last').text().trim();
         BankStorage.setTicketName(ticketText);
         BankStorage.setTicketPrice(ticketPrice);
-        loadPage('Zakup biletu', 'html-podstrony/bilety/zakup-biletu.html');
+        loadPage('Zakup biletu', 'html-podstrony/bilety/zakup-biletu.html', () => {
+            validateTicketPurchase();
+        });
+
     });
 
     $('#return-button').click(() => {

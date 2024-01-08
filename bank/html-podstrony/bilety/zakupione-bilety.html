@@ -4,10 +4,28 @@
 <!-- Główna zawartość strony -->
 <div id="content">
     <div id="pop-up-window" class="pop-up">
-        <div id="pop-up-content-window" class="pop-up-content h-30-percent">
+        <div id="pop-up-content-window" class="pop-up-content h-unset pop-up-max-width">
             <span id="close-pop-up-button" class="close-pop-up">&times;</span>
-            <span id="pop-up-header">Szczegóły</span>
-            <span id="pop-up-text">Lorem Ipsum...</span>
+            <div class="pop-up-header">Szczegóły</div>
+            <hr>
+            <div class="container pop-up-text">
+                <div class="row row-cols-2">
+                    <div class="col text-start">Rodzaj biletu:</div>
+                    <div id="ticket-type-info" class="col text-end"></div>
+
+                    <div class="col text-start">Posiadacz:</div>
+                    <div class="col text-end">Jan Młynarz</div>
+
+                    <div class="col text-start">Cena zakupu:</div>
+                    <div id="ticket-amount-info" class="col text-end"></div>
+
+                    <div class="col text-start">Data zakupu:</div>
+                    <div id="purchase-date-info" class="col text-end"></div>
+
+                    <div class="col text-start">Bilet ważny do:</div>
+                    <div id="valid-to-info" class="col text-end"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -102,12 +120,28 @@
         });
     }
 
+    function updateTicketDetails(index) {
+        let ticketsList = BankStorage.getTickets();
+        let selectedTicket = ticketsList[index];
+
+        let Date = document.querySelectorAll('.first-row')[index].textContent.split(':')[1].trim();
+
+        document.getElementById('ticket-type-info').textContent = selectedTicket.title;
+        document.getElementById('ticket-amount-info').textContent = selectedTicket.amount + ' zł';
+        document.getElementById('purchase-date-info').textContent = selectedTicket.date;
+        document.getElementById('valid-to-info').textContent = Date;
+
+    }
+
     function ticketsInformations() {
         let modal = document.getElementById("pop-up-window");
         let close = document.getElementById("close-pop-up-button");
         let buttons = document.getElementsByClassName("details");
-        for (let btn of buttons) {
-            setupPopup(modal, btn, close);
+        for (let i = 0; i < buttons.length; i++) {
+            setupPopup(modal,buttons[i],close);
+            $(buttons[i]).click(function() {
+                updateTicketDetails(i);
+            });
         }
     }
 

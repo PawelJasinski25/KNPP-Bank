@@ -24,6 +24,7 @@
         <div class="ticket-information-element special-background">
             <div id="amount" class="tile">74,50 zł</div>
         </div>
+        <div id="amount-error-box" class="error-box"></div>
         <div id="button-container">
             <button id="return-button" class="blue-button" type="button">Powrót</button>
             <button id="confirm-button" class="blue-button" type="button">Kup</button>
@@ -67,5 +68,33 @@
             loadBuyPage();
         });
     }
+
+
+    function validateTicketPurchase() {
+        const amountErrorBox = document.getElementById('amount-error-box');
+        const amountInputField = document.getElementById('amount');
+        const amountValue = parseFloat(amountInputField.innerText.replace(/[^\d.,]+/g, ''));
+        const ticketContainer = amountInputField.closest('.ticket-information-element');
+        const confirmButton = document.getElementById('confirm-button');
+
+        const msg = BankStorage.handleTicketAmount(amountValue);
+
+        if (msg === TOO_MUCH) {
+            amountErrorBox.innerHTML = ERRORMESSAGE2;
+            amountErrorBox.style.display = 'block';
+            amountInputField.classList.add('wrong-input');
+            ticketContainer.classList.add('wrong-input');
+            amountErrorBox.style.marginBottom = '0';
+            confirmButton.style.backgroundColor = '#b9b6b6';
+            confirmButton.disabled = true;
+        }
+
+        if (msg === OK) {
+            amountErrorBox.style.display = 'none';
+            amountInputField.classList.remove('wrong-input');
+        }
+    }
+
+
 
 </script>
