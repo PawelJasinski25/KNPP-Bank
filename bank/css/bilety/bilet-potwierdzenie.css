@@ -50,10 +50,13 @@
 
 }
 
-@media screen and (max-width: 870px) {
+@media screen and (max-width: 880px) {
 
     .blue-button{
         font-size: 0.8em ;
+    }
+    #return-button{
+        margin-right: 5%;
     }
 
 }
