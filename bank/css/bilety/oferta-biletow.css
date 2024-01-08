@@ -15,6 +15,13 @@
 
 #category-text {
     font-size: 150%;
+}
+
+.category-text {
+    font-size: 120%;
+}
+
+#category-text, .category-text {
     margin-left: 20px;
     margin-top: 10px;
 }
