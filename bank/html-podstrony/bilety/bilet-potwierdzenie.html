@@ -16,9 +16,8 @@
         </div>
 
         <div id="button-container">
-            <button id="return-button" class="blue-button" type="button">
-                Powrót do strony głównej
-            </button>
+            <button id="return-button" class="blue-button" type="button">Powrót do strony głównej</button>
+            <button id="bought-tickets-button" class="blue-button" type="button">Zakupione bilety</button>
         </div>
     </div>
 </div>
@@ -34,6 +33,13 @@
 
     $('#return-button').click(() => {
         loadHomePage();
+    });
+
+    $('#bought-tickets-button').click(() => {
+        loadPage('Zakupione bilety', 'html-podstrony/bilety/zakupione-bilety.html', () => {
+            boughtTicketsInit();
+            ticketsInformations();
+        });
     });
 
 </script>
