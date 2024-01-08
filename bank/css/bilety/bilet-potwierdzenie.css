@@ -27,16 +27,6 @@
     color:#0061a1;
 }
 
-
-#button-container {
-    text-align: center;
-}
-#button-container button {
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 30px;
-}
-
 @media screen and (max-width: 1100px) {
     main {
         flex-direction: column;
@@ -45,6 +35,38 @@
     #content {
         flex: 1;
     }
+
+    .blue-button{
+        font-size: 1.2em ;
+    }
+
+}
+
+@media screen and (max-width: 950px) {
+
+    .blue-button{
+        font-size: 1.0em ;
+    }
+
+}
+
+@media screen and (max-width: 880px) {
+
+    .blue-button{
+        font-size: 0.8em ;
+    }
+    #return-button{
+        margin-right: 5%;
+    }
+
+}
+
+@media screen and (max-width: 850px) {
+
+    .blue-button{
+        font-size: 1.0em ;
+    }
+
 }
 
 @media screen and (max-width: 680px) {

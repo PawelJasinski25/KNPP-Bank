@@ -32,6 +32,10 @@
     overflow-x: auto;
 }
 
+#transaction-list .tile {
+    margin: 10px 0;
+}
+
 #account-state .tile {
     margin-top: 20px;
 }
@@ -103,6 +107,7 @@
 }
 
 #button-container {
+    margin-top: 10px;
     text-align: right;
 }
 

@@ -72,6 +72,14 @@ function loadSelectedTicketName(selector) {
     }
 }
 
+function loadSelectedTicketPrice(selector) {
+    const selectedTicketPrice = BankStorage.getTicketPrice();
+    const tileSecondRow = document.querySelector(selector);
+    if (tileSecondRow) {
+        tileSecondRow.textContent = formatMoney(selectedTicketPrice);
+    }
+}
+
 function setupPopup(modal, btn, close) {
 
     btn.onclick = function() {
@@ -81,6 +89,16 @@ function setupPopup(modal, btn, close) {
         if (event.target === modal || event.target === close) {
             modal.style.display = "none";
         }
+    }
+}
+
+function trimIfTooLong(text, maxTextLength) {
+    if (text.length > maxTextLength) {
+        const trimmed = text.substring(0, maxTextLength - 3) + '...';
+        return trimmed;
+    }
+    else {
+        return text;
     }
 }
 

@@ -16,6 +16,7 @@
 <script>
     $('#bought-tickets-button').click(() => {
         loadPage('Zakupione bilety', 'html-podstrony/bilety/zakupione-bilety.html', () => {
+            boughtTicketsInit();
             ticketsInformations();
         });
     });

@@ -6,7 +6,7 @@
     <div id="choosen-ticket" class="homepage-section">
         <div class="homepage-section-header">Wybrany bilet</div>
         <div class="choosen-ticket-name">
-            <div class="tile-first-row">MPK - ulgowy, 1 miesiąc</div>
+            <div id="ticket-name" class="tile-first-row">MPK - ulgowy, 1 miesiąc</div>
         </div>
     </div>
 
@@ -14,7 +14,7 @@
         <div class="homepage-section-header" >Dane</div>
         <div class="ticket-information-header">Imię i Nazwisko</div>
         <div class="ticket-information-element special-background">
-            <div class="tile">Jan Młynarz</div>
+            <div id="name" class="tile">Jan Młynarz</div>
         </div>
         <div class="ticket-information-header">Data rozpoczęcia</div>
         <label for="start"></label>
@@ -22,8 +22,9 @@
 
         <div class="ticket-information-header">Kwota</div>
         <div class="ticket-information-element special-background">
-            <div class="tile">74,50 zł</div>
+            <div id="amount" class="tile">74,50 zł</div>
         </div>
+        <div id="amount-error-box" class="error-box"></div>
         <div id="button-container">
             <button id="return-button" class="blue-button" type="button">Powrót</button>
             <button id="confirm-button" class="blue-button" type="button">Kup</button>
@@ -37,16 +38,63 @@
     document.getElementById('start').min = new Date().toISOString().split('T')[0];
     document.getElementById('start').value = new Date().toISOString().split('T')[0];
 
-    loadSelectedTicketName('.choosen-ticket-name .tile-first-row');
+    function loadBuyPage() {
+        loadSelectedTicketName('.choosen-ticket-name .tile-first-row');
+        loadSelectedTicketPrice('#amount');
+        const dateDivTran = document.getElementById('start').value;
 
-    $('#return-button').click(() => {
-        loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
-            showDefaultTicketOfferContent();
+        $('#return-button').click(() => {
+            loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
+                showDefaultTicketOfferContent();
+            });
         });
-    });
 
-    $('#confirm-button').click(() => {
-        loadPage('Potwierdzenie zakupu', 'html-podstrony/bilety/bilet-potwierdzenie.html');
-    });
+        $('#confirm-button').click(() => {
+            const nameDiv = document.getElementById('name').textContent;
+            const titleDiv = document.getElementById('ticket-name').textContent;
+            const dateDiv = document.getElementById('start').value;
+            const amountDiv = BankStorage.getTicketPrice();
+
+            BankStorage.makeATransaction(new Ticket(titleDiv, dateDivTran, amountDiv, nameDiv));
+            BankStorage.buyATicket(new Ticket(titleDiv, dateDiv, amountDiv, nameDiv))
+            loadPage('Potwierdzenie zakupu', 'html-podstrony/bilety/bilet-potwierdzenie.html');
+        });
+    }
+
+    if (document.readyState !== 'loading') {
+        loadBuyPage();
+    } else {
+        document.addEventListener('DOMContentLoaded', function () {
+            loadBuyPage();
+        });
+    }
+
+
+    function validateTicketPurchase() {
+        const amountErrorBox = document.getElementById('amount-error-box');
+        const amountInputField = document.getElementById('amount');
+        const amountValue = parseFloat(amountInputField.innerText.replace(/[^\d.,]+/g, ''));
+        const ticketContainer = amountInputField.closest('.ticket-information-element');
+        const confirmButton = document.getElementById('confirm-button');
+
+        const msg = BankStorage.handleTicketAmount(amountValue);
+
+        if (msg === TOO_MUCH) {
+            amountErrorBox.innerHTML = ERRORMESSAGE2;
+            amountErrorBox.style.display = 'block';
+            amountInputField.classList.add('wrong-input');
+            ticketContainer.classList.add('wrong-input');
+            amountErrorBox.style.marginBottom = '0';
+            confirmButton.style.backgroundColor = '#b9b6b6';
+            confirmButton.disabled = true;
+        }
+
+        if (msg === OK) {
+            amountErrorBox.style.display = 'none';
+            amountInputField.classList.remove('wrong-input');
+        }
+    }
+
+
 
 </script>
