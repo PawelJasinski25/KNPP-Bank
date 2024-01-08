@@ -12,7 +12,7 @@
             <div class="ticket-confirmation-element-text">Zakupione bilety są dostępne w zakładce "Bilety" oraz w aplikacji mobilnej</div>
         </div>
         <div class="print-ticket">
-            <a href="#">Drukuj bilet</a>
+            <a href="">Drukuj bilet</a>
         </div>
 
         <div id="button-container">
@@ -25,6 +25,10 @@
 
 <!-- JavaScript -->
 <script>
+
+    document.getElementsByClassName('print-ticket')[0].firstElementChild.addEventListener("click", () => {
+        alert("Symulacja: teraz następuje przeniesienie do panelu drukowania i drukowanie biletu");
+    })
 
     loadSelectedTicketName('.ticket-confirmation-element-text');
 
