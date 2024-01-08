@@ -96,6 +96,9 @@
             const printElement = document.createElement('div');
             printElement.classList.add('second-row-element');
             printElement.textContent = 'Drukuj';
+            printElement.addEventListener("click", () => {
+                alert("Symulacja: teraz następuje przeniesienie do panelu drukowania i drukowanie biletu");
+            });
 
             secondRow.appendChild(detailsElement);
             secondRow.appendChild(printElement);

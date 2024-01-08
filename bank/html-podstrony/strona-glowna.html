@@ -106,7 +106,7 @@
             const secondRow = document.querySelector(`#${transactionDivIDs[i]} .${rowClasses[1]}`);
             const thirdRow = document.querySelector(`#${transactionDivIDs[i]} .${rowClasses[2]}`);
 
-            firstRow.innerHTML = transaction.title;
+            firstRow.innerHTML = trimIfTooLong(transaction.title, 16);
             secondRow.innerHTML = transaction.date;
             thirdRow.innerHTML = formatMoney(transaction.amount);
         }

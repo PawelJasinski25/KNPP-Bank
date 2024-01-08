@@ -92,6 +92,16 @@ function setupPopup(modal, btn, close) {
     }
 }
 
+function trimIfTooLong(text, maxTextLength) {
+    if (text.length > maxTextLength) {
+        const trimmed = text.substring(0, maxTextLength - 3) + '...';
+        return trimmed;
+    }
+    else {
+        return text;
+    }
+}
+
 function changeActive(active_page) {
     document.getElementById(active).classList.remove('active');
     document.getElementById(active).classList.add('link-dark');
