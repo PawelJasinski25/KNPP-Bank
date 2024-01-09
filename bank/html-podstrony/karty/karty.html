@@ -47,7 +47,7 @@
             <div class="p-3">
                 <div class="curtain"></div>
                 <div class="left-column me-2">
-                    <img src="obrazki/card1.png" alt="karta" style="width: 250px; height: auto">
+                    <img src="obrazki/card-1.png" alt="karta" style="width: 250px; height: auto">
                 </div>
                 <div class="right-column">
                     <div>Numer karty: 1212 4324 2343 3473</div>
@@ -68,7 +68,7 @@
             <div class="p-3">
                 <div class="curtain"></div>
                 <div class="left-column me-2">
-                    <img src="obrazki/card2.png" alt="karta" style="width: 250px; height: auto">
+                    <img src="obrazki/card-2.png" alt="karta" style="width: 250px; height: auto">
                 </div>
                 <div class="right-column">
                     <div class="media-text">Numer karty: 4322 6467 3456 5657</div>
@@ -89,7 +89,7 @@
             <div class="p-3">
                 <div class="curtain"></div>
                 <div class="left-column me-2">
-                    <img src="obrazki/card3.png" alt="karta" style="width: 250px; height: auto">
+                    <img src="obrazki/card-3.png" alt="karta" style="width: 250px; height: auto">
                 </div>
                 <div class="right-column">
                     <div>Numer karty: 1275 3333 7846 8955</div>
@@ -113,7 +113,13 @@
 
         $('button').click(function() {
             BankStorage.setPendingCardBlock(this.id.slice(0, -7));
-            loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html');
+            let container = document.getElementById(this.id).closest("div.right-column");
+            let cardNumber = container.children[0].textContent.slice(13);
+            let validTo = container.children[1].children[0].textContent.slice(9);
+            BankStorage.setPendingCardBlockInformation(cardNumber, validTo);
+            loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html', () => {
+                updatePendingCardBlock();
+            });
         });
 
         let blockedCards = BankStorage.getBlockedCards();

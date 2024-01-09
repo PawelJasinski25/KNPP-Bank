@@ -7,11 +7,11 @@
         <p>Właśnie zamierzasz zastrzec kartę</p>
         <div id="block-card-information" class="card-information-element flex-column p-3 mb-3">
             <div class="left-column-block-card">
-                <img src="obrazki/card.png" alt="karta" style="width: 250px; height: auto">
+                <img id="card-img" src="" alt="karta" style="width: 250px; height: auto">
             </div>
             <div class="right-column px-0 pb-1">
-                    <div>Numer karty: 1212 4324 2343 3473</div>
-                    <div>Ważność: 11/24</div>
+                    <div id="card-number"></div>
+                    <div id="card-valid-to"></div>
             </div>
         </div>
         <p>
@@ -34,6 +34,8 @@
 
     $('#confirm-card-block-button').click(() => {
         BankStorage.addBlockedCard();
-        loadPage('', 'html-podstrony/karty/karta-zastrzezona.html');
+        loadPage('', 'html-podstrony/karty/karta-zastrzezona.html', () => {
+            updatePendingCardBlock();
+        });
     });
 </script>

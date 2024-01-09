@@ -52,6 +52,7 @@ const AVAILABLE_FUNDS = 'available funds';
 const TRANSACTIONS = 'transactions';
 const PENDING_BANK_TRANSFER = 'pending-bank-transfer';
 const PENDING_CARD_BLOCK = 'pending-card-block';
+const PENDING_CARD_BLOCK_INFORMATION = 'pending-card-block-information';
 const BLOCKED_CARDS = 'blocked-cards';
 const TICKET_NAME = 'ticket name';
 const TICKET_PRICE = 'ticket price'
@@ -249,6 +250,14 @@ class BankStorage {
 
     static setPendingCardBlock(card) {
         return localStorage.setItem(PENDING_CARD_BLOCK, card);
+    }
+
+    static setPendingCardBlockInformation(cardNumber, validTo) {
+        return localStorage.setItem(PENDING_CARD_BLOCK_INFORMATION, JSON.stringify([cardNumber, validTo]));
+    }
+
+    static getPendingCardBlockInformation() {
+        return JSON.parse(localStorage.getItem(PENDING_CARD_BLOCK_INFORMATION));
     }
 
     static getBlockedCards() {

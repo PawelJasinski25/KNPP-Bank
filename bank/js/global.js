@@ -116,3 +116,10 @@ function changeActive(active_page) {
 
     active = active_page;
 }
+
+function updatePendingCardBlock() {
+    document.getElementById('card-img').src = "obrazki/" + BankStorage.getPendingCardBlock() + ".png";
+    let cardInfo = BankStorage.getPendingCardBlockInformation();
+    document.getElementById('card-number').innerHTML = "Numer karty: " + cardInfo[0];
+    document.getElementById('card-valid-to').innerHTML = "Ważność: " + cardInfo[1];
+}
