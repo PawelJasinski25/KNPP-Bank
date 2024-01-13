@@ -14,13 +14,16 @@
                     <div id="ticket-type-info" class="col text-end"></div>
 
                     <div class="col text-start">Posiadacz:</div>
-                    <div class="col text-end">Jan Młynarz</div>
+                    <div id="owner-info" class="col text-end"></div>
 
                     <div class="col text-start">Cena zakupu:</div>
                     <div id="ticket-amount-info" class="col text-end"></div>
 
                     <div class="col text-start">Data zakupu:</div>
                     <div id="purchase-date-info" class="col text-end"></div>
+
+                    <div class="col text-start">Bilet ważny od:</div>
+                    <div id="valid-from-info" class="col text-end"></div>
 
                     <div class="col text-start">Bilet ważny do:</div>
                     <div id="valid-to-info" class="col text-end"></div>
@@ -30,7 +33,6 @@
     </div>
 
     <div id="ticket-information" class="homepage-section">
-
         <div id="button-container">
             <button id="return-button" class="blue-button" type="button">Powrót</button>
             <button id="buy-button" class="blue-button" type="button">Kup bilet</button>
@@ -40,21 +42,10 @@
 
 <!-- JavaScript -->
 <script>
+    // onload
     function boughtTicketsInit() {
         const ticketInformation = document.getElementById('ticket-information');
-        const button = document.getElementById('button-container')
-
-        let expMap = new Map(
-            [['MPK - ulgowy, 1 miesiąc', 30],
-                ['MPK - ulgowy, 2 miesiące', 60],
-                ['MPK - ulgowy, 3 miesiące', 90],
-                ['MPK - normalny, 1 miesiąc', 30],
-                ['MPK - normalny, 2 miesiące', 60],
-                ['MPK - normalny, 3 miesiące', 90],
-                ['Park & Ride Kraków', 1],
-                ['Autostrada A4  Kraków Katowice', 2],
-                ['Autostrada A2  Konin Świecko', 2]]
-        );
+        const buttonContainer = document.getElementById('button-container');
 
         let ticketsList = BankStorage.getTickets();
 
@@ -76,15 +67,7 @@
 
             const firstRow = document.createElement('div');
             firstRow.classList.add('first-row');
-
-            const dateParts = ticket.date.split('.');
-            const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
-            const d = new Date(formattedDate);
-            const daysToAdd = expMap.get(ticket.title);
-            d.setDate(d.getDate() + daysToAdd)
-            const str = `${('0' + d.getDate()).slice(-2)}.${('0' + (d.getMonth() + 1)).slice(-2)}.${d.getFullYear()}`;
-
-            firstRow.textContent = `Ważny do: ${str}`;
+            firstRow.textContent = `Ważny do: ${ticket.validTo}`;
 
             const secondRow = document.createElement('div');
             secondRow.classList.add('second-row');
@@ -109,43 +92,43 @@
             ticketElement.appendChild(leftColumn);
             ticketElement.appendChild(rightColumn);
 
-            ticketInformation.insertBefore(ticketElement, button);
+            ticketInformation.insertBefore(ticketElement, buttonContainer);
         });
 
         $('#return-button').click(() => {
-            loadPage('Bilety', 'html-podstrony/bilety/bilety.html');
+            loadTicketsPage();
         });
 
         $('#buy-button').click(() => {
-            loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
-                showDefaultTicketOfferContent();
-            });
+            loadTicketsOfferPage();
         });
     }
 
-    function updateTicketDetails(index) {
-        let ticketsList = BankStorage.getTickets();
-        let selectedTicket = ticketsList[index];
-
-        let Date = document.querySelectorAll('.first-row')[index].textContent.split(':')[1].trim();
-
+    function updateTicketDetails(selectedTicket) {
         document.getElementById('ticket-type-info').textContent = selectedTicket.title;
-        document.getElementById('ticket-amount-info').textContent = selectedTicket.amount + ' zł';
+        document.getElementById('owner-info').textContent = selectedTicket.owner;
+        document.getElementById('ticket-amount-info').textContent = formatMoney(selectedTicket.amount);
         document.getElementById('purchase-date-info').textContent = selectedTicket.date;
-        document.getElementById('valid-to-info').textContent = Date;
-
+        document.getElementById('valid-from-info').textContent = selectedTicket.validFrom;
+        document.getElementById('valid-to-info').textContent = selectedTicket.validTo;
     }
 
+    // onload
     function ticketsInformations() {
         let modal = document.getElementById("pop-up-window");
         let close = document.getElementById("close-pop-up-button");
         let buttons = document.getElementsByClassName("details");
+
+        let ticketsList = BankStorage.getTickets();
+
         for (let i = 0; i < buttons.length; i++) {
-            setupPopup(modal,buttons[i],close);
+            setupPopup(modal, buttons[i], close);
+            
+            let selectedTicket = ticketsList[i];
+
             $(buttons[i]).click(function() {
-                updateTicketDetails(i);
+                updateTicketDetails(selectedTicket);
             });
         }
     }
-
 </script>

@@ -9,7 +9,6 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Roboto', sans-serif !important;
-    /* background-color: #212529; */
     justify-content: space-between;
 }
 
@@ -36,7 +35,6 @@ a {
 }
 
 .curtain {
-    /*filter: blur(5px);*/
     background-color: rgba(233, 233, 233, 37%);
 }
 

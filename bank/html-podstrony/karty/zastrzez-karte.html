@@ -10,8 +10,8 @@
                 <img id="card-img" src="" alt="karta" style="width: 250px; height: auto">
             </div>
             <div class="right-column px-0 pb-1">
-                    <div id="card-number"></div>
-                    <div id="card-valid-to"></div>
+                <div id="card-number"></div>
+                <div id="card-valid-to"></div>
             </div>
         </div>
         <p>
@@ -34,8 +34,6 @@
 
     $('#confirm-card-block-button').click(() => {
         BankStorage.addBlockedCard();
-        loadPage('', 'html-podstrony/karty/karta-zastrzezona.html', () => {
-            updatePendingCardBlock();
-        });
+        loadCardHasBeenCanceledPage();
     });
 </script>

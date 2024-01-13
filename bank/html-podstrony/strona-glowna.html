@@ -1,5 +1,6 @@
 <link href="css/strona-glowna-styl.css" type="text/css" rel="stylesheet">
 
+<!-- Główna zawartość strony -->
 <div id="left-column">
     <div id="account-state" class="homepage-section">
         <div class="homepage-section-header">Stan konta</div>
@@ -62,6 +63,7 @@
     </div>
 </div>
 
+<!-- JavaScript -->
 <script>
     function updateDiagram() {
         const timePeriod = document.getElementById("time-period-select").value;
@@ -73,6 +75,7 @@
         document.getElementById(diagramName).style.display = "block";
     }
 
+    // onload
     function initializeDiagrams() {
         document.getElementById("expenses-week").style.display = "block";
         document.getElementById("expenses-month").style.display = "none";
@@ -83,6 +86,7 @@
     }
 
     function fillMissingContent() {
+        const username = BankStorage.getUsername();
         const accountName = BankStorage.getAccountName();
         const accountNumber = BankStorage.getAccountNumber();
         const availableFunds = BankStorage.getAvailableFunds();
@@ -118,6 +122,8 @@
                 thirdRow.classList.add('revenue');
             }
         }
+
+        document.getElementById("username").innerHTML = username;
     }
 
     // onload
@@ -132,6 +138,6 @@
     }
 
     $('#more-transactions-button').click(() => {
-        loadTransactionPage();
+        loadTransactionsPage();
     });
 </script>

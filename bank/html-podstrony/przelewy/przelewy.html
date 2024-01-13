@@ -20,7 +20,7 @@
                 </select>
             </div>
             <div class="form-field-container">
-                <label for="beneficiary">Przelew do (imię i nazwisko)</label>
+                <label for="beneficiary">Przelew do (imię i nazwisko lub nazwa)</label>
                 <input type="text" id="beneficiary" name="beneficiary">
                 <div id="beneficiary-error-box" class="error-box"></div>
             </div>
@@ -65,6 +65,7 @@
 
 <!-- JavaScript -->
 <script>
+    // onload
     function initializeForm() {
         firstTime = true;
 
@@ -91,130 +92,6 @@
 
         document.getElementById('date').setAttribute('min', getCurrentDate());
         document.getElementById('date').value = getCurrentDate();
-    }
-
-    function validateBeneficiary() {
-        const beneficiaryErrorBox = document.getElementById('beneficiary-error-box');
-        const beneficiaryInputField = document.getElementById('beneficiary');
-        let beneficiary = beneficiaryInputField.value;
-
-        if (beneficiary !== '') {
-            if (beneficiary.length <= 30) {
-                beneficiaryErrorBox.style.display = 'none';
-                beneficiaryInputField.classList.remove('wrong-input');
-            }
-            else {
-                beneficiaryErrorBox.innerHTML = ERRORMESSAGE3;
-                beneficiaryErrorBox.style.display = 'block';
-                beneficiaryInputField.classList.add('wrong-input');
-            }
-        }
-        else {
-            beneficiaryErrorBox.innerHTML = ERRORMESSAGE1;
-            beneficiaryErrorBox.style.display = 'block';
-            beneficiaryInputField.classList.add('wrong-input');
-        }
-    }
-
-    function validateToNumber(event) {
-        const toNumberErrorBox = document.getElementById('to-number-error-box');
-        const toNumberInputField = document.getElementById('to-number');
-
-        let toNumber = toNumberInputField.value;
-        let result = BankTransfer.handleToNumber(toNumber);
-        let msg = result.msg;
-        let finalValue = result.finalValue;
-
-        if (msg === OK) {
-            toNumberErrorBox.style.display = 'none';
-            toNumberInputField.classList.remove('wrong-input');
-
-            if (event.type === 'change') {
-                toNumberInputField.value = finalValue;
-            }
-        }
-        else {
-            toNumberErrorBox.innerHTML = ERRORMESSAGE1;
-            toNumberErrorBox.style.display = 'block';
-            toNumberInputField.classList.add('wrong-input');
-        }
-    }
-
-    function validateTitle() {
-        const titleErrorBox = document.getElementById('title-error-box');
-        const titleInputField = document.getElementById('title');
-        let title = titleInputField.value;
-
-        if (title !== '') {
-            if (title.length <= 30) {
-                titleErrorBox.style.display = 'none';
-                titleInputField.classList.remove('wrong-input');
-            }
-            else {
-                titleErrorBox.innerHTML = ERRORMESSAGE3;
-                titleErrorBox.style.display = 'block';
-                titleInputField.classList.add('wrong-input');
-            }
-        }
-        else {
-            titleErrorBox.innerHTML = ERRORMESSAGE1;
-            titleErrorBox.style.display = 'block';
-            titleInputField.classList.add('wrong-input');
-        }
-    }
-
-    function validateDate() {
-        const dateErrorBox = document.getElementById('date-error-box');
-        const dateInputField = document.getElementById('date');
-
-        const dateStr = dateInputField.value;
-        const inputDate = new Date(dateStr);
-        const currentDate = new Date();
-
-        inputDate.setHours(0, 0, 0, 0);
-        currentDate.setHours(0, 0, 0, 0);
-
-        if (dateInputField.value === '' || inputDate < currentDate) {
-            dateErrorBox.innerHTML = ERRORMESSAGE1;
-            dateErrorBox.style.display = 'block';
-            dateInputField.classList.add('wrong-input');
-        }
-        else {
-            dateErrorBox.style.display = 'none';
-            dateInputField.classList.remove('wrong-input');
-        }
-    }
-
-    function validateAmount(event) {
-        const amountErrorBox = document.getElementById('amount-error-box');
-        const amountInputField = document.getElementById('amount');
-
-        const result = BankStorage.handleTransactionAmount(amountInputField.value);
-        const msg = result.msg;
-        const finalInputFieldValue = result.finalInputFieldValue;
-
-        // console.table(result);
-
-        if (msg === INCORRECT) {
-            amountErrorBox.innerHTML = ERRORMESSAGE1;
-            amountErrorBox.style.display = 'block';
-            amountInputField.classList.add('wrong-input');
-        }
-
-        if (msg === TOO_MUCH) {
-            amountErrorBox.innerHTML = ERRORMESSAGE2;
-            amountErrorBox.style.display = 'block';
-            amountInputField.classList.add('wrong-input');
-        }
-
-        if (msg === OK) {
-            amountErrorBox.style.display = 'none';
-            amountInputField.classList.remove('wrong-input');
-
-            if (event.type === 'change') {
-                amountInputField.value = finalInputFieldValue;
-            }
-        }
     }
 
     document.getElementById('beneficiary').addEventListener('input', () => {
@@ -248,10 +125,6 @@
         validateAmount(event);
     });
 
-    function isErrorBoxVisible(errorBox) {
-        return window.getComputedStyle(errorBox).display === 'block';
-    }
-
     document.getElementById('form-button').addEventListener('click', (event) => {
         if (firstTime) {
             firstTime = false;
@@ -278,7 +151,7 @@
         ];
 
         // sprawdzamy czy przynajmniej jeden error box jest widoczny
-        const isWrongInput = errorBoxes.some(isErrorBoxVisible);
+        const isWrongInput = errorBoxes.some(errorBox => window.getComputedStyle(errorBox).display === 'block');
 
         if (!isWrongInput) {
             const fromAccount = BankStorage.getAccountName();
@@ -289,20 +162,17 @@
             const date = document.getElementById('date').value.split('-').reverse().join('.');
 
             let amount = document.getElementById('amount').value;
-            let finalAmount = BankStorage.handleTransactionAmount(amount).finalBankStorageValue;
+            let finalAmount = Transaction.handleTransactionAmount(amount, BankStorage.getAvailableFunds()).finalBankStorageValue;
 
             const pendingBankTransfer = new BankTransfer(fromAccount, fromNumber, beneficiary, toNumber, title, date, String(finalAmount), EXPENSE);
             BankStorage.setPendingBankTransfer(pendingBankTransfer);
 
-            loadPage('Zatwierdź poprawność danych', 'html-podstrony/przelewy/zatwierdzenie-przelewu.html', () => {
-                initializeConfirmationTile();
-            });
-
+            loadBankTransferConfirmationPage();
         }
         else {
             document.getElementById('pop-up-window').style.display = 'block';
 
-            // Blokujemy przejście do kolejnego okna
+            // blokujemy przejście do kolejnego okna
             event.preventDefault();
         }
     });

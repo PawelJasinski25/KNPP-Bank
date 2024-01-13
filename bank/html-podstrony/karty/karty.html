@@ -16,7 +16,7 @@
                     <div id="account-name-info" class="col text-end"></div>
 
                     <div class="col text-start">Posiadacz:</div>
-                    <div class="col text-end">Jan Młynarz</div>
+                    <div id="owner-info" class="col text-end"></div>
 
                     <div class="col text-start">Karta ważna od:</div>
                     <div id="valid-from-info" class="col text-end"></div>
@@ -108,21 +108,24 @@
 
 <!-- JavaScript -->
 <script>
+    // onload
     function initializeCardsPage() {
         cardDetailsInitialization();
 
         $('button').click(function() {
             BankStorage.setPendingCardBlock(this.id.slice(0, -7));
+
             let container = document.getElementById(this.id).closest("div.right-column");
             let cardNumber = container.children[0].textContent.slice(13);
             let validTo = container.children[1].children[0].textContent.slice(9);
+
             BankStorage.setPendingCardBlockInformation(cardNumber, validTo);
-            loadPage('Zastrzeganie karty', 'html-podstrony/karty/zastrzez-karte.html', () => {
-                updatePendingCardBlock();
-            });
+
+            loadCancelCardPage();
         });
 
         let blockedCards = BankStorage.getBlockedCards();
+
         if (blockedCards !== undefined && blockedCards !== null) {
             for (let card of blockedCards) {
                 let c = document.querySelectorAll("#" + card + " [class^='curtain']");
@@ -136,10 +139,13 @@
         let modal = document.getElementById("pop-up-window");
         let buttons = $('[id^="card-a-"]');
         let close = document.getElementById("close-pop-up-button");
+
         document.getElementById("account-name-info").innerHTML = BankStorage.getAccountName();
+        document.getElementById("owner-info").innerHTML = BankStorage.getUsername();
 
         for (let button of buttons) {
             setupPopup(modal, button, close);
+            
             $(button).click(function() {
                 updateCardDetails(button);
             });

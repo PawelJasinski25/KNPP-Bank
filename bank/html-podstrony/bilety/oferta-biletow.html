@@ -44,7 +44,7 @@
                     <img src="obrazki\MPK-N2.png" alt="MPK-N2 img">
                 </span>
                 <span class="ticket-text">MPK - normalny, 2 miesiące<br></span>
-                <span class="ticket-text">  318,00 zł </span>
+                <span class="ticket-text"> 318,00 zł </span>
             </button>
             <button class="ticket-wrapper">
                 <span id="MPK-N3" class="ticket">
@@ -116,6 +116,7 @@
         }
     }
 
+    // onload
     function showDefaultTicketOfferContent() {
         showContent('choice-mpk');
     }
@@ -123,19 +124,14 @@
     $('.ticket-wrapper').click((event) => {
         const ticketText = $(event.currentTarget).find('.ticket-text:first').text().trim();
         const ticketPrice = $(event.currentTarget).find('.ticket-text:last').text().trim();
-        BankStorage.setTicketName(ticketText);
-        BankStorage.setTicketPrice(ticketPrice);
-        loadPage('Zakup biletu', 'html-podstrony/bilety/zakup-biletu.html', () => {
-            validateTicketPurchase();
-        });
 
+        BankStorage.setTicketName(ticketText);
+        BankStorage.setTicketPrice(ticketPrice.replace(/[^\d.,]+/g, ''));
+
+        loadTicketPurchasePage();
     });
 
     $('#return-button').click(() => {
-        loadPage('Oferta biletów', 'html-podstrony/bilety/bilety.html', () => {
-            showDefaultTicketOfferContent();
-        });
+        loadTicketsOfferPage();
     });
-
-
 </script>
