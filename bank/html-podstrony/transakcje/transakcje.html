@@ -1,0 +1,477 @@
+<link href="css/transakcje/transakcje-styl.css" type="text/css" rel="stylesheet">
+
+<div id="outer-container">
+    <div id="search-bar-container">
+        <input type="text" id="search-bar" placeholder="Szukaj po tytule...">
+        <div id="search-bar-cross">&times;</div>
+    </div>
+    <div id="search-filters-container">
+        <div class="radio-container">
+            <label for="all">Wszystko</label>
+            <input type="radio" id="all" name="transaction-filter" value="all">
+        </div>
+        <div class="radio-container">
+            <label for="expenses">Wydatki</label>
+            <input type="radio" id="expenses" name="transaction-filter" value="expenses">
+        </div>
+        <div class="radio-container">
+            <label for="revenues">Przychody</label>
+            <input type="radio" id="revenues" name="transaction-filter" value="revenues">
+        </div>
+    </div>
+    <div id="transaction-list-container"></div>
+</div>
+
+<div id="pop-up-window" class="pop-up">
+    <div id="pop-up-content-window" class="pop-up-content">
+        <span id="close-pop-up-button" class="close-pop-up">&times;</span>
+        <div id="pop-up-title">Szczegóły</div>
+        <div id="pop-up-text"></div>
+    </div>
+</div>
+
+<!--
+
+<div class="month-transactions">
+    <div class="month">
+        Styczeń 2024
+    </div>
+    <div class="transaction-tile">
+        <div class="title-date-container">
+            <div class="title">
+                Tytuł
+            </div>
+            <div class="date">
+                01.01.2024
+            </div>
+        </div>
+        <div class="amount">
+            50
+        </div>
+        <div class=index">
+            0
+        </div>
+    </div>
+    <div class="transaction-tile">
+        <div class="title-date-container">
+            <div class="title">
+                Tytuł
+            </div>
+            <div class="date">
+                01.01.2024
+            </div>
+        </div>
+        <div class="amount">
+            50
+        </div>
+        <div class=index">
+            0
+        </div>
+    </div>
+    <div class="transaction-tile">
+        <div class="title-date-container">
+            <div class="title">
+                Tytuł
+            </div>
+            <div class="date">
+                01.01.2024
+            </div>
+        </div>
+        <div class="amount">
+            50
+        </div>
+        <div class=index">
+            0
+        </div>
+    </div>
+</div>
+<div class="month-transactions">
+    <div class="month">
+        Styczeń 2024
+    </div>
+    <div class="transaction-tile">
+        <div class="title-date-container">
+            <div class="title">
+                Tytuł
+            </div>
+            <div class="date">
+                01.01.2024
+            </div>
+        </div>
+        <div class="amount">
+            50
+        </div>
+        <div class=index">
+            0
+        </div>
+    </div>
+</div>
+<div class="month-transactions">
+    <div class="month">
+        Styczeń 2024
+    </div>
+    <div class="transaction-tile">
+        <div class="title-date-container">
+            <div class="title">
+                Tytuł
+            </div>
+            <div class="date">
+                01.01.2024
+            </div>
+        </div>
+        <div class="amount">
+            50
+        </div>
+        <div class=index">
+            0
+        </div>
+    </div>
+    <div class="transaction-tile">
+        <div class="title-date-container">
+            <div class="title">
+                Tytuł
+            </div>
+            <div class="date">
+                01.01.2024
+            </div>
+        </div>
+        <div class="amount">
+            50
+        </div>
+        <div class=index">
+            0
+        </div>
+    </div>
+</div>
+
+-->
+
+<!-- 
+
+<div class="info-container">
+    <div class="info-type">
+        Numer konta
+    </div>
+    <div class="info-content">
+        12 2817 5019 2380 0000 0003 3456
+    </div>
+</div>
+
+ -->
+
+<script>
+    function initializeTransactionPage() {
+        document.getElementById("all").checked = true;
+        initializeTransactionList();
+
+        const transactionsTiles = document.getElementsByClassName('transaction-tile');
+
+        for (let tile of transactionsTiles) {
+            tile.addEventListener('click', () => {
+                const popUpWindow = document.getElementById('pop-up-window');
+                popUpWindow.style.display = 'block';
+
+                const popUpText = document.getElementById('pop-up-text');
+                popUpText.innerHTML = '';
+                
+                const index = tile.getElementsByClassName('index')[0].innerHTML;
+                const transaction = BankStorage.getTransactions()[index];
+
+                if (transaction.fromAccount) {
+                    const infos = {
+                        'Konto nadawcy': transaction.fromAccount, 
+                        'Numer nadawcy': transaction.fromNumber, 
+                        'Beneficjent': transaction.beneficiary, 
+                        'Numer beneficjenta': transaction.toNumber, 
+                        'Tytuł': transaction.title, 
+                        'Data': transaction.date, 
+                        'Kwota': transaction.amount, 
+                        'Typ operacji': 'Przelew na konto'
+                    };
+
+                    for (let info in infos) {
+                        const infoContainer = document.createElement('div');
+                        infoContainer.classList.add('info-container');
+
+                        const infoType = document.createElement('div');
+                        infoType.classList.add('info-type');
+                        infoType.textContent = info;
+
+                        const infoContent = document.createElement('div');
+                        infoContent.classList.add('info-content');
+                        infoContent.textContent = infos[info];
+
+                        infoContainer.appendChild(infoType);
+                        infoContainer.appendChild(infoContent);
+
+                        popUpText.appendChild(infoContainer);
+                    }
+                }
+            });
+        }
+    }
+
+    function initializeTransactionList() {
+        const transactions = BankStorage.getTransactions();
+        const sortedByMonth = sortByMonth(transactions);
+
+        const transactionListContainer = document.getElementById('transaction-list-container');
+
+        const monthTransactionDivs = createMonthTransactionDivs(sortedByMonth);
+
+        monthTransactionDivs.forEach((div) => transactionListContainer.appendChild(div));
+    }
+
+    function sortByMonth(transactions) {
+        let i = 0;
+
+        const sortedByMonth = transactions.reduce((result, transaction) => {
+            const polishMonthName = getPolishMonthName(transaction.date);
+            const key = `${polishMonthName} ${transaction.date.slice(-4)}`;
+
+            if (!result[key]) {
+                result[key] = [];
+            }
+
+            result[key].push({ 'index': i, 'transaction': transaction});
+
+            i++;
+
+            return result;
+        }, {});
+
+        const finalArray = Object.keys(sortedByMonth).map((key) => {
+            return { 'monthName': key, 'transactionsInMonth': sortedByMonth[key] };
+        });
+
+        finalArray.sort((a, b) => {
+            const [monthA, yearA] = a.monthName.split(' ');
+            const [monthB, yearB] = b.monthName.split(' ');
+
+            if (yearA !== yearB) {
+                return parseInt(yearA) - parseInt(yearB);
+            }
+
+            const indexA = monthsOrder.indexOf(monthA);
+            const indexB = monthsOrder.indexOf(monthB);
+
+            return indexA - indexB;
+        });
+
+        finalArray.reverse();
+
+        for (let obj of finalArray) {
+            obj.transactionsInMonth.sort((a, b) => {
+                const dateA = new Date(a.transaction.date.split('.').reverse().join('-'));
+                const dateB = new Date(b.transaction.date.split('.').reverse().join('-'));
+                return dateA - dateB;
+            });
+
+            obj.transactionsInMonth.reverse();
+        }
+
+        return finalArray;
+    }
+
+    function createMonthTransactionDivs(transactionsSortedByMonth) {
+        let monthTransactionDivs = [];
+
+        for (let obj of transactionsSortedByMonth) {
+            const monthName = obj.monthName;
+            const transactionsInMonth = obj.transactionsInMonth;
+
+            const monthTransactions = document.createElement("div");
+            monthTransactions.classList.add("month-transactions");
+
+            const month = document.createElement("div");
+            month.classList.add("month");
+            month.textContent = monthName;
+
+            monthTransactions.appendChild(month);
+
+            for (let innerObj of transactionsInMonth) {
+                const transactionTile = createTransactionTile(innerObj);
+                monthTransactions.appendChild(transactionTile);
+            }
+
+            monthTransactionDivs.push(monthTransactions);
+        }
+
+        return monthTransactionDivs;
+    }
+
+    function createTransactionTile(obj) {
+        const transactionTile = document.createElement("div");
+        transactionTile.classList.add('transaction-tile');
+
+        const index = obj.index;
+        const transaction = obj.transaction;
+
+        const title = transaction.title;
+        const date = transaction.date;
+        const amount = transaction.amount;
+        const type = transaction.type;
+
+        const titleDiv = document.createElement("div");
+        titleDiv.classList.add("title");
+        titleDiv.textContent = title;
+
+        const dateDiv = document.createElement("div");
+        dateDiv.classList.add("date");
+        dateDiv.textContent = date;
+
+        const amountDiv = document.createElement("div");
+        amountDiv.classList.add("amount");
+        amountDiv.textContent = formatMoney(amount);
+
+        if (type === EXPENSE) {
+            amountDiv.classList.add("expense");
+        }
+
+        if (type === REVENUE) {
+            amountDiv.classList.add("revenue");
+        }
+
+        transactionTile.appendChild(titleDiv);
+        transactionTile.appendChild(dateDiv);
+        transactionTile.appendChild(amountDiv);
+
+        const indexDiv = document.createElement("div");
+        indexDiv.classList.add("index");
+        indexDiv.textContent = index;
+        transactionTile.appendChild(indexDiv);
+
+        return transactionTile;
+    }
+
+    function getPolishMonthName(transactionDate) {
+        const [day, month, year] = transactionDate.split('.').map(Number);
+        const monthName = new Date(year, month - 1, day).toLocaleString('pl-PL', { month: 'long' });
+        return monthName.charAt(0).toUpperCase() + monthName.slice(1);
+    }
+
+    function filterByRadioBtn() {
+        const allBtn = document.getElementById('all');
+        const expensesBtn = document.getElementById('expenses');
+        const revenuesBtn = document.getElementById('revenues');
+
+        const monthTransactions = document.getElementsByClassName('month-transactions');
+        const nonEmptyMonths = Array.from(monthTransactions).filter(transaction => { return !transaction.classList.contains('invisible') });
+
+        let filter = "";
+
+        if (allBtn.checked) {
+            filter = "all";
+        }
+        else if (expensesBtn.checked) {
+            filter = "expense";
+        }
+        else if (revenuesBtn.checked) {
+            filter = "revenue";
+        }
+
+        for (let transaction of nonEmptyMonths) {
+            const transactionTiles = transaction.getElementsByClassName('transaction-tile');
+            const nonEmptyTiles = Array.from(transactionTiles).filter(tile => { return !tile.classList.contains('invisible') });
+
+            if (filter === "all") {
+                for (let tile of nonEmptyTiles) {
+                    tile.style.display = "";
+                }
+
+                transaction.style.display = "";
+            }
+            else {                
+                for (let tile of nonEmptyTiles) {
+                    const amount = tile.getElementsByClassName('amount')[0];
+
+                    if (amount.classList.contains(filter)) {
+                        tile.style.display = "";
+                    }
+                    else {
+                        tile.style.display = "none";
+                    }
+                }
+            }
+
+            const isMonthEmpty = Array.from(nonEmptyTiles).every(tile => {
+                return tile.style.display === "none";
+            });
+
+            if (isMonthEmpty) {
+                transaction.style.display = "none";
+            }
+            else {
+                transaction.style.display = "";
+            }
+        }
+    }
+
+    document.getElementById('all').addEventListener('change', () => {
+        filterByRadioBtn();
+    });
+
+    document.getElementById('expenses').addEventListener('change', () => {
+        filterByRadioBtn();
+    });
+
+    document.getElementById('revenues').addEventListener('change', () => {
+        filterByRadioBtn();
+    });
+
+    document.getElementById('search-bar').addEventListener('keyup', () => {
+        const searchBar = document.getElementById('search-bar');
+        const filter = searchBar.value.toUpperCase();
+        const monthTransactions = document.getElementsByClassName('month-transactions');
+
+        for (let transaction of monthTransactions) {
+            const transactionTiles = transaction.getElementsByClassName('transaction-tile');
+
+            for (let tile of transactionTiles) {
+                const title = tile.getElementsByClassName('title')[0];
+
+                if (title.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tile.style.display = "";
+                    tile.classList.remove('invisible');
+                }
+                else {
+                    tile.style.display = "none";
+                    tile.classList.add('invisible');
+                }
+            }
+
+            const isMonthEmpty = Array.from(transactionTiles).every(tile => {
+                return tile.style.display === "none";
+            });
+
+            if (isMonthEmpty) {
+                transaction.style.display = "none";
+                transaction.classList.add('invisible');
+            }
+            else {
+                transaction.style.display = "";
+                transaction.classList.remove('invisible');
+            }
+        }
+
+        filterByRadioBtn();
+    });
+
+    document.getElementById('search-bar-cross').addEventListener('click', () => {
+        const searchBar = document.getElementById('search-bar');
+        searchBar.value = '';
+
+        const keyupEvent = new KeyboardEvent('keyup', { key: 'Backspace' });
+        searchBar.dispatchEvent(keyupEvent);
+    });
+
+    document.getElementById('close-pop-up-button').addEventListener('click', () => {
+        document.getElementById('pop-up-window').style.display = 'none';
+    });
+
+    document.getElementById('pop-up-window').addEventListener('click', (e) => {
+        if(!e.target.matches('#pop-up-content-window') && !e.target.matches('#pop-up-title') && !e.target.matches('#pop-up-text') && !e.target.matches('.info-container') && !e.target.matches('.info-type') && !e.target.matches('.info-content')) {
+            document.getElementById('pop-up-window').style.display = 'none';
+        }
+    });
+</script>

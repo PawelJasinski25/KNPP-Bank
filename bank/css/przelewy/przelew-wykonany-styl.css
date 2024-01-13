@@ -45,17 +45,5 @@ main {
 @media screen and (max-width: 300px) {
     #main-container {
         font-size: 0.9em;
-    }
-    
-    #open-navigation-button {
-        top: 40px;
-    }
-
-    #page-header a {
-        align-self: flex-end;
-    }
-
-    #page-header img {
-        height: 60px;
-    }
+    }    
 }

@@ -8,6 +8,11 @@ const ERRORMESSAGE1 = 'Nieprawidłowe dane';
 const ERRORMESSAGE2 = 'Brak wystarczających środków na koncie';
 const ERRORMESSAGE3 = 'Przekroczono limit znaków';
 
+const monthsOrder = [
+    "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+];
+
 // funkcja do zmiany strony (a dokladniej: zawartosci <main>)
 // params:
 //      headerName: naglowek strony
@@ -36,7 +41,9 @@ function loadHomePage() {
 }
 
 function loadTransactionPage() {
-    loadPage('Transakcje', 'html-podstrony/transakcje/transakcje.html');
+    loadPage('Transakcje', 'html-podstrony/transakcje/transakcje.html', () => {
+        initializeTransactionPage();
+    });
     changeActive('transactions-button');
 }
 

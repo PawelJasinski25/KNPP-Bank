@@ -291,7 +291,7 @@
             let amount = document.getElementById('amount').value;
             let finalAmount = BankStorage.handleTransactionAmount(amount).finalBankStorageValue;
 
-            const pendingBankTransfer = new BankTransfer(fromAccount, fromNumber, beneficiary, toNumber, title, date, String(finalAmount));
+            const pendingBankTransfer = new BankTransfer(fromAccount, fromNumber, beneficiary, toNumber, title, date, String(finalAmount), EXPENSE);
             BankStorage.setPendingBankTransfer(pendingBankTransfer);
 
             loadPage('Zatwierdź poprawność danych', 'html-podstrony/przelewy/zatwierdzenie-przelewu.html', () => {
@@ -309,5 +309,11 @@
 
     document.getElementById('close-pop-up-button').addEventListener('click', () => {
         document.getElementById('pop-up-window').style.display = 'none';
+    });
+
+    document.getElementById('pop-up-window').addEventListener('click', (e) => {
+        if(!e.target.matches('#pop-up-content-window') && !e.target.matches('#pop-up-text')) {
+            document.getElementById('pop-up-window').style.display = 'none';
+        }
     });
 </script>

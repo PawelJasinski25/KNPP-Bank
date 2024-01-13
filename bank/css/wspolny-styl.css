@@ -118,6 +118,9 @@ a {
 
 #username {
     font-size: 1.5em;
+    text-wrap: nowrap;
+    overflow-x: auto;
+    width: 200px;
 }
 
 #close-navigation-button {
@@ -130,6 +133,10 @@ a {
 
 #settings-button, #logout-button {
     font-size: 1.25em;
+}
+
+#settings-button {
+    margin-top: 10px;
 }
 
 #page-header {
@@ -188,6 +195,64 @@ main {
     background-color: #0087eb;
 }
 
+.expense {
+    color: red;
+    font-weight: bold;
+}
+
+.expense::before {
+    content: '-';
+}
+
+.revenue {
+    color: #009900;
+    font-weight: bold;
+}
+
+.revenue::before {
+    content: '+';
+}
+
+@media screen and (max-height: 1080px) {
+    main {
+        flex: 1;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #curtain.display {
+        display: block;
+    }
+
+    #navigation {
+        display: none !important;
+    }
+
+    #navigation.show {
+        display: flex !important;
+    }
+
+    #close-navigation-button {
+        display: inline;
+    }
+
+    #open-navigation-button {
+        display: block;
+    }
+
+    #username {
+        width: 150px;
+    }
+
+    #page-header, main, #page-footer {
+        margin-left: 0
+    }
+
+    #page-header img {
+        height: 75px;
+    }
+}
+
 @media screen and (max-width: 575px) {
     #page-header {
         flex-direction: column-reverse;
@@ -216,44 +281,41 @@ main {
     }
 }
 
-@media screen and (max-width: 850px) {
-    #curtain.display {
-        display: block;
+@media screen and (max-width: 450px) {
+    main {
+        font-size: 0.9em;
     }
-
-    #navigation {
-        display: none !important;
-    }
-
-    #navigation.show {
-        display: flex !important;
-    }
-
-    #close-navigation-button {
-        display: inline;
-    }
-
-    #open-navigation-button {
-        display: block;
-    }
-
-    #page-header, main, #page-footer {
-        margin-left: 0
+    
+    #page-header h1 {
+        font-size: 1.75em;
     }
 
     #page-header img {
-        height: 75px;
+        height: 60px;
     }
 }
 
-/*@media (min-width: 1100px) {*/
-/*    main {*/
-/*        max-height: 1080px;*/
-/*    }*/
-/*}*/
-
-@media (max-height: 1080px) {
+@media screen and (max-width: 350px) {
     main {
-        flex: 1;
+        padding: 7px 11px;
+    }
+    
+    #page-header img {
+        align-self: flex-end;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    #navigation {
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    #close-navigation-button {
+        right: 10px;
+    }
+
+    #username {
+        width: calc(100% - 75px);
     }
 }

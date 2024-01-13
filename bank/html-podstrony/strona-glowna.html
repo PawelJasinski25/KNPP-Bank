@@ -1,4 +1,4 @@
-<link href="css/index-styl.css" type="text/css" rel="stylesheet">
+<link href="css/strona-glowna-styl.css" type="text/css" rel="stylesheet">
 
 <div id="left-column">
     <div id="account-state" class="homepage-section">
@@ -109,6 +109,14 @@
             firstRow.innerHTML = trimIfTooLong(transaction.title, 16);
             secondRow.innerHTML = transaction.date;
             thirdRow.innerHTML = formatMoney(transaction.amount);
+
+            if (transaction.type === EXPENSE) {
+                thirdRow.classList.add('expense');
+            }
+
+            if (transaction.type === REVENUE) {
+                thirdRow.classList.add('revenue');
+            }
         }
     }
 

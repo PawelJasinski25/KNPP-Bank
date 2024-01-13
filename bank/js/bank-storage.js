@@ -58,6 +58,10 @@ const TICKET_NAME = 'ticket name';
 const TICKET_PRICE = 'ticket price'
 const TICKETS = 'tickets'
 
+// Typy transakcji
+const EXPENSE = "expense";
+const REVENUE = "revenue";
+
 // Pomocnicze stałe
 const INCORRECT = 'incorrect';
 const TOO_MUCH = 'too much';
@@ -66,16 +70,17 @@ const OK = 'ok';
 // Klasy
 
 class Transaction {
-    constructor(title, date, amount) {
+    constructor(title, date, amount, type) {
         this.title = title;
         this.date = date;
         this.amount = amount;
+        this.type = type;
     }
 }
 
 class BankTransfer extends Transaction {
-    constructor(fromAccount, fromNumber, beneficiary, toNumber, title, date, amount) {
-        super(title, date, amount);
+    constructor(fromAccount, fromNumber, beneficiary, toNumber, title, date, amount, type) {
+        super(title, date, amount, type);
         this.fromAccount = fromAccount;
         this.fromNumber = fromNumber;
         this.beneficiary = beneficiary;
@@ -127,15 +132,21 @@ class BankStorage {
         const accountName = 'Konto dla młodych';
         const accountNumber = '12 2817 5019 2380 0000 0003 3456';
         const availableFunds = '425.34';
+
+        // Długie linie kodu :(
     
-        const transactionTop = new Transaction('Kebab', '08.12.2023', '25');
-        const transactionMiddle = new Transaction('Mandat', '06.12.2023', '150');
-        const transactionBottom = new Transaction('Frytki', '01.12.2023', '8.50');
+        const transactionTop = new BankTransfer(accountName, accountNumber, 'Budka z kebabami', '123 456 789', 'Kebab', '08.12.2023', '25', EXPENSE);
+        const transactionMiddle = new BankTransfer(accountName, accountNumber, 'MPK', '99 8888 7777 6666 5555 4444 3333', 'Mandat', '06.12.2023', '150', EXPENSE);
+        const transactionBottom = new BankTransfer('Konto UJ', '00 0000 0000 0000 0000 0000 0000', 'Jan Młynarz', accountNumber, 'Stypednium', '01.12.2023', '800', REVENUE);
+
+        const other1 = new BankTransfer(accountName, accountNumber, 'RTV Euro AGD', '222 111 000', 'Zakup monitora', '30.11.2023', '959.66', EXPENSE);
+        const other2 = new BankTransfer('Cichy wielbiciel', '128 516 131', 'Jan Młynarz', accountNumber, 'Prezent', '15.11.2023', '40', REVENUE);
+        const other3 = new BankTransfer('Konto UJ', '00 0000 0000 0000 0000 0000 0000', 'Jan Młynarz', accountNumber, 'Stypednium', '01.11.2023', '800', REVENUE);
 
         // Wszystkie transakcje będą przechowywane w tablicy
         // Nowe transakcje będą dodawane na koniec tablicy
         // transactionTop jest najnowszą transakcją, więc idzie na koniec tablicy
-        const transactions = [transactionBottom, transactionMiddle, transactionTop];
+        const transactions = [other1, other2, other3, transactionBottom, transactionMiddle, transactionTop];
 
         const ticketTop = new Ticket('Park & Ride Kraków', '2024-06-29', '10', 'Jan Młynarz')
         const tickets = [ticketTop]
