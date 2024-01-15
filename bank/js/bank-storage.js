@@ -281,7 +281,7 @@ class BankStorage {
             '00 0000 0000 0000 0000 0000 0000', 
             username, 
             accountNumber, 
-            'Stypednium', 
+            'Stypendium',
             '07.12.2023', 
             '800', 
             REVENUE
@@ -325,7 +325,7 @@ class BankStorage {
             '00 0000 0000 0000 0000 0000 0000', 
             username, 
             accountNumber, 
-            'Stypednium', 
+            'Stypendium',
             '01.11.2023', 
             '800', 
             REVENUE
