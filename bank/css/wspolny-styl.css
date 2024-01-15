@@ -1,4 +1,4 @@
-/* Tu trafia css wspólny dla danych obiektów, np. jak ma być klasa "sekcja" i ona wszędzie ma wyglądać tak samo, to tu wrzucamy */
+/* Styl strony index.html + ogólne style, które powtarzają się na wielu stronach */
 
 html {
     height: 100%;
@@ -16,81 +16,13 @@ a {
     cursor: pointer;
 }
 
-#curtain {
+#nav-curtain {
     display: none;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.4) !important;
     position: fixed;
     z-index: 90;
-}
-
-.curtain, .curtain-text {
-    display: none;
-    min-width: 100%;
-    min-height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.curtain {
-    background-color: rgba(233, 233, 233, 37%);
-}
-
-.curtain-text {
-    color: #fc0303;
-    font-size: 3em;
-    z-index: 80;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-shadow: 1px 1px #cdcdcd;
-}
-
-.pop-up {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 110;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.pop-up-content {
-    background-color: white;
-    width: 80%;
-    max-width: 700px;
-    height: 40%;
-    min-height: 225px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.h-30-percent {
-    height: 30% !important;
-}
-
-.close-pop-up {
-    cursor: pointer;
-    position: absolute;
-    right: 35px;
-    top: 10px;
-    font-size: 3em;
-    font-weight: bold;
-    color: #71a6db;
-}
-
-.card-information-element div:has(> .curtain[style="display: flex;"]) {
-    filter: blur(6px);
 }
 
 .active {
@@ -159,10 +91,10 @@ a {
 
 #page-header img {
     height: 100px;
+    cursor: pointer;
 }
 
 main {
-    /*flex: 1;*/
     margin-left: 280px;
     padding: 30px 45px;
     display: flex;
@@ -177,40 +109,6 @@ main {
     text-align: center;
 }
 
-.blue-button {
-    color: white;
-    background-color: #0061a1;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1.5em;
-    text-decoration: none;
-    text-align: center;
-    display: inline-block;
-}
-
-.blue-button:hover {
-    background-color: #0087eb;
-}
-
-.expense {
-    color: red;
-    font-weight: bold;
-}
-
-.expense::before {
-    content: '-';
-}
-
-.revenue {
-    color: #009900;
-    font-weight: bold;
-}
-
-.revenue::before {
-    content: '+';
-}
-
 @media screen and (max-height: 1080px) {
     main {
         flex: 1;
@@ -218,7 +116,7 @@ main {
 }
 
 @media screen and (max-width: 850px) {
-    #curtain.display {
+    #nav-curtain.display {
         display: block;
     }
 
@@ -316,4 +214,78 @@ main {
     #username {
         width: calc(100% - 75px);
     }
+}
+
+.blue-button {
+    color: white;
+    background-color: #0061a1;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+}
+
+.blue-button:hover {
+    background-color: #0087eb;
+}
+
+.expense {
+    color: red;
+    font-weight: bold;
+}
+
+.expense::before {
+    content: '-';
+}
+
+.revenue {
+    color: #009900;
+    font-weight: bold;
+}
+
+.revenue::before {
+    content: '+';
+}
+
+.pop-up {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 110;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.pop-up-content {
+    background-color: white;
+    width: 80%;
+    max-width: 700px;
+    height: 40%;
+    max-height: 350px;
+    min-height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    overflow: auto;
+}
+
+.h-30-percent {
+    height: 30% !important;
+}
+
+.close-pop-up {
+    cursor: pointer;
+    position: absolute;
+    right: 35px;
+    top: 10px;
+    font-size: 3em;
+    font-weight: bold;
+    color: #71a6db;
 }

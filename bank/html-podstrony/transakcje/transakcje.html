@@ -25,13 +25,13 @@
     <div id="transaction-list-container"></div>
 </div>
 
-<div id="pop-up-window" class="pop-up">
-    <div id="pop-up-content-window" class="pop-up-content">
-        <span id="close-pop-up-button" class="close-pop-up">&times;</span>
-        <div id="pop-up-title">Szczegóły</div>
+<div id="t-pop-up-window" class="t-pop-up">
+    <div id="t-pop-up-content-window" class="t-pop-up-content">
+        <span id="close-t-pop-up-button" class="close-t-pop-up">&times;</span>
+        <div id="t-pop-up-title">Szczegóły</div>
 
         <!-- Struktura 'Szablon 2' idzie tutaj (patrz: na samym dole strony) -->
-        <div id="pop-up-text"></div>
+        <div id="t-pop-up-text"></div>
     </div>
 </div>
 
@@ -194,7 +194,7 @@
 
     function initializeTile(tile) {
         tile.addEventListener('click', () => {
-            const popUpText = document.getElementById('pop-up-text');
+            const popUpText = document.getElementById('t-pop-up-text');
             popUpText.innerHTML = '';
             
             const index = tile.getElementsByClassName('index')[0].innerHTML;
@@ -207,6 +207,9 @@
             }
             else if (transaction.validFrom) {
                 allInfo = Ticket.getAllInfo(transaction);
+            }
+            else if (transaction.title) {
+                allInfo = Transaction.getAllInfo(transaction);
             }
             else {
                 throw 'unknown transaction type';
@@ -231,8 +234,8 @@
             }
         });
 
-        const modal = document.getElementById("pop-up-window");
-        const close = document.getElementById("close-pop-up-button");
+        const modal = document.getElementById("t-pop-up-window");
+        const close = document.getElementById("close-t-pop-up-button");
         setupPopup(modal, tile, close);
     }
 

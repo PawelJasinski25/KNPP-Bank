@@ -18,9 +18,10 @@
             <div id="name" class="tile"></div>
         </div>
 
-        <div class="ticket-information-header">Data rozpoczęcia</div>
-        <label for="start"></label>
-        <input type="date" id="start" name="date-start" class="date-input"/>
+        <label for="date" class="ticket-information-header">Data rozpoczęcia</label>
+        <input type="date" id="date" name="date-start" class="date-input"/>
+
+        <div id="date-error-box" class="error-box"></div>
 
         <div class="ticket-information-header">Kwota</div>
         <div class="ticket-information-element special-background">
@@ -40,31 +41,36 @@
 <script>           
     // onload
     function initializeBuyPage() {
-        document.getElementById('start').min = getCurrentDate();
-        document.getElementById('start').value = getCurrentDate();
+        document.getElementById('date').min = getCurrentDate();
+        document.getElementById('date').value = getCurrentDate();
 
         insertContentInto('#name', BankStorage.getUsername());
         insertContentInto('.choosen-ticket-name .tile-first-row', BankStorage.getTicketName());
         insertContentInto('#amount', formatMoney(BankStorage.getTicketPrice()));
+
+        $('#date').change(() => {
+            validateTicketPurchase();
+        });
 
         $('#return-button').click(() => {
             loadTicketsOfferPage();
         });
 
         $('#confirm-button').click(() => {
-            const owner = BankStorage.getUsername();
             const title = BankStorage.getTicketName();
             const date = getCurrentDate().split('-').reverse().join('.');
             const amount = BankStorage.getTicketPrice();
 
-            const startValue = document.getElementById('start').value;
-            const startDate = new Date(startValue);
+            const dateValue = document.getElementById('date').value;
+            const startDate = new Date(dateValue);
             const validFrom = ddmmyyyyFormat(startDate);
             
-            const endDate = new Date(startValue);
+            const endDate = new Date(dateValue);
             const daysToAdd = expMap.get(title);
             endDate.setDate(endDate.getDate() + daysToAdd);
             const validTo = ddmmyyyyFormat(endDate);
+
+            const owner = BankStorage.getUsername();
 
             const ticket = new Ticket(validFrom, validTo, owner, title, date, amount);
 
@@ -77,11 +83,54 @@
 
     // onload
     function validateTicketPurchase() {
+        const confirmButton = document.getElementById('confirm-button');
+
+        const dateOK = validateTicketStartDate();
+        const priceOK = validateTicketPrice();
+
+        if (!dateOK || !priceOK) {
+            confirmButton.style.backgroundColor = '#b9b6b6';
+            confirmButton.disabled = true;
+        }
+        else {
+            confirmButton.style.backgroundColor = '';
+            confirmButton.disabled = false;
+        }
+    }
+
+    function validateTicketStartDate() {
+        const dateErrorBox = document.getElementById('date-error-box');
+        const dateInputField = document.getElementById('date');
+        const dateValue = dateInputField.value;
+        const inputDate = new Date(dateValue);
+        const currentDate = new Date();
+
+        inputDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+
+        if (dateInputField.value === '' || inputDate < currentDate) {
+            dateErrorBox.innerHTML = ERRORMESSAGE1;
+            dateErrorBox.style.display = 'block';
+            dateInputField.classList.add('wrong-input');
+            dateErrorBox.style.marginBottom = '0';
+
+            return false;
+        }
+        else {
+            dateErrorBox.style.display = 'none';
+            dateInputField.classList.remove('wrong-input');
+
+            return true;
+        }
+    }
+
+    function validateTicketPrice() {
+        let ok;
+
         const amountErrorBox = document.getElementById('amount-error-box');
         const amountInputField = document.getElementById('amount');
         const amountValue = parseFloat(amountInputField.innerText.replace(/[^\d.,]+/g, ''));
         const ticketContainer = amountInputField.closest('.ticket-information-element');
-        const confirmButton = document.getElementById('confirm-button');
 
         const msg = Ticket.handleTicketAmount(amountValue, BankStorage.getAvailableFunds());
 
@@ -91,13 +140,18 @@
             amountInputField.classList.add('wrong-input');
             ticketContainer.classList.add('wrong-input');
             amountErrorBox.style.marginBottom = '0';
-            confirmButton.style.backgroundColor = '#b9b6b6';
-            confirmButton.disabled = true;
+
+            ok = false;
         }
 
         if (msg === OK) {
             amountErrorBox.style.display = 'none';
             amountInputField.classList.remove('wrong-input');
+            ticketContainer.classList.remove('wrong-input');
+
+            ok = true;
         }
+
+        return ok;
     }
 </script>

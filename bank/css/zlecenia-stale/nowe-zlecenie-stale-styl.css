@@ -41,7 +41,7 @@ main {
     margin-top: 30px;
 }
 
-#form-header {
+#form-header, #schedule-form-header {
     font-size: 1.75em;
 }
 
@@ -186,6 +186,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transform: translate(-50%, -50%);
 }
 
+#from {
+    background-color: #eff7ff;
+}
+
+#termless-container {
+    margin-top: 15px;
+}
+
+.min-252 {
+    min-width: 252px;
+}
+
 @media screen and (max-height: 450px) {
     #bt-pop-up-text {
         font-size: 1.75em;
@@ -221,6 +233,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .close-bt-pop-up {
         top: -8px;
         right: 3px;
+    }
+
+    .min-252 {
+        min-width: unset;
     }
 }
 

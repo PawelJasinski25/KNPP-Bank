@@ -1,4 +1,5 @@
 <link href="css/karty/karty.css" type="text/css" rel="stylesheet">
+<link href="css/pusty-naglowek-styl.css" type="text/css" rel="stylesheet">
 
 <!-- Główna zawartość strony -->
 <div id="content">
@@ -6,7 +7,7 @@
         <div class="confirmation-header mb-3" >Karta została zastrzeżona</div>
         <div class="confirmation-element">
             <div class="left-column text-center d-block">
-                <img id="card-img" src="" alt="karta" style="width: 250px; height: auto">
+                <img id="card-img" class="width-300" src="" alt="karta">
             </div>
             <div class="right-column px-0 pb-1">
                 <div id="card-number"></div>
@@ -17,9 +18,6 @@
             <button id="return-to-cards-button" class="blue-button" type="button">
                 Powrót do kart
             </button>
-            <button id="return-to-home-button" class="blue-button" type="button">
-                Powrót do strony głównej
-            </button>
         </div>
     </div>
 </div>
@@ -28,9 +26,5 @@
 <script>
     $('#return-to-cards-button').click(() => {
         loadCardsPage();
-    });
-
-    $('#return-to-home-button').click(() => {
-        loadHomePage();
     });
 </script>

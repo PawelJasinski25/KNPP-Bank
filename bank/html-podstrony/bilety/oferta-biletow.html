@@ -2,7 +2,7 @@
 
 <!-- Główna zawartość strony -->
 <div id="main-section">
-    <div id="category-text"> Kategorie </div>
+    <div id="category-title"> Kategorie </div>
     <div id="category-row">
         <button class="category-button" onclick="showContent('choice-mpk')">Bilety MPK</button>
         <button class="category-button" onclick="showContent('choice-pr')">Park & Ride</button>
@@ -66,12 +66,8 @@
                 <span class="ticket-text">Park & Ride Kraków<br></span>
                 <span class="ticket-text"> 10 zł </span>
             </button>
-            <div class="ticket-wrapper">
-                <div id="blank1" class="ticket-blank"></div>
-            </div>
-            <div class="ticket-wrapper">
-                <div id="blank2" class="ticket-blank"></div>
-            </div>
+            <div class="ticket-wrapper"></div>
+            <div class="ticket-wrapper"></div>
         </div>
     </div>
 
@@ -92,9 +88,7 @@
                 <span class="ticket-text">Autostrada A2 <br> Konin Świecko<br></span>
                 <span class="ticket-text"> 108 zł </span>
             </button>
-            <div class="ticket-wrapper">
-                <div id="blank3" class="ticket-blank"></div>
-            </div>
+            <div class="ticket-wrapper"></div>
         </div>
     </div>
     <div id="button-container">
@@ -132,6 +126,6 @@
     });
 
     $('#return-button').click(() => {
-        loadTicketsOfferPage();
+        loadTicketsPage();
     });
 </script>

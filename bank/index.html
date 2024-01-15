@@ -37,11 +37,11 @@
 </head>
 <body>
     <!-- "Zasłona" przyciemniająca zawartość strony, gdy włączy się nawigację za pomocą przycisku -->
-    <div id="curtain"></div>
+    <div id="nav-curtain"></div>
 
     <!-- Nawigacja -->
     <div id="navigation" class="d-flex flex-column flex-shrink-0 p-3 bg-light">
-        <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <div class="d-flex align-items-center mb-md-0 me-md-auto link-dark text-decoration-none">
             <img src="https://www.w3schools.com/howto/img_avatar.png" alt="avatar" width="40" height="40" class="rounded-circle me-2">
             <span id="username"></span>
             <span id="close-navigation-button">&times;</span>
@@ -100,7 +100,7 @@
     <header id="page-header">
         <div id="open-navigation-button">&#9776;</div>
         <h1 id="h1-header"> </h1>
-        <img src="obrazki/bank-logo.png" alt="logo">
+        <img id="bank-logo" src="obrazki/bank-logo.png" alt="logo">
     </header>
 
     <!-- Główna zawartość strony -->
@@ -114,6 +114,10 @@
     <!-- JavaScript -->
     <script>
         $(document).ready(() => {
+            loadHomePage();
+        });
+
+        $('#bank-logo').click(() => {
             loadHomePage();
         });
 
@@ -153,23 +157,23 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const curtain = document.getElementById('curtain');
+            const navCurtain = document.getElementById('nav-curtain');
             const closeNavBtn = document.getElementById('close-navigation-button');
             const openNavBtn = document.getElementById('open-navigation-button');
             const navigation = document.getElementById('navigation');
 
             closeNavBtn.addEventListener('click', () => {
-                curtain.classList.toggle('display');
+                navCurtain.classList.toggle('display');
                 navigation.classList.toggle('show');
             });
 
             openNavBtn.addEventListener('click', () => {
-                curtain.classList.toggle('display');
+                navCurtain.classList.toggle('display');
                 navigation.classList.toggle('show');
             });
 
-            curtain.addEventListener('click', () => {
-                curtain.classList.toggle('display');
+            navCurtain.addEventListener('click', () => {
+                navCurtain.classList.toggle('display');
                 navigation.classList.toggle('show');
             });
         });

@@ -91,7 +91,7 @@ main {
     display: none;
 }
 
-.pop-up {
+.t-pop-up {
     display: none;
     position: fixed;
     left: 0;
@@ -102,12 +102,12 @@ main {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.pop-up-content {
+.t-pop-up-content {
     background-color: white;
-    width: 80%;
+    width: 90%;
     max-width: 700px;
-    height: 80%;
-    max-height: 700px;
+    height: 40%;
+    max-height: 350px;
     min-height: 150px;
     position: absolute;
     top: 50%;
@@ -118,21 +118,24 @@ main {
     flex-direction: column;
 }
 
-.close-pop-up {
+.close-t-pop-up {
+    color: #71a6db;
     cursor: pointer;
     position: absolute;
-    right: 35px;
-    top: 10px;
+    right: 10px;
+    top: -12px;
     font-size: 3em;
     font-weight: bold;
+    padding: 0 5px;
+    z-index: 5;
 }
 
-#pop-up-title {
+#t-pop-up-title {
     font-size: 2.25em;
-    margin: 25px 0;
+    margin: 10px 0;
 }
 
-#pop-up-text {
+#t-pop-up-text {
     overflow: auto;
     padding: 0 10px;
 }
@@ -146,6 +149,10 @@ main {
 }
 
 @media screen and (max-width: 450px) {
+    #search-bar-container {
+        font-size: 1.05em !important;
+    }
+
     #search-filters-container {
         flex-direction: column;
         align-items: center;
@@ -155,12 +162,13 @@ main {
         margin: 6px 0;
     }
 
-    .close-pop-up {
+    .close-t-pop-up {
+        font-size: 2.5em;
         top: -10px;
-        right: 10px;
+        right: 2px;
     }
 
-    #pop-up-title {
+    #t-pop-up-title {
         font-size: 1.75em;
     }
 }
@@ -173,6 +181,10 @@ main {
     #outer-container > div {
         margin-top: 0;
         margin-bottom: 0;
+    }
+
+    #search-filters-container {
+        margin-top: 10px !important;
     }
 
     .month {

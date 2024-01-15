@@ -51,7 +51,8 @@ const PENDING_CARD_BLOCK_INFORMATION = 'pending-card-block-information';
 const BLOCKED_CARDS = 'blocked-cards';
 const TICKET_NAME = 'ticket name';
 const TICKET_PRICE = 'ticket price'
-const TICKETS = 'tickets'
+const TICKETS = 'tickets';
+const STANDING_ORDERS = 'standing orders';
 
 // Typy transakcji
 const EXPENSE = "expense";
@@ -71,6 +72,18 @@ class Transaction {
         this.amount = amount;
         this.type = type;
     }
+
+    // Funkcja utworzona głównie dla spójności z klasami potomnymi
+    static getAllInfo(transaction) {
+        const allInfo = {
+            'Typ operacji': 'Transakcja', 
+            'Tytuł': transaction.title, 
+            'Data': transaction.date, 
+            'Kwota': formatMoney(transaction.amount)
+        };
+
+        return allInfo;
+    };
 
     // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione
     static handleTransactionAmount(transactionAmount, availableFunds) {
@@ -101,7 +114,11 @@ class Transaction {
             msg = INCORRECT;
         }
         else {
-            // jak jesteśmy tutaj, to wiemy, że mamy poprawną wartość
+            msg = OK;
+        }
+
+        if (msg === TOO_MUCH || msg === OK) {
+            // jak jesteśmy tutaj, to znaczy, że chcemy formatować
             finalBankStorageValue = parseFloat(formatted);
 
             // jeżeli mamy liczbę rzeczywistą, 
@@ -117,8 +134,6 @@ class Transaction {
             if (transactionAmount.includes(',')) {
                 finalInputFieldValue = finalInputFieldValue.replace(/\./g, ',');
             }
-
-            msg = OK;
         }
     
         return { msg, finalInputFieldValue, finalBankStorageValue };
@@ -215,6 +230,19 @@ class Ticket extends Transaction {
     }
 }
 
+class StandingOrder {
+    constructor(from, beneficiary, toNumber, title, amount, startDate, frequency, endDate) {
+        this.from = from;
+        this.beneficiary = beneficiary;
+        this.toNumber = toNumber;
+        this.title = title;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.frequency = frequency;
+        this.endDate = endDate;
+    }
+}
+
 class BankStorage {
     static getDefaultUsername() {
         return 'Jan Młynarz';
@@ -232,7 +260,8 @@ class BankStorage {
         return '425.34';
     }
 
-    static getDefaultTransactions(username) {
+    static getDefaultTransactions() {
+        const username = this.getDefaultUsername();
         const accountName = this.getDefaultAccountName();
         const accountNumber = this.getDefaultAccountNumber();
         
@@ -246,8 +275,19 @@ class BankStorage {
             '25', 
             EXPENSE
         );
-        
+
         const t2 = new BankTransfer(
+            'Konto UJ', 
+            '00 0000 0000 0000 0000 0000 0000', 
+            username, 
+            accountNumber, 
+            'Stypednium', 
+            '07.12.2023', 
+            '800', 
+            REVENUE
+        );
+        
+        const t3 = new BankTransfer(
             accountName, 
             accountNumber, 
             'MPK Kraków', 
@@ -256,17 +296,6 @@ class BankStorage {
             '06.12.2023', 
             '150', 
             EXPENSE
-        );
-
-        const t3 = new BankTransfer(
-            'Konto UJ', 
-            '00 0000 0000 0000 0000 0000 0000', 
-            username, 
-            accountNumber, 
-            'Stypednium', 
-            '01.12.2023', 
-            '800', 
-            REVENUE
         );
 
         const t4 = new BankTransfer(
@@ -305,7 +334,8 @@ class BankStorage {
         return [t6, t5, t4, t3, t2, t1];
     }
 
-    static getDefaultTickets(username) {
+    static getDefaultTickets() {
+        const username = this.getDefaultUsername();
         const defaultTicket = new Ticket('13.01.2024', '14.01.2024', username, 'Park & Ride Kraków', '13.01.2024', '10');
         return [defaultTicket];
     }
@@ -315,12 +345,14 @@ class BankStorage {
         const accountName = this.getDefaultAccountName();
         const accountNumber = this.getDefaultAccountNumber();
         const availableFunds = this.getDefaultAvailableFunds();
-        const transactions = this.getDefaultTransactions(username);
-        const tickets = this.getDefaultTickets(username);
+        const transactions = this.getDefaultTransactions();
+        const tickets = this.getDefaultTickets();
 
         for (let ticket of tickets) {
             transactions.push(ticket);
         }
+
+        const standingOrders = [];
     
         this.setUsername(username);
         this.setAccountName(accountName);
@@ -328,6 +360,7 @@ class BankStorage {
         this.setAvailableFunds(availableFunds);
         this.setTransactions(transactions);
         this.setTickets(tickets);
+        this.setStandingOrders(standingOrders);
     }
 
     static clear() {
@@ -448,7 +481,15 @@ class BankStorage {
         localStorage.setItem(TICKETS, JSON.stringify(tickets));
     }
 
-    // Funkcje dodające nową transakcje, nową zablokowaną kartę, nowy zakupiony bilet
+    // StandingOrders
+    static getStandingOrders() {
+        return JSON.parse(localStorage.getItem(STANDING_ORDERS));
+    }
+    static setStandingOrders(standingOrders) {
+        localStorage.setItem(STANDING_ORDERS, JSON.stringify(standingOrders));
+    }
+
+    // Funkcje dodające nową transakcje, nową zablokowaną kartę, nowy zakupiony bilet, nowe zlecenie stałe
 
     static makeATransaction(transaction) {
         const transactions = this.getTransactions();
@@ -473,6 +514,12 @@ class BankStorage {
         const tickets = this.getTickets()
         tickets.push(ticket);
         this.setTickets(tickets);
+    }
+
+    static addStandingOrder(standingOrder) {
+        const standingOrders = this.getStandingOrders();
+        standingOrders.push(standingOrder);
+        this.setStandingOrders(standingOrders);
     }
 }
 

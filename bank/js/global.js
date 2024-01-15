@@ -3,13 +3,14 @@
 let lastPage = "";
 let active = "home-button";
 let diagramName = "expenses-week";  // domyślny diagram na stronie głównej
-let firstTime;  // zmienna używana na stronie przelewy.html
+let firstTime;  // zmienna używana na stronie przelewy.html i nowe-zlecenie-stale.html
 
 // Stałe
 
 const ERRORMESSAGE1 = 'Nieprawidłowe dane';
 const ERRORMESSAGE2 = 'Brak wystarczających środków na koncie';
 const ERRORMESSAGE3 = 'Przekroczono limit znaków';
+const ERRORMESSAGE4 = 'Zbyt wszesna data';
 
 let expMap = new Map(
     [['MPK - ulgowy, 1 miesiąc', 30],
@@ -72,7 +73,7 @@ function loadBankTransfersPage() {
 }
 
 function loadStandingOrdersPage() {
-    loadPage('Zlecenia stałe', 'html-podstrony/zlecenia/zlecenia.html');
+    loadPage('Zlecenia stałe', 'html-podstrony/zlecenia-stale/zlecenia-stale.html');
     changeActive('standing-orders-button');
 }
 
@@ -144,8 +145,31 @@ function loadTicketPurchasePage() {
 }
 
 function loadTicketConfirmationPage() {
-    loadPage('Potwierdzenie zakupu', 'html-podstrony/bilety/bilet-potwierdzenie.html', () => {
+    loadPage('', 'html-podstrony/bilety/bilet-potwierdzenie.html', () => {
         displayTicketName();
+    });
+}
+
+// Podstrony zleceń stałych
+
+function loadActiveStandingOrdersPage() {
+    loadPage('Aktywne zlecenia stałe', 'html-podstrony/zlecenia-stale/aktywne-zlecenia-stale.html', () => {
+        // TODO
+    });
+}
+
+function newStandingOrderPage() {
+    loadPage('Nowe zlecenie stałe', 'html-podstrony/zlecenia-stale/nowe-zlecenie-stale.html', () => {
+        initializeForm();
+    });
+}
+
+function loadStandingOrderAddedPage() {
+    loadPage('', 'html-podstrony/zlecenia-stale/zlecenie-stale-dodane.html', () => {
+        const standingOrders = BankStorage.getStandingOrders();
+        for (so of standingOrders) {
+            console.table(so);
+        }
     });
 }
 
@@ -223,14 +247,14 @@ function updatePendingCardBlock() {
     document.getElementById('card-valid-to').innerHTML = "Ważność: " + cardInfo[1];
 }
 
-// Funkcje walidaujące pola w formularzach w przelewy.html i nowe-zlecenie-stale.html
+// Funkcje walidujące pola w formularzach w przelewy.html i nowe-zlecenie-stale.html
 
 function validateBeneficiary() {
     const beneficiaryErrorBox = document.getElementById('beneficiary-error-box');
     const beneficiaryInputField = document.getElementById('beneficiary');
     let beneficiary = beneficiaryInputField.value;
 
-    if (beneficiary !== '' && !(/\d/.test(beneficiary))) {
+    if (beneficiary !== '') {
         if (beneficiary.length <= 30) {
             beneficiaryErrorBox.style.display = 'none';
             beneficiaryInputField.classList.remove('wrong-input');
@@ -346,5 +370,66 @@ function validateAmount(event) {
         if (event.type === 'change') {
             amountInputField.value = finalInputFieldValue;
         }
+    }
+}
+
+function validateSOAmount(event) {
+    const amountErrorBox = document.getElementById('amount-error-box');
+    const amountInputField = document.getElementById('amount');
+
+    const result = Transaction.handleTransactionAmount(document.getElementById('amount').value, BankStorage.getAvailableFunds());
+    const msg = result.msg;
+    const finalInputFieldValue = result.finalInputFieldValue;
+
+    if (msg === INCORRECT) {
+        amountErrorBox.innerHTML = ERRORMESSAGE1;
+        amountErrorBox.style.display = 'block';
+        amountInputField.classList.add('wrong-input');
+    }
+
+    if (msg === TOO_MUCH || msg === OK) {
+        amountErrorBox.style.display = 'none';
+        amountInputField.classList.remove('wrong-input');
+
+        if (event.type === 'change') {
+            amountInputField.value = finalInputFieldValue;
+        }
+    }
+}
+
+function validateEndDate() {
+    const checkbox = document.getElementById('termless');
+
+    const endDateErrorBox = document.getElementById('end-date-error-box');
+    const endDateInputField = document.getElementById('end-date');
+
+    if (!checkbox.checked) {
+        endDateInputField.disabled = false;
+        const endDateStr = endDateInputField.value;
+        const endDate = new Date(endDateStr);
+
+        const frequency = document.getElementById('frequency').value;
+        const daysToAdd = getDaysToAdd(frequency);
+
+        const limitDate = new Date(document.getElementById('date').value);
+        limitDate.setDate(limitDate.getDate() + daysToAdd);
+
+        endDate.setHours(0, 0, 0, 0);
+        limitDate.setHours(0, 0, 0, 0);
+
+        if (endDateInputField.value === '' || endDate < limitDate) {
+            endDateErrorBox.innerHTML = ERRORMESSAGE4;
+            endDateErrorBox.style.display = 'block';
+            endDateInputField.classList.add('wrong-input');
+        }
+        else {
+            endDateErrorBox.style.display = 'none';
+            endDateInputField.classList.remove('wrong-input');
+        }
+    }
+    else {
+        endDateInputField.disabled = true;
+        endDateErrorBox.style.display = 'none';
+        endDateInputField.classList.remove('wrong-input');
     }
 }

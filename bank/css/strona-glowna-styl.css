@@ -132,10 +132,6 @@
     .tile {
         margin-top: 20px;
     }
-
-    #transaction-list {
-        margin-bottom: 20px;
-    }
 }
 
 @media screen and (max-width: 850px) {
@@ -163,5 +159,9 @@
 
     .homepage-section {
         padding: 12.5px;
+    }
+
+    .tile {
+        padding: 15px;
     }
 }
