@@ -190,6 +190,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-color: #eff7ff;
 }
 
+#end-date:disabled {
+    background-color: #eff7ff;
+}
+
 #termless-container {
     margin-top: 15px;
 }

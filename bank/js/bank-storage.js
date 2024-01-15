@@ -238,8 +238,8 @@ class StandingOrder {
         this.title = title;
         this.amount = amount;
         this.startDate = startDate;
-        this.frequency = frequency;
-        this.endDate = endDate;
+        this.frequency = frequency;    // możliwe wartości: 'every-week', 'every-month', 'every-quarter'
+        this.endDate = endDate;    // jak ma być bezterminowo, to przyjujemy, że wartość tego atrybutu to string 'termless'
     }
 }
 
@@ -340,19 +340,47 @@ class BankStorage {
         return [defaultTicket];
     }
 
+    static getDefaultStandingOrders() {
+        const username = this.getDefaultUsername();
+
+        const so1 = new StandingOrder(
+            username,
+            'KNPP Bank',
+            '42 4242 4242 4242 4242 4242 4242',
+            'Raty kredytu',
+            '600',
+            '01.03.2024',
+            'every-quarter',
+            '01.03.2027'
+        );
+
+        const so2 = new StandingOrder(
+            username,
+            'Spółka mieszkaniowa',
+            '242 424 242',
+            'Czynsz',
+            '1000',
+            '28.02.2024',
+            'every-month',
+            '28.02.2025'
+        );
+
+        return [so1, so2];
+    }
+
     static initialize() {
         const username = this.getDefaultUsername();
         const accountName = this.getDefaultAccountName();
         const accountNumber = this.getDefaultAccountNumber();
         const availableFunds = this.getDefaultAvailableFunds();
         const transactions = this.getDefaultTransactions();
-        const tickets = this.getDefaultTickets();
 
+        const tickets = this.getDefaultTickets();
         for (let ticket of tickets) {
             transactions.push(ticket);
         }
 
-        const standingOrders = [];
+        const standingOrders = this.getDefaultStandingOrders();
     
         this.setUsername(username);
         this.setAccountName(accountName);
@@ -481,12 +509,31 @@ class BankStorage {
         localStorage.setItem(TICKETS, JSON.stringify(tickets));
     }
 
-    // StandingOrders
+    // Standing orders
     static getStandingOrders() {
         return JSON.parse(localStorage.getItem(STANDING_ORDERS));
     }
     static setStandingOrders(standingOrders) {
         localStorage.setItem(STANDING_ORDERS, JSON.stringify(standingOrders));
+    }
+    static removeStandingOrder(standingOrder) {
+        const standingOrders = this.getStandingOrders();
+        let index = -1;
+
+        for (let i = 0; i < standingOrders.length; i++) {
+            if (JSON.stringify(standingOrders[i]) === JSON.stringify(standingOrder)) {
+                index = i;
+                break;
+            }
+        }
+        
+        if (index > -1) {
+            standingOrders.splice(index, 1);
+        }
+
+        this.setStandingOrders(standingOrders);
+
+        return index;
     }
 
     // Funkcje dodające nową transakcje, nową zablokowaną kartę, nowy zakupiony bilet, nowe zlecenie stałe

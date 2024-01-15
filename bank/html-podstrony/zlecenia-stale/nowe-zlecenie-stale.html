@@ -52,15 +52,15 @@
                 <input type="date" id="date" name="date">
                 <div id="date-error-box" class="error-box"></div>
             </div>
-            <div class="form-field-container responsive-margin-bottom">
+            <div class="form-field-container">
                 <label for="frequency">Częstotliwość</label>
                 <select id="frequency">
                     <option id="every-week" value="every-week">Co tydzień</option>
                     <option id="every-month" value="every-month">Co miesiąc</option>
-                    <option id="every-quarter" value="every-quarter">Co pół roku</option>
+                    <option id="every-quarter" value="every-quarter">Co 3 miesiące</option>
                 </select>
             </div>
-            <div class="form-field-container">
+            <div class="form-field-container responsive-margin-bottom">
                 <label for="end-date">Data zakończenia</label>
                 <input type="date" id="end-date" name="end-date">
                 <div id="end-date-error-box" class="error-box"></div>
@@ -85,24 +85,6 @@
 
 <!-- JavaScript -->
 <script>
-    function getDaysToAdd(frequency) {
-        let daysToAdd;
-
-        if (frequency === 'every-week') {
-            daysToAdd = 7;
-        }
-
-        if (frequency === 'every-month') {
-            daysToAdd = 30;
-        }
-
-        if (frequency === 'every-quarter') {
-            daysToAdd = 90;
-        }
-
-        return daysToAdd;
-    }
-
     // onload
     function initializeForm() {
         firstTime = true;
@@ -220,13 +202,13 @@
             let endDate;
 
             if (document.getElementById('termless').checked) {
-                endDate = undefined;
+                endDate = 'termless';
             }
             else {
                 endDate = document.getElementById('end-date').value.split('-').reverse().join('.');
             }
 
-            const standingOrder = new StandingOrder(from, beneficiary, toNumber, title, amount, date, frequency, endDate);
+            const standingOrder = new StandingOrder(from, beneficiary, toNumber, title, finalAmount, date, frequency, endDate);
 
             BankStorage.addStandingOrder(standingOrder);
 

@@ -10,7 +10,6 @@ let firstTime;  // zmienna używana na stronie przelewy.html i nowe-zlecenie-sta
 const ERRORMESSAGE1 = 'Nieprawidłowe dane';
 const ERRORMESSAGE2 = 'Brak wystarczających środków na koncie';
 const ERRORMESSAGE3 = 'Przekroczono limit znaków';
-const ERRORMESSAGE4 = 'Zbyt wszesna data';
 
 let expMap = new Map(
     [['MPK - ulgowy, 1 miesiąc', 30],
@@ -155,6 +154,27 @@ function loadTicketConfirmationPage() {
 function loadActiveStandingOrdersPage() {
     loadPage('Aktywne zlecenia stałe', 'html-podstrony/zlecenia-stale/aktywne-zlecenia-stale.html', () => {
         // TODO
+
+        // Przykład jak zdobyć zlecenia stałe z BankStorage i jak je usuwać zarówno z BankStorage jak i z lokalnej tablicy
+
+        // const standingOrders = BankStorage.getStandingOrders();
+        // for (let so of standingOrders) {
+        //     console.table(so);
+        // }
+
+        // const indexOfRemoved = BankStorage.removeStandingOrder(standingOrders[1]);
+        // console.log(indexOfRemoved);
+
+        // for (let so of BankStorage.getStandingOrders()) {
+        //     console.table(so);
+        // }
+
+        // if (indexOfRemoved > -1) {
+        //     standingOrders.splice(indexOfRemoved, 1);
+        // }
+        // for (let so of standingOrders) {
+        //     console.table(so);
+        // }
     });
 }
 
@@ -165,12 +185,7 @@ function newStandingOrderPage() {
 }
 
 function loadStandingOrderAddedPage() {
-    loadPage('', 'html-podstrony/zlecenia-stale/zlecenie-stale-dodane.html', () => {
-        const standingOrders = BankStorage.getStandingOrders();
-        for (so of standingOrders) {
-            console.table(so);
-        }
-    });
+    loadPage('', 'html-podstrony/zlecenia-stale/zlecenie-stale-dodane.html');
 }
 
 // Funkcja do zmiany aktywnego przycisku w nawigacji
@@ -377,7 +392,7 @@ function validateSOAmount(event) {
     const amountErrorBox = document.getElementById('amount-error-box');
     const amountInputField = document.getElementById('amount');
 
-    const result = Transaction.handleTransactionAmount(document.getElementById('amount').value, BankStorage.getAvailableFunds());
+    const result = Transaction.handleTransactionAmount(amountInputField.value, BankStorage.getAvailableFunds());
     const msg = result.msg;
     const finalInputFieldValue = result.finalInputFieldValue;
 
@@ -398,27 +413,24 @@ function validateSOAmount(event) {
 }
 
 function validateEndDate() {
-    const checkbox = document.getElementById('termless');
+    const termless = document.getElementById('termless');
 
     const endDateErrorBox = document.getElementById('end-date-error-box');
     const endDateInputField = document.getElementById('end-date');
 
-    if (!checkbox.checked) {
+    const dateInputField = document.getElementById('date');
+
+    if (!termless.checked) {
         endDateInputField.disabled = false;
-        const endDateStr = endDateInputField.value;
-        const endDate = new Date(endDateStr);
 
-        const frequency = document.getElementById('frequency').value;
-        const daysToAdd = getDaysToAdd(frequency);
-
-        const limitDate = new Date(document.getElementById('date').value);
-        limitDate.setDate(limitDate.getDate() + daysToAdd);
+        const endDate = new Date(endDateInputField.value);
+        const startDate = new Date(dateInputField.value);
 
         endDate.setHours(0, 0, 0, 0);
-        limitDate.setHours(0, 0, 0, 0);
+        startDate.setHours(0, 0, 0, 0);
 
-        if (endDateInputField.value === '' || endDate < limitDate) {
-            endDateErrorBox.innerHTML = ERRORMESSAGE4;
+        if (endDateInputField.value === '' || endDate < startDate) {
+            endDateErrorBox.innerHTML = ERRORMESSAGE1;
             endDateErrorBox.style.display = 'block';
             endDateInputField.classList.add('wrong-input');
         }
@@ -429,6 +441,7 @@ function validateEndDate() {
     }
     else {
         endDateInputField.disabled = true;
+
         endDateErrorBox.style.display = 'none';
         endDateInputField.classList.remove('wrong-input');
     }
