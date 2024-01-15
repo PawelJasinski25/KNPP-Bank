@@ -167,6 +167,10 @@
     .ticket-left-column-element {
         margin-bottom: 10px;
     }
+
+    .blue-button {
+        font-size: 1.25em;
+    }
 }
 
 @media screen and (max-width: 450px) {

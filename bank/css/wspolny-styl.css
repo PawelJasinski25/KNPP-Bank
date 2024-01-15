@@ -63,10 +63,16 @@ a {
 
 #settings-button, #logout-button {
     font-size: 1.25em;
+    padding: 0 10px;
 }
 
 #settings-button {
     margin-top: 10px;
+}
+
+#settings-button i, #logout-button i {
+    width: 25px;
+    margin-right: 5px;
 }
 
 #page-header {

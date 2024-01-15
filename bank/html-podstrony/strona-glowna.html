@@ -100,7 +100,7 @@
         const rowClasses = ['tile-first-row', 'tile-second-row', 'tile-third-row'];
 
         accountNameDiv.innerHTML = accountName;
-        accountNumberDiv.innerHTML = shortFormatAccNum(accountNumber);
+        accountNumberDiv.innerHTML = longFormatAccNum(accountNumber);
         availableFundsDiv.innerHTML = formatMoney(availableFunds);
 
         for (let i = 0; i < 3; i++) {

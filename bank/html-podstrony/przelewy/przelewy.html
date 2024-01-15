@@ -74,7 +74,7 @@
         const availableFundsDiv = document.getElementById('available-funds');
 
         accountNameDiv.innerHTML = BankStorage.getAccountName();
-        accountNumberDiv.innerHTML = shortFormatAccNum(BankStorage.getAccountNumber());
+        accountNumberDiv.innerHTML = longFormatAccNum(BankStorage.getAccountNumber());
         availableFundsDiv.innerHTML = formatMoney(BankStorage.getAvailableFunds());
 
         const dropDownOption = document.getElementById('drop-down-option');

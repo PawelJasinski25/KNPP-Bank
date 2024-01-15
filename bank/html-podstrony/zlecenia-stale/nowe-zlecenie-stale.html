@@ -94,7 +94,7 @@
         const availableFundsDiv = document.getElementById('available-funds');
 
         accountNameDiv.innerHTML = BankStorage.getAccountName();
-        accountNumberDiv.innerHTML = shortFormatAccNum(BankStorage.getAccountNumber());
+        accountNumberDiv.innerHTML = longFormatAccNum(BankStorage.getAccountNumber());
         availableFundsDiv.innerHTML = formatMoney(BankStorage.getAvailableFunds());
 
         document.getElementById('from').value = BankStorage.getUsername();
