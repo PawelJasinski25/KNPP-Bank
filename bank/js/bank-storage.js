@@ -310,7 +310,7 @@ class BankStorage {
         );
 
         const t5 = new BankTransfer(
-            'Cichy wielbiciel', 
+            'Konto cichego wielbiciela', 
             '128 516 131', 
             username, 
             accountNumber, 

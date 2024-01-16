@@ -71,7 +71,8 @@
             </div>
         </div>
     </form>
-    <div id="form-button-container">
+    <div id="buttons-container">
+        <a id="return-button" class="blue-button">Powrót</a>
         <a id="form-button" class="blue-button">Potwierdź</a>
     </div>
 </div>
@@ -221,6 +222,10 @@
             event.preventDefault();
         }
     });
+
+    document.getElementById('return-button').addEventListener('click', () => {
+        loadStandingOrdersPage();
+    })
 
     document.getElementById('close-bt-pop-up-button').addEventListener('click', () => {
         document.getElementById('bt-pop-up-window').style.display = 'none';
