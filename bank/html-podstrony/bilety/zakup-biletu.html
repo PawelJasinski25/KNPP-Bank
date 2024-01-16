@@ -67,7 +67,15 @@
             
             const endDate = new Date(dateValue);
             const daysToAdd = expMap.get(title);
-            endDate.setDate(endDate.getDate() + daysToAdd);
+
+            if (daysToAdd < 0) {
+                let absNum = Math.abs(daysToAdd);
+                endDate.setMonth(endDate.getMonth() + absNum);
+                endDate.setDate(endDate.getDate() - 1);
+            } else {
+                endDate.setDate(endDate.getDate() + daysToAdd);
+            }
+
             const validTo = ddmmyyyyFormat(endDate);
 
             const owner = BankStorage.getUsername();

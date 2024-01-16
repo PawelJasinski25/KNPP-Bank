@@ -2,6 +2,7 @@
 
 let lastPage = "";
 let active = "home-button";
+let currentTab = "nav-account-tab";
 let diagramName = "expenses-week";  // domyślny diagram na stronie głównej
 let firstTime;  // zmienna używana na stronie przelewy.html i nowe-zlecenie-stale.html
 
@@ -12,12 +13,12 @@ const ERRORMESSAGE2 = 'Brak wystarczających środków na koncie';
 const ERRORMESSAGE3 = 'Przekroczono limit znaków';
 
 let expMap = new Map(
-    [['MPK - ulgowy, 1 miesiąc', 30],
-        ['MPK - ulgowy, 2 miesiące', 60],
-        ['MPK - ulgowy, 3 miesiące', 90],
-        ['MPK - normalny, 1 miesiąc', 30],
-        ['MPK - normalny, 2 miesiące', 60],
-        ['MPK - normalny, 3 miesiące', 90],
+    [['MPK - ulgowy, 1 miesiąc', -1],
+        ['MPK - ulgowy, 2 miesiące', -2],
+        ['MPK - ulgowy, 3 miesiące', -3],
+        ['MPK - normalny, 1 miesiąc', -1],
+        ['MPK - normalny, 2 miesiące', -2],
+        ['MPK - normalny, 3 miesiące', -3],
         ['Park & Ride Kraków', 1],
         ['Autostrada A4  Kraków Katowice', 2],
         ['Autostrada A2  Konin Świecko', 2]]
@@ -90,7 +91,7 @@ function loadTicketsPage() {
 
 function loadSettingsPage() {
     loadPage('Ustawienia', 'html-podstrony/ustawienia/ustawienia.html', () => {
-        // TODO
+        loadSettings();
     });
     changeActive('settings-button');
 }
@@ -229,8 +230,7 @@ function setupPopup(modal, btn, close) {
 
 function trimIfTooLong(text, maxTextLength) {
     if (text.length > maxTextLength) {
-        const trimmed = text.substring(0, maxTextLength - 3) + '...';
-        return trimmed;
+        return text.substring(0, maxTextLength - 3) + '...';
     }
     else {
         return text;

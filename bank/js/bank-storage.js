@@ -53,6 +53,7 @@ const TICKET_NAME = 'ticket name';
 const TICKET_PRICE = 'ticket price'
 const TICKETS = 'tickets';
 const STANDING_ORDERS = 'standing orders';
+const OPTIONS_CHECKBOXES = 'options checkboxes';
 
 // Typy transakcji
 const EXPENSE = "expense";
@@ -75,14 +76,12 @@ class Transaction {
 
     // Funkcja utworzona głównie dla spójności z klasami potomnymi
     static getAllInfo(transaction) {
-        const allInfo = {
-            'Typ operacji': 'Transakcja', 
-            'Tytuł': transaction.title, 
-            'Data': transaction.date, 
+        return {
+            'Typ operacji': 'Transakcja',
+            'Tytuł': transaction.title,
+            'Data': transaction.date,
             'Kwota': formatMoney(transaction.amount)
         };
-
-        return allInfo;
     };
 
     // Funkcja pomocnicza do sprawdzania czy pole w formularzu jest poprawnie wypełnione
@@ -151,18 +150,16 @@ class BankTransfer extends Transaction {
 
     // Funkcja pomocnicza do wyświetlania informacji o przelewie w pop-upie na stronie z transakcjami
     static getAllInfo(bankTransfer) {
-        const allInfo = {
-            'Typ operacji': 'Przelew na konto', 
-            'Konto nadawcy': bankTransfer.fromAccount, 
-            'Numer nadawcy': bankTransfer.fromNumber, 
-            'Beneficjent': bankTransfer.beneficiary, 
-            'Numer beneficjenta': bankTransfer.toNumber, 
-            'Tytuł': bankTransfer.title, 
-            'Data': bankTransfer.date, 
+        return {
+            'Typ operacji': 'Przelew na konto',
+            'Konto nadawcy': bankTransfer.fromAccount,
+            'Numer nadawcy': bankTransfer.fromNumber,
+            'Beneficjent': bankTransfer.beneficiary,
+            'Numer beneficjenta': bankTransfer.toNumber,
+            'Tytuł': bankTransfer.title,
+            'Data': bankTransfer.date,
             'Kwota': formatMoney(bankTransfer.amount)
         };
-
-        return allInfo;
     }
 
     // Funkcja pomocnicza do sprawdzania czy numer odbiorcy przelewu jest poprawny
@@ -203,17 +200,15 @@ class Ticket extends Transaction {
 
     // Funkcja pomocnicza do wyświetlania informacji o bilecie w pop-upie na stronie z transakcjami
     static getAllInfo(ticket) {
-        const allInfo = {
-            'Typ operacji': 'Zakup biletu', 
-            'Rodzaj biletu': ticket.title, 
-            'Data zakupu': ticket.date, 
-            'Cena zakupu': formatMoney(ticket.amount), 
-            'Bilet ważny od': ticket.validFrom, 
-            'Bilet ważny do': ticket.validTo, 
+        return {
+            'Typ operacji': 'Zakup biletu',
+            'Rodzaj biletu': ticket.title,
+            'Data zakupu': ticket.date,
+            'Cena zakupu': formatMoney(ticket.amount),
+            'Bilet ważny od': ticket.validFrom,
+            'Bilet ważny do': ticket.validTo,
             'Posiadacz': ticket.owner
         };
-
-        return allInfo;
     }
 
     static handleTicketAmount(ticketAmount, availableFunds) {
@@ -257,7 +252,7 @@ class BankStorage {
     }
 
     static getDefaultAvailableFunds() {
-        return '425.34';
+        return '925.34';
     }
 
     static getDefaultTransactions() {
@@ -368,6 +363,10 @@ class BankStorage {
         return [so1, so2];
     }
 
+    static getDefaultOptionsCheckboxes() {
+        return ['checkbox-2'];
+    }
+
     static initialize() {
         const username = this.getDefaultUsername();
         const accountName = this.getDefaultAccountName();
@@ -381,6 +380,7 @@ class BankStorage {
         }
 
         const standingOrders = this.getDefaultStandingOrders();
+        const optionsCheckboxes = this.getDefaultOptionsCheckboxes();
     
         this.setUsername(username);
         this.setAccountName(accountName);
@@ -389,6 +389,7 @@ class BankStorage {
         this.setTransactions(transactions);
         this.setTickets(tickets);
         this.setStandingOrders(standingOrders);
+        this.setOptionsCheckboxes(optionsCheckboxes);
     }
 
     static clear() {
@@ -567,6 +568,13 @@ class BankStorage {
         const standingOrders = this.getStandingOrders();
         standingOrders.push(standingOrder);
         this.setStandingOrders(standingOrders);
+    }
+
+    static getOptionsCheckboxes() {
+        return JSON.parse(localStorage.getItem(OPTIONS_CHECKBOXES));
+    }
+    static setOptionsCheckboxes(optionCheckboxes) {
+        localStorage.setItem(OPTIONS_CHECKBOXES, JSON.stringify(optionCheckboxes));
     }
 }
 
