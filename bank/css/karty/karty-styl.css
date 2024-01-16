@@ -142,21 +142,13 @@ button.btn-danger {
     font-weight: bold;
 }
 
-.pop-up-header {
-    font-size: 2.2em;
-    margin-top: 20px;
-}
-
 .h-unset {
     height: unset !important;
 }
 
-.pop-up-max-width {
-    max-width: 1000px !important;
-}
-
-#pop-up-content-window {
-    padding: 3rem !important;
+.pop-up-content{
+    height:42%;
+    max-height: 380px;
 }
 
 .curtain, .curtain-text {
@@ -239,6 +231,9 @@ button.btn-danger {
     .close-pop-up {
         font-size: 2.66em;
     }
+    .pop-up-content{
+        max-height: 335px;
+    }
 }
 
 @media (max-width: 640px) {
@@ -248,6 +243,7 @@ button.btn-danger {
 
     #pop-up-content-window {
         padding: 0.5rem !important;
+        overflow:auto;
     }
 
     .close-pop-up {
@@ -267,6 +263,9 @@ button.btn-danger {
 
     .pop-up-text > .row .text-end {
         margin-bottom: 10px;
+    }
+    .pop-up-content{
+        max-height: 325px !important;
     }
 }
 
@@ -371,6 +370,9 @@ button.btn-danger {
     
     .width-300 {
         max-width: 250px !important;
+    }
+    .pop-up-content{
+        max-height: 300px !important;
     }
 }
 

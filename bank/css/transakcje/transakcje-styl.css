@@ -4,7 +4,7 @@ main {
 
 #outer-container {
     width: 100%;
-    max-width: 1100px;
+    /*max-width: 1100px;*/
     padding: 25px;
     box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
     border-radius: 5px;
@@ -92,61 +92,69 @@ main {
     display: none;
 }
 
-.t-pop-up {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 110;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.t-pop-up-content {
-    background-color: white;
-    width: 90%;
-    max-width: 700px;
-    height: 40%;
-    max-height: 350px;
-    min-height: 150px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.close-t-pop-up {
-    color: #71a6db;
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: -12px;
-    font-size: 3em;
-    font-weight: bold;
-    padding: 0 5px;
-    z-index: 5;
-}
-
-#t-pop-up-title {
-    font-size: 2.25em;
-    margin: 10px 0;
-}
-
-#t-pop-up-text {
-    overflow: auto;
-    padding: 0 10px;
-}
-
 .info-container {
     margin: 16px 0;
 }
 
 .info-content {
-    font-size: 1.33em;
+    text-align: right;
+}
+.info-type{
+    text-align: left;
+}
+.pop-up-content{
+    max-height: 400px;
+    height:45%;
+}
+
+@media (max-width: 970px) {
+    .pop-up-header {
+        font-size: 1.8em;
+    }
+
+    #pop-up-text {
+        font-size: 1em;
+    }
+
+    .close-pop-up {
+        font-size: 2.66em;
+    }
+    .pop-up-content{
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 840px) {
+    .pop-up-header {
+        font-size: 1.4em;
+    }
+
+    #pop-up-content-window {
+        padding: 0.5rem !important;
+        overflow:auto;
+    }
+
+    .close-pop-up {
+        right: 11px;
+        top: -8px;
+    }
+
+    #pop-up-text > .row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #pop-up-text > .row div {
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    #pop-up-text > .row .info-content {
+        margin-bottom: 10px;
+    }
+    .pop-up-content{
+        max-height: 330px !important;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -163,14 +171,17 @@ main {
         margin: 6px 0;
     }
 
-    .close-t-pop-up {
+    .close-pop-up {
         font-size: 2.5em;
         top: -10px;
         right: 2px;
     }
 
-    #t-pop-up-title {
+    #pop-up-header {
         font-size: 1.75em;
+    }
+    .pop-up-content{
+        max-height: 300px !important;
     }
 }
 

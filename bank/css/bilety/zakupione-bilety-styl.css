@@ -62,25 +62,12 @@
     min-height: 73.84px;
 }
 
-.pop-up-header {
-    font-size: 2.2em;
-    margin-top: 20px;
-}
-
 .pop-up-text {
     font-size: 1.2em;
 }
 
 .h-unset {
     height: unset !important;
-}
-
-.pop-up-max-width {
-    max-width: 1000px !important;
-}
-
-#pop-up-content-window {
-    padding: 3rem !important;
 }
 
 @media screen and (max-width: 1100px) {
@@ -110,6 +97,7 @@
 
     #pop-up-content-window {
         padding: 0.5rem !important;
+        overflow:auto;
     }
 
     .close-pop-up {
@@ -129,6 +117,9 @@
 
     .pop-up-text > .row .text-end {
         margin-bottom: 10px;
+    }
+    .pop-up-content{
+        max-height: 325px !important;
     }
 }
 
