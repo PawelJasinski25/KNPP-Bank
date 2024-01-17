@@ -92,70 +92,30 @@ main {
     display: none;
 }
 
-.info-container {
-    margin: 16px 0;
-}
-
-.info-content {
-    text-align: right;
-}
-.info-type{
-    text-align: left;
-}
 .pop-up-content{
-    max-height: 400px;
-    height:45%;
+    max-height: 695px;
+    height:80%;
 }
 
-@media (max-width: 970px) {
-    .pop-up-header {
-        font-size: 1.8em;
-    }
-
-    #pop-up-text {
-        font-size: 1em;
-    }
-
-    .close-pop-up {
-        font-size: 2.66em;
-    }
-    .pop-up-content{
-        max-height: 350px;
-    }
-}
-
-@media (max-width: 840px) {
-    .pop-up-header {
-        font-size: 1.4em;
-    }
-
+@media screen and (max-width: 540px) {
     #pop-up-content-window {
         padding: 0.5rem !important;
-        overflow:auto;
     }
 
-    .close-pop-up {
-        right: 11px;
-        top: -8px;
-    }
-
-    #pop-up-text > .row {
-        display: flex;
-        flex-direction: column;
-    }
-
-    #pop-up-text > .row div {
-        text-align: left !important;
-        width: 100% !important;
-    }
-
-    #pop-up-text > .row .info-content {
-        margin-bottom: 10px;
-    }
     .pop-up-content{
-        max-height: 330px !important;
+        max-height: 275px!important;
     }
 }
+
+@media screen and (max-width: 475px){
+    .pop-up-text{
+        font-size: 0.9em;
+    }
+    .pop-up-content{
+        max-height: 241px!important;
+    }
+}
+
 
 @media screen and (max-width: 450px) {
     #search-bar-container {
@@ -171,18 +131,10 @@ main {
         margin: 6px 0;
     }
 
-    .close-pop-up {
-        font-size: 2.5em;
-        top: -10px;
-        right: 2px;
+    #pop-up-content-window {
+        padding: 0.5rem !important;
     }
 
-    #pop-up-header {
-        font-size: 1.75em;
-    }
-    .pop-up-content{
-        max-height: 300px !important;
-    }
 }
 
 @media screen and (max-width: 350px) {

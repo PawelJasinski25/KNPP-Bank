@@ -62,64 +62,16 @@
     min-height: 73.84px;
 }
 
-.pop-up-text {
-    font-size: 1.2em;
+
+.pop-up-content{
+    max-height: 565px;
+    height:74%;
 }
 
-.h-unset {
-    height: unset !important;
-}
 
 @media screen and (max-width: 1100px) {
     main {
         flex-direction: column;
-    }
-}
-
-@media screen and (max-width: 850px) {
-    .pop-up-header {
-        font-size: 1.8em;
-    }
-
-    .pop-up-text {
-        font-size: 1em;
-    }
-
-    .close-pop-up {
-        font-size: 2.66em;
-    }
-}
-
-@media screen and (max-width: 640px) {
-    .pop-up-header {
-        font-size: 1.4em;
-    }
-
-    #pop-up-content-window {
-        padding: 0.5rem !important;
-        overflow:auto;
-    }
-
-    .close-pop-up {
-        right: 11px;
-        top: -8px;
-    }
-
-    .pop-up-text > .row {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .pop-up-text > .row div {
-        text-align: left !important;
-        width: 100% !important;
-    }
-
-    .pop-up-text > .row .text-end {
-        margin-bottom: 10px;
-    }
-    .pop-up-content{
-        max-height: 325px !important;
     }
 }
 

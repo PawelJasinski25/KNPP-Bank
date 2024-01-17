@@ -95,7 +95,7 @@
     border: red solid 2px;
 }
 
-#card-information p, .pop-up-text {
+#card-information p{
     font-size: 1.2em;
 }
 
@@ -142,13 +142,9 @@ button.btn-danger {
     font-weight: bold;
 }
 
-.h-unset {
-    height: unset !important;
-}
-
 .pop-up-content{
-    height:42%;
-    max-height: 380px;
+    max-height: 635px;
+    height:74%;
 }
 
 .curtain, .curtain-text {
@@ -216,56 +212,6 @@ button.btn-danger {
 
     .card-information-second-row > span {
         margin-bottom: 15px;
-    }
-}
-
-@media (max-width: 850px) {
-    .pop-up-header {
-        font-size: 1.8em;
-    }
-
-    .pop-up-text {
-        font-size: 1em;
-    }
-
-    .close-pop-up {
-        font-size: 2.66em;
-    }
-    .pop-up-content{
-        max-height: 335px;
-    }
-}
-
-@media (max-width: 640px) {
-    .pop-up-header {
-        font-size: 1.4em;
-    }
-
-    #pop-up-content-window {
-        padding: 0.5rem !important;
-        overflow:auto;
-    }
-
-    .close-pop-up {
-        right: 11px;
-        top: -8px;
-    }
-
-    .pop-up-text > .row {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .pop-up-text > .row div {
-        text-align: left !important;
-        width: 100% !important;
-    }
-
-    .pop-up-text > .row .text-end {
-        margin-bottom: 10px;
-    }
-    .pop-up-content{
-        max-height: 325px !important;
     }
 }
 
@@ -370,9 +316,6 @@ button.btn-danger {
     
     .width-300 {
         max-width: 250px !important;
-    }
-    .pop-up-content{
-        max-height: 300px !important;
     }
 }
 
