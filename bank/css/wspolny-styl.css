@@ -328,7 +328,7 @@ hr {
     margin-bottom: 10px;
 }
 
-@media (max-width: 850px), (max-height: 812px) {
+@media (max-width: 850px), (max-height: 836px) {
     .pop-up-header {
         font-size: 1.8em;
     }
