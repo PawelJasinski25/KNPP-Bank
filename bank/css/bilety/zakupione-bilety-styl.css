@@ -63,10 +63,10 @@
 }
 
 
-/*.pop-up-content{*/
-/*    max-height: 565px;*/
-/*    height:74%;*/
-/*}*/
+.pop-up-content{
+    max-height: 565px;
+    height:74%;
+}
 
 
 @media screen and (max-width: 1100px) {
