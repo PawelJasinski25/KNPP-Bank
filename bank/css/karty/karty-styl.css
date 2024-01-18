@@ -142,10 +142,10 @@ button.btn-danger {
     font-weight: bold;
 }
 
-.pop-up-content{
-    max-height: 635px;
-    height:74%;
-}
+/*.pop-up-content{*/
+/*    max-height: 635px;*/
+/*    height:74%;*/
+/*}*/
 
 .curtain, .curtain-text {
     display: none;
