@@ -45,6 +45,7 @@
     </div>
 
     <div id="order-information" class="homepage-section">
+        <div id="no-orders" class="no-orders-text">Brak zleceń stałych</div>
         <div id="button-container">
             <button id="return-button" class="blue-button" type="button">Powrót</button>
             <button id="new-order-button" class="blue-button" type="button">Nowe zlecenie</button>
@@ -58,8 +59,15 @@
     function standingOrderInit() {
         const orderInformation = document.getElementById('order-information');
         const buttonContainer = document.getElementById('button-container');
+        const noOrders = document.getElementById('no-orders')
 
         let orderList = BankStorage.getStandingOrders();
+
+        if (orderList.length === 0) {
+            noOrders.style.display = 'block';
+        } else {
+            noOrders.style.display = 'none';
+        }
 
         orderList.forEach(order => {
             const orderElement = document.createElement('div');
@@ -92,9 +100,15 @@
             printElement.classList.add('second-row-element');
             printElement.textContent = 'Usuń';
             printElement.addEventListener("click", () => {
-                BankStorage.removeStandingOrder(order)
-                loadStandingOrdersPage()
-                alert("Usunięto zlecenie stałe: " + order.title)
+
+                const response = window.confirm("Czy jesteś pewny, że chcesz usunąć wybrane zlecenie stałe?");
+
+                if (response) {
+                    BankStorage.removeStandingOrder(order)
+                    loadStandingOrdersPage()
+                    loadActiveStandingOrdersPage()
+                    alert("Usunięto zlecenie stałe: " + order.title)
+                }
             });
 
             secondRow.appendChild(detailsElement);
