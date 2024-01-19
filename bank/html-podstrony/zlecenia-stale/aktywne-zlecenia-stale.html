@@ -101,9 +101,7 @@
             printElement.textContent = 'Usuń';
             printElement.addEventListener("click", () => {
 
-                const response = window.confirm("Czy jesteś pewny, że chcesz usunąć wybrane zlecenie stałe?");
-
-                if (response) {
+                if (confirm("Czy jesteś pewny, że chcesz usunąć wybrane zlecenie stałe?")) {
                     BankStorage.removeStandingOrder(order)
                     loadStandingOrdersPage()
                     loadActiveStandingOrdersPage()
