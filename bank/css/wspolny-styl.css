@@ -395,13 +395,13 @@ main {
 
 @media screen and (max-height: 400px) {
     .pop-up-content {
-        max-height: 196px;
+        max-height: 200px;
     }
 }
 
 @media screen and (max-width: 850px) and (max-height: 770px) {
     .pop-up-content {
-        max-height: 305px;
+        max-height: 306px;
     }
 }
 
@@ -425,7 +425,7 @@ main {
 
 @media screen and (max-width: 850px) and (max-height: 400px) {
     .pop-up-content {
-        max-height: 176px;
+        max-height: 182px;
     }
 }
 
