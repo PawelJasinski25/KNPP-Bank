@@ -154,7 +154,8 @@ function loadTicketConfirmationPage() {
 
 function loadActiveStandingOrdersPage() {
     loadPage('Aktywne zlecenia stałe', 'html-podstrony/zlecenia-stale/aktywne-zlecenia-stale.html', () => {
-        // TODO
+        standingOrderInit()
+        standingOrderInformations()
 
         // Przykład jak zdobyć zlecenia stałe z BankStorage i jak je usuwać zarówno z BankStorage jak i z lokalnej tablicy
 

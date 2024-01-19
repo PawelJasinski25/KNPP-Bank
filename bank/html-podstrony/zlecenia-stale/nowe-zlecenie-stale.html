@@ -209,7 +209,7 @@
                 endDate = document.getElementById('end-date').value.split('-').reverse().join('.');
             }
 
-            const standingOrder = new StandingOrder(from, beneficiary, toNumber, title, finalAmount, date, frequency, endDate);
+            const standingOrder = new StandingOrder(from, beneficiary, toNumber, title, String(finalAmount), date, frequency, endDate);
 
             BankStorage.addStandingOrder(standingOrder);
 

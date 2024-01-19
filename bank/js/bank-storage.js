@@ -610,3 +610,24 @@ function formatPhoneNumber(phoneNumber) {
     let withoutWhiteSpaces = removeWhiteSpaces(phoneNumber);
     return withoutWhiteSpaces.match(/.{1,3}/g).join(' ');
 }
+
+function formatFrequency(freq) {
+    switch (freq) {
+        case 'every-week':
+            return 'Co tydzień';
+        case 'every-month':
+            return 'Co miesiąc';
+        case 'every-quarter':
+            return 'Co 3 miesiące';
+        default:
+            return freq;
+    }
+}
+
+function formatIfTermless(endDate) {
+    if (endDate === 'termless') {
+        return 'Bezterminowo';
+    } else {
+        return endDate;
+    }
+}
