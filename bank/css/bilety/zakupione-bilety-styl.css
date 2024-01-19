@@ -62,13 +62,6 @@
     min-height: 73.84px;
 }
 
-
-.pop-up-content{
-    max-height: 565px;
-    height:74%;
-}
-
-
 @media screen and (max-width: 1100px) {
     main {
         flex-direction: column;

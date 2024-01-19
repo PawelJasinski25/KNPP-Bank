@@ -537,6 +537,14 @@ class BankStorage {
         return index;
     }
 
+    // Options checkboxes
+    static getOptionsCheckboxes() {
+        return JSON.parse(localStorage.getItem(OPTIONS_CHECKBOXES));
+    }
+    static setOptionsCheckboxes(optionsCheckboxes) {
+        localStorage.setItem(OPTIONS_CHECKBOXES, JSON.stringify(optionsCheckboxes));
+    }
+
     // Funkcje dodające nową transakcje, nową zablokowaną kartę, nowy zakupiony bilet, nowe zlecenie stałe
 
     static makeATransaction(transaction) {
@@ -568,13 +576,6 @@ class BankStorage {
         const standingOrders = this.getStandingOrders();
         standingOrders.push(standingOrder);
         this.setStandingOrders(standingOrders);
-    }
-
-    static getOptionsCheckboxes() {
-        return JSON.parse(localStorage.getItem(OPTIONS_CHECKBOXES));
-    }
-    static setOptionsCheckboxes(optionCheckboxes) {
-        localStorage.setItem(OPTIONS_CHECKBOXES, JSON.stringify(optionCheckboxes));
     }
 }
 

@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    margin-bottom: 1.5rem!important;
+    margin-bottom: 1.5rem !important;
 }
 
 input[type="checkbox"] {

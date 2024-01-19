@@ -95,7 +95,7 @@
     border: red solid 2px;
 }
 
-#card-information p{
+#card-information p {
     font-size: 1.2em;
 }
 
@@ -140,11 +140,6 @@ button.btn-danger {
     font-size: 2em;
     text-align: center;
     font-weight: bold;
-}
-
-.pop-up-content{
-    max-height: 635px;
-    height:74%;
 }
 
 .curtain, .curtain-text {
@@ -216,7 +211,7 @@ button.btn-danger {
 }
 
 @media (max-width: 575px) {
-    .block-card-text, .right-column{
+    .block-card-text, .right-column {
         font-size: smaller !important;
     }
 
@@ -275,7 +270,7 @@ button.btn-danger {
         text-align: left;
         display: block;
         justify-content: initial;
-        margin-bottom:30px;
+        margin-bottom: 30px;
     }
 
     .card-information-second-row {

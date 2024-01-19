@@ -26,14 +26,13 @@
 </div>
 
 <div id="pop-up-window" class="pop-up">
-    <div id="pop-up-content-window" class="pop-up-content pop-up-max-width">
+    <div id="pop-up-content-window" class="pop-up-content">
         <span id="close-pop-up-button" class="close-pop-up">&times;</span>
-        <div class="pop-up-header">Szczegóły</div>
+        <div id="pop-up-title" class="pop-up-header">Szczegóły</div>
         <hr>
 
         <!-- Struktura 'Szablon 2' idzie tutaj (patrz: na samym dole strony) -->
         <div id="pop-up-text" class="container pop-up-text"></div>
-        <div class="container pop-up-text"></div>
     </div>
 </div>
 
@@ -216,10 +215,10 @@
             else {
                 throw 'unknown transaction type';
             }
-            const infoContainer = document.createElement('div');
-            infoContainer.classList.add('info-container');
-            for (let infoName in allInfo) {
 
+            for (let infoName in allInfo) {
+                const infoContainer = document.createElement('div');
+                infoContainer.classList.add('info-container');
 
                 const infoType = document.createElement('div');
                 infoType.classList.add('info-type');

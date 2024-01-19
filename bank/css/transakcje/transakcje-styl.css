@@ -92,31 +92,6 @@ main {
     display: none;
 }
 
-.pop-up-content{
-    max-height: 695px;
-    height:80%;
-}
-
-@media screen and (max-width: 540px) {
-    #pop-up-content-window {
-        padding: 0.5rem !important;
-    }
-
-    .pop-up-content{
-        max-height: 275px!important;
-    }
-}
-
-@media screen and (max-width: 475px){
-    .pop-up-text{
-        font-size: 0.9em;
-    }
-    .pop-up-content{
-        max-height: 241px!important;
-    }
-}
-
-
 @media screen and (max-width: 450px) {
     #search-bar-container {
         font-size: 1.05em !important;
@@ -130,11 +105,6 @@ main {
     .radio-container {
         margin: 6px 0;
     }
-
-    #pop-up-content-window {
-        padding: 0.5rem !important;
-    }
-
 }
 
 @media screen and (max-width: 350px) {
