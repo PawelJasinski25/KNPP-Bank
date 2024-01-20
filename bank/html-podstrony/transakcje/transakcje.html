@@ -32,7 +32,7 @@
         <hr>
 
         <!-- Struktura 'Szablon 2' idzie tutaj (patrz: na samym dole strony) -->
-        <div id="pop-up-text" class="container pop-up-text"></div>
+        <!-- <div id="pop-up-text" class="container pop-up-text"></div> -->
     </div>
 </div>
 
@@ -195,8 +195,18 @@
 
     function initializeTile(tile) {
         tile.addEventListener('click', () => {
-            const popUpText = document.getElementById('pop-up-text');
-            popUpText.innerHTML = '';
+            const oldPopUpText = document.getElementById('pop-up-text');
+
+            if (oldPopUpText) {
+                oldPopUpText.parentNode.removeChild(oldPopUpText);
+            }
+
+            const popUpContentWindow = document.getElementById('pop-up-content-window');
+
+            const popUpText = document.createElement('div');
+            popUpText.id = 'pop-up-text';
+            popUpText.classList.add('container');
+            popUpText.classList.add('pop-up-text');
             
             const index = tile.getElementsByClassName('index')[0].innerHTML;
             const transaction = BankStorage.getTransactions()[index];
@@ -232,6 +242,8 @@
                 infoContainer.appendChild(infoContent);
 
                 popUpText.appendChild(infoContainer);
+
+                popUpContentWindow.appendChild(popUpText);
             }
         });
 
