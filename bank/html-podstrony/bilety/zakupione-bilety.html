@@ -8,7 +8,7 @@
             <span id="close-pop-up-button" class="close-pop-up">&times;</span>
             <div class="pop-up-header">Szczegóły</div>
             <hr>
-            <div class="container pop-up-text">
+            <div id="pop-up-text" class="container pop-up-text">
                 <div class="info-container">
                     <div class="info-type">Rodzaj biletu:</div>
                     <div id="ticket-type-info" class="info-content"></div>
@@ -110,6 +110,7 @@
     }
 
     function updateTicketDetails(selectedTicket) {
+        document.getElementById('pop-up-text').scrollTo(0,0);
         document.getElementById('ticket-type-info').textContent = selectedTicket.title;
         document.getElementById('owner-info').textContent = selectedTicket.owner;
         document.getElementById('ticket-amount-info').textContent = formatMoney(selectedTicket.amount);

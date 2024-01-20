@@ -213,7 +213,7 @@
                 allInfo = Transaction.getAllInfo(transaction);
             }
             else {
-                throw 'unknown transaction type';
+                throw new Error('unknown transaction type');
             }
 
             for (let infoName in allInfo) {
