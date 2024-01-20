@@ -156,31 +156,10 @@ function loadActiveStandingOrdersPage() {
     loadPage('Aktywne zlecenia stałe', 'html-podstrony/zlecenia-stale/aktywne-zlecenia-stale.html', () => {
         standingOrderInit()
         standingOrderInformations()
-
-        // Przykład jak zdobyć zlecenia stałe z BankStorage i jak je usuwać zarówno z BankStorage jak i z lokalnej tablicy
-
-        // const standingOrders = BankStorage.getStandingOrders();
-        // for (let so of standingOrders) {
-        //     console.table(so);
-        // }
-
-        // const indexOfRemoved = BankStorage.removeStandingOrder(standingOrders[1]);
-        // console.log(indexOfRemoved);
-
-        // for (let so of BankStorage.getStandingOrders()) {
-        //     console.table(so);
-        // }
-
-        // if (indexOfRemoved > -1) {
-        //     standingOrders.splice(indexOfRemoved, 1);
-        // }
-        // for (let so of standingOrders) {
-        //     console.table(so);
-        // }
     });
 }
 
-function newStandingOrderPage() {
+function loadNewStandingOrderPage() {
     loadPage('Nowe zlecenie stałe', 'html-podstrony/zlecenia-stale/nowe-zlecenie-stale.html', () => {
         initializeForm();
     });

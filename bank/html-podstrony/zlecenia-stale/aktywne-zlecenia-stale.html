@@ -45,7 +45,7 @@
     </div>
 
     <div id="order-information" class="homepage-section">
-        <div id="no-orders" class="no-orders-text">Brak zleceń stałych</div>
+        <div id="no-orders" class="no-orders-text">Brak aktywnych zleceń stałych</div>
         <div id="button-container">
             <button id="return-button" class="blue-button" type="button">Powrót</button>
             <button id="new-order-button" class="blue-button" type="button">Nowe zlecenie</button>
@@ -55,7 +55,8 @@
 
 <!-- JavaScript -->
 <script>
-
+    
+    // onload
     function standingOrderInit() {
         const orderInformation = document.getElementById('order-information');
         const buttonContainer = document.getElementById('button-container');
@@ -96,21 +97,21 @@
             detailsElement.classList.add('second-row-element', 'details');
             detailsElement.textContent = 'Szczegóły';
 
-            const printElement = document.createElement('div');
-            printElement.classList.add('second-row-element');
-            printElement.textContent = 'Usuń';
-            printElement.addEventListener("click", () => {
+            const deleteElement = document.createElement('div');
+            deleteElement.classList.add('second-row-element');
+            deleteElement.textContent = 'Usuń';
+            deleteElement.addEventListener("click", () => {
 
-                if (confirm("Czy jesteś pewny, że chcesz usunąć wybrane zlecenie stałe?")) {
-                    BankStorage.removeStandingOrder(order)
-                    loadStandingOrdersPage()
-                    loadActiveStandingOrdersPage()
-                    alert("Usunięto zlecenie stałe: " + order.title)
+                if (confirm("Czy jesteś pewny/a, że chcesz usunąć wybrane zlecenie stałe?")) {
+                    BankStorage.removeStandingOrder(order);
+                    loadStandingOrdersPage();
+                    loadActiveStandingOrdersPage();
+                    alert("Usunięto zlecenie stałe: " + order.title);
                 }
             });
 
             secondRow.appendChild(detailsElement);
-            secondRow.appendChild(printElement);
+            secondRow.appendChild(deleteElement);
 
             rightColumn.appendChild(firstRow);
             rightColumn.appendChild(secondRow);
@@ -126,7 +127,7 @@
         });
 
         $('#new-order-button').click(() => {
-            newStandingOrderPage();
+            loadNewStandingOrderPage();
         });
     }
 
