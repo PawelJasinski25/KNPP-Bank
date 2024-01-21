@@ -77,9 +77,26 @@ label {
     overflow: hidden;
 }
 
+.checkboxes-section {
+    margin: 10px 0;
+}
+
+.checkboxes-section > div {
+    margin: 10px 0;
+}
+
+.settings-subtitle {
+    text-align: left;
+    font-size: 1.25em;
+}
+
 @media (max-width: 575px) {
-    .page-section nav *, .page-section div {
+    .page-section nav *, .tab-content {
         font-size: 0.85rem !important;
+    }
+
+    .settings-subtitle {
+        font-size: 1.05rem !important;
     }
 
     .form-check input {
