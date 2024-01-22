@@ -1,21 +1,21 @@
-<link href="css/karty/karty.css" type="text/css" rel="stylesheet">
+<link href="css/karty/karty-styl.css" type="text/css" rel="stylesheet">
 
 <!-- Główna zawartość strony -->
 <div id="content">
-    <section id="card-information" class="page-section border-danger block-card">
-        <h1 id="section-name" class="mb-3 header-text"><strong>Uwaga</strong></h1>
+    <section id="danger-section" class="page-section border-danger block-card">
+        <h1 id="strong-warning" class="mb-3 header-text"><strong>Uwaga</strong></h1>
         <p>Właśnie zamierzasz zastrzec kartę</p>
         <div id="block-card-information" class="card-information-element flex-column p-3 mb-3">
             <div class="left-column-block-card">
-                <img id="card-img" src="" alt="karta" style="width: 250px; height: auto">
+                <img id="card-img" src="" alt="karta">
             </div>
             <div class="right-column px-0 pb-1">
-                    <div id="card-number"></div>
-                    <div id="card-valid-to"></div>
+                <div id="card-number"></div>
+                <div id="card-valid-to"></div>
             </div>
         </div>
         <p>
-            Po zastrzeżeniu karty nie będzie można dokonywać nią żadnych płatności czy wypłacać gotówki.
+            Po zastrzeżeniu karty nie będzie można dokonywać nią żadnych płatności ani wypłacać gotówki.
             Zastrzeżenie karty jest trwałe i nieodwracalne. Zawsze skutkuje wysłaniem nowej karty.
         </p>
         <p class="important">Czy na pewno chcesz kontynuować?</p>
@@ -34,8 +34,6 @@
 
     $('#confirm-card-block-button').click(() => {
         BankStorage.addBlockedCard();
-        loadPage('', 'html-podstrony/karty/karta-zastrzezona.html', () => {
-            updatePendingCardBlock();
-        });
+        loadCardHasBeenCanceledPage();
     });
 </script>

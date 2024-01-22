@@ -41,7 +41,7 @@ main {
     margin-top: 30px;
 }
 
-#form-header {
+#form-header, #schedule-form-header {
     font-size: 1.75em;
 }
 
@@ -92,8 +92,13 @@ option {
     background-color: white;
 }
 
-#form-button-container {
-    text-align: right;
+#buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+#form-button {
+    margin-left: 10px;
 }
 
 .responsive-margin-bottom {
@@ -186,6 +191,28 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transform: translate(-50%, -50%);
 }
 
+#from {
+    background-color: #eff7ff;
+}
+
+#end-date:disabled {
+    background-color: #eff7ff;
+}
+
+#termless-container {
+    margin-top: 15px;
+}
+
+.min-252 {
+    min-width: 252px;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
 @media screen and (max-height: 450px) {
     #bt-pop-up-text {
         font-size: 1.75em;
@@ -222,10 +249,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         top: -8px;
         right: 3px;
     }
+
+    .min-252 {
+        min-width: unset;
+    }
 }
 
 @media screen and (max-width: 375px) {
     #account-state, #form-container {
         padding: 15px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    #buttons-container {
+        font-size: 0.8em;
+        padding: 0;
+    }
+
+    .blue-button {
+        padding: 7px 14px;
     }
 }

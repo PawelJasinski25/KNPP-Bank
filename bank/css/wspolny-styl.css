@@ -1,4 +1,4 @@
-/* Tu trafia css wspólny dla danych obiektów, np. jak ma być klasa "sekcja" i ona wszędzie ma wyglądać tak samo, to tu wrzucamy */
+/* Styl strony index.html + ogólne style, które powtarzają się na wielu stronach */
 
 html {
     height: 100%;
@@ -9,7 +9,6 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Roboto', sans-serif !important;
-    /* background-color: #212529; */
     justify-content: space-between;
 }
 
@@ -17,82 +16,13 @@ a {
     cursor: pointer;
 }
 
-#curtain {
+#nav-curtain {
     display: none;
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.4) !important;
     position: fixed;
     z-index: 90;
-}
-
-.curtain, .curtain-text {
-    display: none;
-    min-width: 100%;
-    min-height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.curtain {
-    /*filter: blur(5px);*/
-    background-color: rgba(233, 233, 233, 37%);
-}
-
-.curtain-text {
-    color: #fc0303;
-    font-size: 3em;
-    z-index: 80;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-shadow: 1px 1px #cdcdcd;
-}
-
-.pop-up {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 110;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.pop-up-content {
-    background-color: white;
-    width: 80%;
-    max-width: 700px;
-    height: 40%;
-    min-height: 225px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.h-30-percent {
-    height: 30% !important;
-}
-
-.close-pop-up {
-    cursor: pointer;
-    position: absolute;
-    right: 35px;
-    top: 10px;
-    font-size: 3em;
-    font-weight: bold;
-    color: #71a6db;
-}
-
-.card-information-element div:has(> .curtain[style="display: flex;"]) {
-    filter: blur(6px);
 }
 
 .active {
@@ -118,6 +48,9 @@ a {
 
 #username {
     font-size: 1.5em;
+    text-wrap: nowrap;
+    overflow-x: auto;
+    width: 200px;
 }
 
 #close-navigation-button {
@@ -130,6 +63,16 @@ a {
 
 #settings-button, #logout-button {
     font-size: 1.25em;
+    padding: 0 10px;
+}
+
+#settings-button {
+    margin-top: 10px;
+}
+
+#settings-button i, #logout-button i {
+    width: 25px;
+    margin-right: 5px;
 }
 
 #page-header {
@@ -154,10 +97,10 @@ a {
 
 #page-header img {
     height: 100px;
+    cursor: pointer;
 }
 
 main {
-    /*flex: 1;*/
     margin-left: 280px;
     padding: 30px 45px;
     display: flex;
@@ -172,20 +115,44 @@ main {
     text-align: center;
 }
 
-.blue-button {
-    color: white;
-    background-color: #0061a1;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1.5em;
-    text-decoration: none;
-    text-align: center;
-    display: inline-block;
+@media screen and (max-height: 1080px) {
+    main {
+        flex: 1;
+    }
 }
 
-.blue-button:hover {
-    background-color: #0087eb;
+@media screen and (max-width: 850px) {
+    #nav-curtain.display {
+        display: block;
+    }
+
+    #navigation {
+        display: none !important;
+    }
+
+    #navigation.show {
+        display: flex !important;
+    }
+
+    #close-navigation-button {
+        display: inline;
+    }
+
+    #open-navigation-button {
+        display: block;
+    }
+
+    #username {
+        width: 150px;
+    }
+
+    #page-header, main, #page-footer {
+        margin-left: 0
+    }
+
+    #page-header img {
+        height: 75px;
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -216,44 +183,266 @@ main {
     }
 }
 
-@media screen and (max-width: 850px) {
-    #curtain.display {
-        display: block;
+@media screen and (max-width: 450px) {
+    main {
+        font-size: 0.9em;
     }
-
-    #navigation {
-        display: none !important;
-    }
-
-    #navigation.show {
-        display: flex !important;
-    }
-
-    #close-navigation-button {
-        display: inline;
-    }
-
-    #open-navigation-button {
-        display: block;
-    }
-
-    #page-header, main, #page-footer {
-        margin-left: 0
+    
+    #page-header h1 {
+        font-size: 1.75em;
     }
 
     #page-header img {
-        height: 75px;
+        height: 60px;
     }
 }
 
-/*@media (min-width: 1100px) {*/
-/*    main {*/
-/*        max-height: 1080px;*/
-/*    }*/
-/*}*/
-
-@media (max-height: 1080px) {
+@media screen and (max-width: 350px) {
     main {
-        flex: 1;
+        padding: 7px 11px;
+    }
+    
+    #page-header img {
+        align-self: flex-end;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    #navigation {
+        width: 100%;
+        overflow-y: auto;
+    }
+
+    #close-navigation-button {
+        right: 10px;
+    }
+
+    #username {
+        width: calc(100% - 75px);
+    }
+}
+
+.blue-button {
+    color: white;
+    background-color: #0061a1;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    text-decoration: none;
+    text-align: center;
+    display: inline-block;
+}
+
+.blue-button:hover {
+    background-color: #0087eb;
+}
+
+.expense {
+    color: red;
+    font-weight: bold;
+}
+
+.expense::before {
+    content: '-';
+}
+
+.revenue {
+    color: #009900;
+    font-weight: bold;
+}
+
+.revenue::before {
+    content: '+';
+}
+
+
+
+
+
+
+/* Style dla pop-upów z plików zakupione-bilety.html, karty.html, transakcje.html */
+
+.pop-up {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 110;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.pop-up-content {
+    background-color: white;
+    width: 80%;
+    max-width: 700px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    padding: 1.75rem !important;
+}
+
+.close-pop-up {
+    cursor: pointer;
+    position: absolute;
+    right: 7px;
+    top: -12px;
+    font-size: 3em;
+    font-weight: bold;
+    color: #71a6db;
+    z-index: 5;
+    padding: 0 5px;
+}
+
+.pop-up-header {
+    font-size: 2.2em;
+    text-align: center;
+}
+
+.pop-up-text {
+    font-size: 1.2em;
+    overflow: auto;
+}
+
+.info-type {
+    text-align: left;
+}
+
+.info-content {
+    text-align: left;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+}
+
+@media screen and (max-width: 850px) {
+    .close-pop-up {
+        font-size: 2.66em;
+        right: 8px;
+        top: -10px;
+    }
+
+    .pop-up-header {
+        font-size: 1.8em;
+    }
+
+    .pop-up-text {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .pop-up-content {
+        padding: 0.75rem !important;
+    }
+
+    .close-pop-up {
+        font-size: 2.2em;
+        right: 2px;
+        top: -10px;
+    }
+
+    .pop-up-header {
+        font-size: 1.6em;
+    }
+
+    .pop-up-text {
+        font-size: 0.95em;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .pop-up-content {
+        max-height: 250px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .pop-up-content {
+        padding: 0.5rem !important;
+        max-height: 205px;
+    }
+
+    .close-pop-up {
+        right: 1px;
+        top: -8px;
+        font-size: 2em;
+    }
+
+    .pop-up-header {
+        font-size: 1.4em;
+    }
+
+    .pop-up hr {
+        margin: 10px 0;
+    }
+
+    .pop-up-text {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (max-height: 770px) {
+    .pop-up-content {
+        max-height: 350px;
+    }
+}
+
+@media screen and (max-height: 400px) {
+    .pop-up-content {
+        max-height: 200px;
+    }
+}
+
+@media screen and (max-width: 850px) and (max-height: 770px) {
+    .pop-up-content {
+        max-height: 306px;
+    }
+}
+
+@media screen and (max-width: 575px) and (max-height: 770px) {
+    .pop-up-content {
+        max-height: 267px;
+    }
+}
+
+@media screen and (max-width: 450px) and (max-height: 770px) {
+    .pop-up-content {
+        max-height: 250px;
+    }
+}
+
+@media screen and (max-width: 350px) and (max-height: 770px) {
+    .pop-up-content {
+        max-height: 205px;
+    }
+}
+
+@media screen and (max-width: 850px) and (max-height: 400px) {
+    .pop-up-content {
+        max-height: 182px;
+    }
+}
+
+@media screen and (max-width: 575px) and (max-height: 400px) {
+    .pop-up-content {
+        max-height: 150px;
+    }
+}
+
+@media screen and (max-width: 450px) and (max-height: 400px) {
+    .pop-up-content {
+        max-height: 140px;
+    }
+}
+
+@media screen and (max-width: 350px) and (max-height: 400px) {
+    .pop-up-content {
+        max-height: 107px;
     }
 }

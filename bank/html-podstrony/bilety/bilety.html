@@ -1,29 +1,18 @@
-<link href="css/bilety/bilety.css" type="text/css" rel="stylesheet">
+<link href="css/bilety/bilety-styl.css" type="text/css" rel="stylesheet">
 
 <!-- Główna zawartość strony -->
-<div class="sections">
-    <a>
-        <button id="bought-tickets-button" class="ticket-box">Kupione <br>bilety</button>
-    </a>
-</div>
-<div class="sections">
-    <a>
-        <button id="tickets-offer-button" class="ticket-box">Oferta <br>biletów</button>
-    </a>
+<div id="outer-container">
+    <button id="bought-tickets-button" class="ticket-box">Kupione <br>bilety</button>
+    <button id="tickets-offer-button" class="ticket-box">Oferta <br>biletów</button>
 </div>
 
 <!-- JavaScript -->
 <script>
     $('#bought-tickets-button').click(() => {
-        loadPage('Zakupione bilety', 'html-podstrony/bilety/zakupione-bilety.html', () => {
-            boughtTicketsInit();
-            ticketsInformations();
-        });
+        loadBoughtTicketsPage();
     });
 
     $('#tickets-offer-button').click(() => {
-        loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
-            showDefaultTicketOfferContent();
-        });
+        loadTicketsOfferPage();
     });
 </script>

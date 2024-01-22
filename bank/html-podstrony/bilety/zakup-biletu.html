@@ -1,30 +1,35 @@
-<link href="css/bilety/bilet-wspolne.css" type="text/css" rel="stylesheet">
-<link href="css/bilety/zakup-biletu.css" type="text/css" rel="stylesheet">
+<link href="css/bilety/bilet-wspolne-styl.css" type="text/css" rel="stylesheet">
+<link href="css/bilety/zakup-biletu-styl.css" type="text/css" rel="stylesheet">
 
 <!-- Główna zawartość strony -->
 <div id="content">
     <div id="choosen-ticket" class="homepage-section">
         <div class="homepage-section-header">Wybrany bilet</div>
         <div class="choosen-ticket-name">
-            <div id="ticket-name" class="tile-first-row">MPK - ulgowy, 1 miesiąc</div>
+            <div id="ticket-name" class="tile-first-row"></div>
         </div>
     </div>
 
     <div id="ticket-information" class="homepage-section">
-        <div class="homepage-section-header" >Dane</div>
+        <div class="homepage-section-header">Dane</div>
+
         <div class="ticket-information-header">Imię i Nazwisko</div>
         <div class="ticket-information-element special-background">
-            <div id="name" class="tile">Jan Młynarz</div>
+            <div id="name" class="tile"></div>
         </div>
-        <div class="ticket-information-header">Data rozpoczęcia</div>
-        <label for="start"></label>
-        <input type="date" id="start" name="date-start" class="date-input" min="2023-01-01"/>
+
+        <label for="date" class="ticket-information-header">Data rozpoczęcia</label>
+        <input type="date" id="date" name="date-start" class="date-input"/>
+
+        <div id="date-error-box" class="error-box"></div>
 
         <div class="ticket-information-header">Kwota</div>
         <div class="ticket-information-element special-background">
-            <div id="amount" class="tile">74,50 zł</div>
+            <div id="amount" class="tile"></div>
         </div>
+
         <div id="amount-error-box" class="error-box"></div>
+
         <div id="button-container">
             <button id="return-button" class="blue-button" type="button">Powrót</button>
             <button id="confirm-button" class="blue-button" type="button">Kup</button>
@@ -33,51 +38,109 @@
 </div>
 
 <!-- JavaScript -->
-<script>
+<script>           
+    // onload
+    function initializeBuyPage() {
+        document.getElementById('date').min = getCurrentDate();
+        document.getElementById('date').value = getCurrentDate();
 
-    document.getElementById('start').min = new Date().toISOString().split('T')[0];
-    document.getElementById('start').value = new Date().toISOString().split('T')[0];
+        insertContentInto('#name', BankStorage.getUsername());
+        insertContentInto('.choosen-ticket-name .tile-first-row', BankStorage.getTicketName());
+        insertContentInto('#amount', formatMoney(BankStorage.getTicketPrice()));
 
-    function loadBuyPage() {
-        loadSelectedTicketName('.choosen-ticket-name .tile-first-row');
-        loadSelectedTicketPrice('#amount');
-        const dateDivTran = document.getElementById('start').value;
+        $('#date').change(() => {
+            validateTicketPurchase();
+        });
 
         $('#return-button').click(() => {
-            loadPage('Oferta biletów', 'html-podstrony/bilety/oferta-biletow.html', () => {
-                showDefaultTicketOfferContent();
-            });
+            loadTicketsOfferPage();
         });
 
         $('#confirm-button').click(() => {
-            const nameDiv = document.getElementById('name').textContent;
-            const titleDiv = document.getElementById('ticket-name').textContent;
-            const dateDiv = document.getElementById('start').value;
-            const amountDiv = BankStorage.getTicketPrice();
+            const title = BankStorage.getTicketName();
+            const date = getCurrentDate().split('-').reverse().join('.');
+            const amount = BankStorage.getTicketPrice();
 
-            BankStorage.makeATransaction(new Ticket(titleDiv, dateDivTran, amountDiv, nameDiv));
-            BankStorage.buyATicket(new Ticket(titleDiv, dateDiv, amountDiv, nameDiv))
-            loadPage('Potwierdzenie zakupu', 'html-podstrony/bilety/bilet-potwierdzenie.html');
+            const dateValue = document.getElementById('date').value;
+            const startDate = new Date(dateValue);
+            const validFrom = ddmmyyyyFormat(startDate);
+            
+            const endDate = new Date(dateValue);
+            const daysToAdd = expMap.get(title);
+
+            if (daysToAdd < 0) {
+                let absNum = Math.abs(daysToAdd);
+                endDate.setMonth(endDate.getMonth() + absNum);
+                endDate.setDate(endDate.getDate() - 1);
+            } else {
+                endDate.setDate(endDate.getDate() + daysToAdd);
+            }
+
+            const validTo = ddmmyyyyFormat(endDate);
+
+            const owner = BankStorage.getUsername();
+
+            const ticket = new Ticket(validFrom, validTo, owner, title, date, amount);
+
+            BankStorage.makeATransaction(ticket);
+            BankStorage.buyATicket(ticket);
+
+            loadTicketConfirmationPage();
         });
     }
 
-    if (document.readyState !== 'loading') {
-        loadBuyPage();
-    } else {
-        document.addEventListener('DOMContentLoaded', function () {
-            loadBuyPage();
-        });
-    }
-
-
+    // onload
     function validateTicketPurchase() {
+        const confirmButton = document.getElementById('confirm-button');
+
+        const dateOK = validateTicketStartDate();
+        const priceOK = validateTicketPrice();
+
+        if (!dateOK || !priceOK) {
+            confirmButton.style.backgroundColor = '#b9b6b6';
+            confirmButton.disabled = true;
+        }
+        else {
+            confirmButton.style.backgroundColor = '';
+            confirmButton.disabled = false;
+        }
+    }
+
+    function validateTicketStartDate() {
+        const dateErrorBox = document.getElementById('date-error-box');
+        const dateInputField = document.getElementById('date');
+        const dateValue = dateInputField.value;
+        const inputDate = new Date(dateValue);
+        const currentDate = new Date();
+
+        inputDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+
+        if (dateInputField.value === '' || inputDate < currentDate) {
+            dateErrorBox.innerHTML = ERRORMESSAGE1;
+            dateErrorBox.style.display = 'block';
+            dateInputField.classList.add('wrong-input');
+            dateErrorBox.style.marginBottom = '0';
+
+            return false;
+        }
+        else {
+            dateErrorBox.style.display = 'none';
+            dateInputField.classList.remove('wrong-input');
+
+            return true;
+        }
+    }
+
+    function validateTicketPrice() {
+        let ok;
+
         const amountErrorBox = document.getElementById('amount-error-box');
         const amountInputField = document.getElementById('amount');
         const amountValue = parseFloat(amountInputField.innerText.replace(/[^\d.,]+/g, ''));
         const ticketContainer = amountInputField.closest('.ticket-information-element');
-        const confirmButton = document.getElementById('confirm-button');
 
-        const msg = BankStorage.handleTicketAmount(amountValue);
+        const msg = Ticket.handleTicketAmount(amountValue, BankStorage.getAvailableFunds());
 
         if (msg === TOO_MUCH) {
             amountErrorBox.innerHTML = ERRORMESSAGE2;
@@ -85,16 +148,18 @@
             amountInputField.classList.add('wrong-input');
             ticketContainer.classList.add('wrong-input');
             amountErrorBox.style.marginBottom = '0';
-            confirmButton.style.backgroundColor = '#b9b6b6';
-            confirmButton.disabled = true;
+
+            ok = false;
         }
 
         if (msg === OK) {
             amountErrorBox.style.display = 'none';
             amountInputField.classList.remove('wrong-input');
+            ticketContainer.classList.remove('wrong-input');
+
+            ok = true;
         }
+
+        return ok;
     }
-
-
-
 </script>

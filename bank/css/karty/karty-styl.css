@@ -1,8 +1,13 @@
 #content {
     flex: 1;
-    padding: 0 15px;
     display: flex;
     flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#section-name {
+    font-size: 1.75em;
 }
 
 .page-section {
@@ -12,13 +17,28 @@
     box-shadow: #B8B8B9 0 0 5px 0, #cccccc 0 4px 20px 0;
 }
 
+.left-column > img {
+    width: 250px;
+    height: auto;
+}
+
+#card-img {
+    width: 250px;
+    height: auto;
+}
+
+.width-300 {
+    width: 300px !important;
+    height: auto;
+}
+
 .left-column, .left-column-block-card {
     display: flex;
     flex-direction: column;
 }
 
 .right-column {
-    padding: 15px 0 15px 0;
+    padding-top: 15px;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -31,6 +51,12 @@
     align-items: center;
 }
 
+#card-a-1, #card-a-2, #card-a-3 {
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 0.95em;
+}
+
 .block-card {
     text-align: center;
 }
@@ -40,7 +66,6 @@
 }
 
 .card-information-element {
-    /*display: flex;*/
     background-color: #eff7ff;
     border: 2px solid #dddddd;
     border-radius: 5px;
@@ -49,8 +74,8 @@
     position: relative;
 }
 
-.card-information-element a, .card-information-element button {
-    font-size: 0.85em;
+.card-information-element button {
+    font-size: 0.95em;
     margin-left: 30px;
 }
 
@@ -62,7 +87,7 @@
     height: 100%;
     margin-bottom: 30px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
 }
 
@@ -70,7 +95,7 @@
     border: red solid 2px;
 }
 
-#card-information p, .pop-up-text {
+#card-information p {
     font-size: 1.2em;
 }
 
@@ -84,9 +109,14 @@ p.important {
     font-weight: bolder;
 }
 
-#button-container, #block-button-container {
+#button-container {
     display: flex;
     justify-content: space-between;
+}
+
+#block-button-container {
+    display: flex;
+    justify-content: center;
 }
 
 .btn[id="confirm-card-block-button"] {
@@ -112,21 +142,34 @@ button.btn-danger {
     font-weight: bold;
 }
 
-.pop-up-header {
-    font-size: 2.2em;
-    margin-top: 20px;
+.curtain, .curtain-text {
+    display: none;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.h-unset {
-    height: unset !important;
+.curtain {
+    background-color: rgba(233, 233, 233, 37%);
 }
 
-.pop-up-max-width {
-    max-width: 1000px !important;
+.curtain-text {
+    color: #fc0303;
+    font-size: 3em;
+    z-index: 80;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px #cdcdcd;
 }
 
-#pop-up-content-window {
-    padding: 3rem!important;
+.card-information-element div:has(> .curtain[style="display: flex;"]) {
+    filter: blur(6px);
 }
 
 @media (max-width: 1060px) {
@@ -143,13 +186,14 @@ button.btn-danger {
         margin-right: 0 !important;
         align-items: center;
     }
-
-    #return-to-cards-button, #return-to-home-button {
-        font-size: 1.2em !important;
-    }
 }
 
 @media (max-width: 1004px) {
+    .card-information-element {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
     .card-information-element, .left-column {
         flex-direction: column;
         align-items: center;
@@ -161,65 +205,13 @@ button.btn-danger {
         flex-direction: column !important;
     }
 
-}
-
-@media (max-width: 950px) {
-    #return-to-cards-button, #return-to-home-button {
-        font-size: 1em !important;
-    }
-}
-
-@media (max-width: 876px) {
-    #button-container button {
-        font-size: 1em !important;
-    }
-}
-
-@media (max-width: 850px) {
-    .pop-up-header {
-        font-size: 1.8em;
-    }
-
-    .pop-up-text {
-        font-size: 1em;
-    }
-
-    .close-pop-up {
-        font-size: 2.66em;
-    }
-}
-
-@media (max-width: 640px) {
-    .pop-up-header {
-        font-size: 1.4em;
-    }
-
-    #pop-up-content-window {
-        padding: 0.5rem!important;
-    }
-
-    .close-pop-up {
-        right: 11px;
-        top: -8px;
-    }
-
-    .pop-up-text > .row {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .pop-up-text > .row div {
-        text-align: left !important;
-        width: 100% !important;
-    }
-
-    .pop-up-text > .row .text-end {
-        margin-bottom: 10px;
+    .card-information-second-row > span {
+        margin-bottom: 15px;
     }
 }
 
 @media (max-width: 575px) {
-    .block-card-text, .right-column{
+    .block-card-text, .right-column {
         font-size: smaller !important;
     }
 
@@ -228,13 +220,39 @@ button.btn-danger {
         align-items: center;
     }
 
-    #return-to-cards-button {
-        margin-bottom: 20px;
+    #strong-warning {
+        font-size: 2.33em;
+    }
+
+    #card-img {
+        max-width: 200px;
+        width: 100%;
+    }
+
+    .width-300 {
+        max-width: 300px !important;
+        width: 100% !important;
+    }
+
+    #button-container button {
+        font-size: 1.1em !important;
+    }
+
+    #return-button, #confirm-card-block-button {
+        padding: 7px 14px !important;
+    }
+
+    #blocked-card-confirmation {
+        justify-content: space-around;
+        padding: 15px;
+    }
+
+    #blocked-card-confirmation .confirmation-element {
+        padding: 0;
     }
 }
 
 @media (max-width: 480px) {
-
     .homepage-section {
         padding: 12.5px;
         font-size: 1.0em;
@@ -242,7 +260,7 @@ button.btn-danger {
 
     .left-column, .right-column {
         width: 100%;
-        display: initial;
+        display: block;
         text-align: center;
         justify-content: initial;
         flex-direction: initial;
@@ -252,7 +270,7 @@ button.btn-danger {
         text-align: left;
         display: block;
         justify-content: initial;
-        margin-bottom:30px;
+        margin-bottom: 30px;
     }
 
     .card-information-second-row {
@@ -263,5 +281,49 @@ button.btn-danger {
         margin-left: initial;
         margin-right: 30px;
         display: block;
+    }
+}
+
+@media (max-width: 450px) {
+    .left-column > img {
+        max-width: 200px;
+        width: 100%;
+    }
+
+    .card-information-element {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .card-information-element button {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .card-btns-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #danger-section {
+        padding: 15px;
+    }
+    
+    .width-300 {
+        max-width: 250px !important;
+    }
+}
+
+@media (max-width: 350px) {
+    .page-section {
+        padding: 15px;
+    }
+
+    .custom-padding {
+        padding: 11px !important;
+    }
+
+    #confirm-card-block-button {
+        margin-left: 15px;
     }
 }

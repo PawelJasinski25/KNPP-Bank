@@ -1,5 +1,6 @@
-<link href="css/index-styl.css" type="text/css" rel="stylesheet">
+<link href="css/strona-glowna-styl.css" type="text/css" rel="stylesheet">
 
+<!-- Główna zawartość strony -->
 <div id="left-column">
     <div id="account-state" class="homepage-section">
         <div class="homepage-section-header">Stan konta</div>
@@ -62,6 +63,7 @@
     </div>
 </div>
 
+<!-- JavaScript -->
 <script>
     function updateDiagram() {
         const timePeriod = document.getElementById("time-period-select").value;
@@ -73,6 +75,7 @@
         document.getElementById(diagramName).style.display = "block";
     }
 
+    // onload
     function initializeDiagrams() {
         document.getElementById("expenses-week").style.display = "block";
         document.getElementById("expenses-month").style.display = "none";
@@ -83,6 +86,7 @@
     }
 
     function fillMissingContent() {
+        const username = BankStorage.getUsername();
         const accountName = BankStorage.getAccountName();
         const accountNumber = BankStorage.getAccountNumber();
         const availableFunds = BankStorage.getAvailableFunds();
@@ -96,7 +100,7 @@
         const rowClasses = ['tile-first-row', 'tile-second-row', 'tile-third-row'];
 
         accountNameDiv.innerHTML = accountName;
-        accountNumberDiv.innerHTML = shortFormatAccNum(accountNumber);
+        accountNumberDiv.innerHTML = longFormatAccNum(accountNumber);
         availableFundsDiv.innerHTML = formatMoney(availableFunds);
 
         for (let i = 0; i < 3; i++) {
@@ -109,7 +113,17 @@
             firstRow.innerHTML = trimIfTooLong(transaction.title, 16);
             secondRow.innerHTML = transaction.date;
             thirdRow.innerHTML = formatMoney(transaction.amount);
+
+            if (transaction.type === EXPENSE) {
+                thirdRow.classList.add('expense');
+            }
+
+            if (transaction.type === REVENUE) {
+                thirdRow.classList.add('revenue');
+            }
         }
+
+        document.getElementById("username").innerHTML = username;
     }
 
     // onload
@@ -124,6 +138,6 @@
     }
 
     $('#more-transactions-button').click(() => {
-        loadTransactionPage();
+        loadTransactionsPage();
     });
 </script>

@@ -132,10 +132,6 @@
     .tile {
         margin-top: 20px;
     }
-
-    #transaction-list {
-        margin-bottom: 20px;
-    }
 }
 
 @media screen and (max-width: 850px) {
@@ -145,10 +141,6 @@
 }
 
 @media screen and (max-width: 450px) {
-    #page-header img {
-        height: 60px;
-    }
-
     #left-column, #right-column {
         padding-left: 0;
         padding-right: 0;
@@ -169,7 +161,7 @@
         padding: 12.5px;
     }
 
-    body {
-        font-size: smaller !important;
+    .tile {
+        padding: 15px;
     }
 }

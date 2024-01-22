@@ -1,8 +1,8 @@
-<link href="css/bilety/oferta-biletow.css" type="text/css" rel="stylesheet">
+<link href="css/bilety/oferta-biletow-styl.css" type="text/css" rel="stylesheet">
 
 <!-- Główna zawartość strony -->
 <div id="main-section">
-    <div id="category-text"> Kategorie </div>
+    <div id="category-title"> Kategorie </div>
     <div id="category-row">
         <button class="category-button" onclick="showContent('choice-mpk')">Bilety MPK</button>
         <button class="category-button" onclick="showContent('choice-pr')">Park & Ride</button>
@@ -44,7 +44,7 @@
                     <img src="obrazki\MPK-N2.png" alt="MPK-N2 img">
                 </span>
                 <span class="ticket-text">MPK - normalny, 2 miesiące<br></span>
-                <span class="ticket-text">  318,00 zł </span>
+                <span class="ticket-text"> 318,00 zł </span>
             </button>
             <button class="ticket-wrapper">
                 <span id="MPK-N3" class="ticket">
@@ -66,12 +66,8 @@
                 <span class="ticket-text">Park & Ride Kraków<br></span>
                 <span class="ticket-text"> 10 zł </span>
             </button>
-            <div class="ticket-wrapper">
-                <div id="blank1" class="ticket-blank"></div>
-            </div>
-            <div class="ticket-wrapper">
-                <div id="blank2" class="ticket-blank"></div>
-            </div>
+            <div class="ticket-wrapper"></div>
+            <div class="ticket-wrapper"></div>
         </div>
     </div>
 
@@ -92,9 +88,7 @@
                 <span class="ticket-text">Autostrada A2 <br> Konin Świecko<br></span>
                 <span class="ticket-text"> 108 zł </span>
             </button>
-            <div class="ticket-wrapper">
-                <div id="blank3" class="ticket-blank"></div>
-            </div>
+            <div class="ticket-wrapper"></div>
         </div>
     </div>
     <div id="button-container">
@@ -116,6 +110,7 @@
         }
     }
 
+    // onload
     function showDefaultTicketOfferContent() {
         showContent('choice-mpk');
     }
@@ -123,19 +118,14 @@
     $('.ticket-wrapper').click((event) => {
         const ticketText = $(event.currentTarget).find('.ticket-text:first').text().trim();
         const ticketPrice = $(event.currentTarget).find('.ticket-text:last').text().trim();
-        BankStorage.setTicketName(ticketText);
-        BankStorage.setTicketPrice(ticketPrice);
-        loadPage('Zakup biletu', 'html-podstrony/bilety/zakup-biletu.html', () => {
-            validateTicketPurchase();
-        });
 
+        BankStorage.setTicketName(ticketText);
+        BankStorage.setTicketPrice(ticketPrice.replace(/[^\d.,]+/g, ''));
+
+        loadTicketPurchasePage();
     });
 
     $('#return-button').click(() => {
-        loadPage('Oferta biletów', 'html-podstrony/bilety/bilety.html', () => {
-            showDefaultTicketOfferContent();
-        });
+        loadTicketsPage();
     });
-
-
 </script>
