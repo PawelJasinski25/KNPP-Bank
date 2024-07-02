@@ -4,11 +4,7 @@ Projekt strony internetowej banku.
 Przedmiot: Interfejsy Graficzne, WFAIS, UJ.
 
 # Projekt
-Projekt jest udostępniony w dwóch miejscach:
-1. Na GitHub Pages pod tym linkiem: https://elyrwag.github.io/ig-strona-bankowa/
-2. Na serwerze uczelnianym pod tym linkiem: http://spk-www.if.uj.edu.pl/~konefal_1184429/ig/KNPPbank/
-\
-(wydaje się, że ładowanie stron jest tutaj trochę szybsze)
+Projekt jest udostępniony na GitHub Pages pod tym linkiem: https://elyrwag.github.io/ig-strona-bankowa/
 
 # Instrukcje uruchomieniowe
 Aby uruchomić projekt, wystarczy kliknąć w jeden z linków podanych powyżej. Po kliknięciu w link otworzy się strona internetowa banku.
