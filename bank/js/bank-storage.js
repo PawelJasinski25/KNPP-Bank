@@ -266,7 +266,7 @@ class BankStorage {
             'Budka z kebabami \'Pod Kebabem\'', 
             '123 456 789', 
             'Kebab', 
-            '08.12.2023', 
+            '15.05.2025',
             '25', 
             EXPENSE
         );
@@ -277,7 +277,7 @@ class BankStorage {
             username, 
             accountNumber, 
             'Stypendium',
-            '07.12.2023', 
+            '07.05.2025',
             '800', 
             REVENUE
         );
@@ -288,7 +288,7 @@ class BankStorage {
             'MPK Kraków', 
             '99 8888 7777 6666 5555 4444 3333', 
             'Mandat', 
-            '06.12.2023', 
+            '02.05.2025',
             '150', 
             EXPENSE
         );
@@ -299,7 +299,7 @@ class BankStorage {
             'RTV Euro AGD', 
             '222 111 000', 
             'Zakup monitora', 
-            '30.11.2023', 
+            '30.04.2025',
             '959.66', 
             EXPENSE
         );
@@ -310,7 +310,7 @@ class BankStorage {
             username, 
             accountNumber, 
             'Prezent', 
-            '15.11.2023', 
+            '29.04.2025',
             '40', 
             REVENUE
         );
@@ -321,7 +321,7 @@ class BankStorage {
             username, 
             accountNumber, 
             'Stypendium',
-            '01.11.2023', 
+            '07.04.2025',
             '800', 
             REVENUE
         );
@@ -331,7 +331,7 @@ class BankStorage {
 
     static getDefaultTickets() {
         const username = this.getDefaultUsername();
-        const defaultTicket = new Ticket('13.01.2024', '14.01.2024', username, 'Park & Ride Kraków', '13.01.2024', '10');
+        const defaultTicket = new Ticket('22.06.2025', '23.06.2025', username, 'Park & Ride Kraków', '22.06.2025', '10');
         return [defaultTicket];
     }
 
@@ -344,9 +344,9 @@ class BankStorage {
             '42 4242 4242 4242 4242 4242 4242',
             'Raty kredytu',
             '600',
-            '01.03.2024',
+            '01.05.2025',
             'every-quarter',
-            '01.03.2027'
+            '01.05.2027'
         );
 
         const so2 = new StandingOrder(
@@ -355,9 +355,9 @@ class BankStorage {
             '242 424 242',
             'Czynsz',
             '1000',
-            '28.02.2024',
+            '28.04.2025',
             'every-month',
-            '28.02.2025'
+            '28.04.2026'
         );
 
         return [so1, so2];
